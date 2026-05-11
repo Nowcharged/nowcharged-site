@@ -385,7 +385,7 @@ export default function NowChargedLandingPage() {
                 This front-end form is ready for your booking flow. Connect it later to a form service, CRM, or custom backend.
               </p>
             </div>
-            <form className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 md:p-8" onSubmit={(event) => event.preventDefault()}>
+            <form className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 md:p-8">
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block">
                   <span className="text-sm font-semibold text-slate-300">Postal code</span>
