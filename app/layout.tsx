@@ -1,3 +1,5 @@
+import "./globals.css";
+
 export const metadata = {
   title: "NowCharged",
   description: "Mobile EV Charging",
