@@ -95,21 +95,6 @@ function Card({ children, className = "" }) {
   return <div className={`rounded-3xl border ${className}`}>{children}</div>;
 }
 
-export const nowChargedContentTests = [
-  {
-    name: "pricing has three customer paths",
-    pass: ["Single Charge", "Monthly Plan", "Fleet / Business"].length === 3,
-  },
-  {
-    name: "primary booking CTA exists",
-    pass: "Book a Charge".length > 0,
-  },
-  {
-    name: "brand name is consistent",
-    pass: "NowCharged" === "NowCharged",
-  },
-];
-
 export default function NowChargedLandingPage() {
   const pricing = [
     {
@@ -250,12 +235,15 @@ export default function NowChargedLandingPage() {
                 <Icon name="battery" className="h-4 w-4" />
                 On-demand charging for electric vehicles
               </div>
+
               <h1 className="max-w-4xl text-5xl font-black tracking-tight md:text-7xl">
                 EV charging that comes to you.
               </h1>
+
               <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
                 NowCharged helps EV drivers schedule convenient mobile charging at home, work, or wherever service is available — without hunting for a public charger.
               </p>
+
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <Button className="bg-emerald-400 px-7 text-base text-slate-950 hover:bg-emerald-300">
                   Book a Charge <Icon name="arrow" className="h-5 w-5" />
@@ -264,6 +252,7 @@ export default function NowChargedLandingPage() {
                   See Plans
                 </Button>
               </div>
+
               <div className="mt-8 grid max-w-2xl gap-4 sm:grid-cols-3">
                 {["Single charge option", "Monthly plans", "Business support"].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-sm text-slate-300">
@@ -286,6 +275,7 @@ export default function NowChargedLandingPage() {
                       <Icon name="car" className="h-8 w-8" />
                     </div>
                   </div>
+
                   <div className="space-y-4">
                     <div className="rounded-2xl bg-white/5 p-4">
                       <p className="text-sm text-slate-400">Location</p>
@@ -316,8 +306,11 @@ export default function NowChargedLandingPage() {
             <div className="mb-12 max-w-2xl">
               <p className="font-semibold text-emerald-300">How it works</p>
               <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Book charging in minutes.</h2>
-              <p className="mt-4 text-slate-300">A simple process built for people who do not want to plan their day around public charging stations.</p>
+              <p className="mt-4 text-slate-300">
+                A simple process built for people who do not want to plan their day around public charging stations.
+              </p>
             </div>
+
             <div className="grid gap-6 md:grid-cols-3">
               {steps.map((step, index) => (
                 <Card key={step.title} className="border-white/10 bg-white/[0.06] text-white">
@@ -340,24 +333,43 @@ export default function NowChargedLandingPage() {
             <div className="mx-auto mb-12 max-w-3xl text-center">
               <p className="font-semibold text-emerald-700">Pricing</p>
               <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Simple charging options.</h2>
-              <p className="mt-4 text-slate-600">Start with a single appointment or choose a recurring plan for regular EV charging support.</p>
+              <p className="mt-4 text-slate-600">
+                Start with a single appointment or choose a recurring plan for regular EV charging support.
+              </p>
             </div>
+
             <div className="grid gap-6 lg:grid-cols-3">
               {pricing.map((plan) => (
                 <Card
                   key={plan.name}
-                  className={plan.highlighted ? "border-emerald-400 bg-slate-950 text-white shadow-2xl shadow-emerald-900/20" : "border-slate-200 bg-white text-slate-950 shadow-sm"}
+                  className={
+                    plan.highlighted
+                      ? "border-emerald-400 bg-slate-950 text-white shadow-2xl shadow-emerald-900/20"
+                      : "border-slate-200 bg-white text-slate-950 shadow-sm"
+                  }
                 >
                   <div className="p-8">
                     {plan.highlighted && (
-                      <div className="mb-5 inline-flex rounded-full bg-emerald-400 px-3 py-1 text-sm font-bold text-slate-950">Most predictable</div>
+                      <div className="mb-5 inline-flex rounded-full bg-emerald-400 px-3 py-1 text-sm font-bold text-slate-950">
+                        Most predictable
+                      </div>
                     )}
+
                     <h3 className="text-2xl font-black">{plan.name}</h3>
+
                     <div className="mt-5 flex items-end gap-2">
                       <p className="text-5xl font-black">{plan.price}</p>
-                      {plan.cadence && <p className={plan.highlighted ? "mb-2 text-slate-300" : "mb-2 text-slate-500"}>{plan.cadence}</p>}
+                      {plan.cadence && (
+                        <p className={plan.highlighted ? "mb-2 text-slate-300" : "mb-2 text-slate-500"}>
+                          {plan.cadence}
+                        </p>
+                      )}
                     </div>
-                    <p className={`mt-4 leading-7 ${plan.highlighted ? "text-slate-300" : "text-slate-600"}`}>{plan.detail}</p>
+
+                    <p className={`mt-4 leading-7 ${plan.highlighted ? "text-slate-300" : "text-slate-600"}`}>
+                      {plan.detail}
+                    </p>
+
                     <div className="mt-7 space-y-3">
                       {plan.features.map((feature) => (
                         <div key={feature} className="flex gap-3">
@@ -366,7 +378,14 @@ export default function NowChargedLandingPage() {
                         </div>
                       ))}
                     </div>
-                    <Button className={plan.highlighted ? "mt-8 w-full bg-emerald-400 text-slate-950 hover:bg-emerald-300" : "mt-8 w-full bg-slate-950 text-white hover:bg-slate-800"}>
+
+                    <Button
+                      className={
+                        plan.highlighted
+                          ? "mt-8 w-full bg-emerald-400 text-slate-950 hover:bg-emerald-300"
+                          : "mt-8 w-full bg-slate-950 text-white hover:bg-slate-800"
+                      }
+                    >
                       {plan.cta}
                     </Button>
                   </div>
@@ -382,26 +401,92 @@ export default function NowChargedLandingPage() {
               <p className="font-semibold text-emerald-300">Start booking</p>
               <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Check service availability.</h2>
               <p className="mt-4 leading-8 text-slate-300">
-                This front-end form is ready for your booking flow. Connect it later to a form service, CRM, or custom backend.
+                Submit your details and we’ll confirm availability, timing, and pricing before your appointment is finalized.
               </p>
             </div>
-            <form className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 md:p-8">
+
+            <form
+              action="https://formspree.io/f/xojrygne"
+              method="POST"
+              className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 md:p-8"
+            >
+              <input type="hidden" name="_subject" value="New NowCharged Booking Request" />
+
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Postal code</span>
-                  <input className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300" placeholder="A1A 1A1" />
+                  <span className="text-sm font-semibold text-slate-300">Full name</span>
+                  <input
+                    name="full_name"
+                    required
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                    placeholder="Your name"
+                  />
                 </label>
+
+                <label className="block">
+                  <span className="text-sm font-semibold text-slate-300">Phone number</span>
+                  <input
+                    name="phone"
+                    required
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                    placeholder="647-555-1234"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="text-sm font-semibold text-slate-300">Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                    placeholder="you@email.com"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="text-sm font-semibold text-slate-300">Postal code</span>
+                  <input
+                    name="postal_code"
+                    required
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                    placeholder="A1A 1A1"
+                  />
+                </label>
+
                 <label className="block">
                   <span className="text-sm font-semibold text-slate-300">Vehicle type</span>
-                  <input className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300" placeholder="Tesla Model 3" />
+                  <input
+                    name="vehicle_type"
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                    placeholder="Tesla Model 3"
+                  />
                 </label>
+
+                <label className="block">
+                  <span className="text-sm font-semibold text-slate-300">Current battery %</span>
+                  <input
+                    name="battery_percent"
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                    placeholder="Example: 12%"
+                  />
+                </label>
+
                 <label className="block">
                   <span className="text-sm font-semibold text-slate-300">Service date</span>
-                  <input type="date" className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300" />
+                  <input
+                    type="date"
+                    name="service_date"
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                  />
                 </label>
+
                 <label className="block">
                   <span className="text-sm font-semibold text-slate-300">Preferred window</span>
-                  <select className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300">
+                  <select
+                    name="preferred_window"
+                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                  >
                     <option>Morning</option>
                     <option>Afternoon</option>
                     <option>Evening</option>
@@ -409,11 +494,20 @@ export default function NowChargedLandingPage() {
                   </select>
                 </label>
               </div>
+
               <label className="mt-4 block">
                 <span className="text-sm font-semibold text-slate-300">Location notes</span>
-                <textarea className="mt-2 min-h-28 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300" placeholder="Parking details, access instructions, charger access, or building notes." />
+                <textarea
+                  name="location_notes"
+                  className="mt-2 min-h-28 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
+                  placeholder="Parking details, access instructions, charger access, or building notes."
+                />
               </label>
-              <button className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300" type="submit">
+
+              <button
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300"
+                type="submit"
+              >
                 Check Availability <Icon name="arrow" className="h-5 w-5" />
               </button>
             </form>
@@ -429,6 +523,7 @@ export default function NowChargedLandingPage() {
                 NowCharged is designed around transparent booking, documented service windows, safe access instructions, and practical customer expectations.
               </p>
             </div>
+
             <div className="grid gap-5 sm:grid-cols-2">
               {trustItems.map((item) => (
                 <Card key={item.title} className="border-white/10 bg-white/[0.06] text-white">
@@ -449,6 +544,7 @@ export default function NowChargedLandingPage() {
               <p className="font-semibold text-emerald-300">FAQ</p>
               <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Common questions.</h2>
             </div>
+
             <div className="space-y-4">
               {faqs.map((faq) => (
                 <Card key={faq.q} className="border-white/10 bg-white/[0.06] text-white">
