@@ -9,7 +9,7 @@ export default function ThankYouPage() {
         </div>
 
         <h1 className="text-4xl font-black tracking-tight md:text-6xl">
-          Thanks — we received your request.
+          Thanks we received your request.
         </h1>
 
         <p className="mt-6 text-lg leading-8 text-slate-300 md:text-xl">
@@ -17,7 +17,7 @@ export default function ThankYouPage() {
         </p>
 
         <p className="mt-4 text-sm text-slate-400">
-          This is not a confirmed service appointment. We’ll contact you first to confirm availability, timing, and next steps.
+           We will contact you to confirm availability, timing, and next steps.
         </p>
 
         <a
