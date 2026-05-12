@@ -230,7 +230,7 @@ export default function NowChargedLandingPage() {
           </button>
 
           <nav className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
-            {[["how", "How it works"], ["services", "Services"], ["trust", "What to know"], ["faq", "FAQ"]].map(([id, l]) => (
+            {[["how", "How it works"], ["services", "Services"], ["trust", "What to know"], ["faq", "FAQ"], ["careers", "Careers"]].map(([id, l]) => (
               <button key={id} onClick={() => scrollTo(id)} className="hover:text-white transition-colors">{l}</button>
             ))}
           </nav>
@@ -248,7 +248,7 @@ export default function NowChargedLandingPage() {
         {menuOpen && (
           <div className="border-t border-white/10 bg-slate-950 px-6 py-5 md:hidden">
             <nav className="flex flex-col gap-4 text-sm">
-              {[["how", "How it works"], ["services", "Services"], ["trust", "What to know"], ["faq", "FAQ"]].map(([id, l]) => (
+              {[["how", "How it works"], ["services", "Services"], ["trust", "What to know"], ["faq", "FAQ"], ["careers", "Careers"]].map(([id, l]) => (
                 <button key={id} onClick={() => { scrollTo(id); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">{l}</button>
               ))}
               <button onClick={() => { scrollTo("callback"); setMenuOpen(false); }} className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950">
@@ -544,6 +544,87 @@ export default function NowChargedLandingPage() {
           </div>
         </section>
 
+        {/* ── Careers ── */}
+        <section id="careers" className="bg-slate-900 px-6 py-20">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-10">
+              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Careers</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
+                Drive with NowCharged.
+              </h2>
+              <p className="mt-4 max-w-xl text-slate-300 text-sm leading-7">
+                We're looking for reliable, professional drivers in Toronto and the GTA to join NowCharged as independent contractors. You set your availability — we send you the jobs.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+
+              {/* Role card */}
+              <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-8">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
+                  <Icon name="car" className="h-7 w-7" />
+                </div>
+                <h3 className="text-2xl font-bold" style={display}>EV Valet Driver</h3>
+                <p className="mt-1 text-sm text-slate-400">Independent Contractor · Toronto & GTA · Flexible</p>
+
+                <div className="mt-6 space-y-3">
+                  {[
+                    "Pick up customer EVs from their parking spot",
+                    "Drive to a nearby DC fast charger and charge the vehicle",
+                    "Return the car to the customer's spot",
+                    "Work on-call — jobs are sent when available, you choose to accept",
+                    "Competitive hourly pay, paid per completed job",
+                  ].map(pt => (
+                    <div key={pt} className="flex items-start gap-3">
+                      <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                      <p className="text-sm text-slate-300">{pt}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Requirements + apply card */}
+              <div className="flex flex-col gap-6">
+                <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-8">
+                  <h3 className="text-lg font-bold mb-4" style={display}>What we're looking for</h3>
+                  <div className="space-y-3">
+                    {[
+                      "Valid Ontario G driver's licence",
+                      "Clean driving record",
+                      "Comfortable driving electric vehicles",
+                      "Familiarity with public DC fast charging is a plus",
+                      "Reliable, punctual, and professional with customer vehicles",
+                      "Based in Toronto or the GTA",
+                    ].map(pt => (
+                      <div key={pt} className="flex items-start gap-3">
+                        <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                        <p className="text-sm text-slate-300">{pt}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-3xl border border-emerald-400/30 bg-emerald-400/5 p-8">
+                  <h3 className="text-lg font-bold" style={display}>How to apply</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">
+                    Send a short email introducing yourself, your driving experience, and your general availability. Successful applicants will be asked to review and sign an independent contractor agreement before onboarding.
+                  </p>
+                  <a
+                    href="mailto:info@nowcharged.com?subject=Driver Application – NowCharged"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-400 px-6 py-3 text-sm font-bold text-slate-950 hover:bg-emerald-300 transition-colors"
+                  >
+                    Email us to apply <Icon name="arrow" className="h-4 w-4" />
+                  </a>
+                  <p className="mt-4 text-xs text-slate-500">
+                    Send your email to info@nowcharged.com — we'll get back to you within a few business days.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
       </main>
 
       {/* ── Footer ── */}
@@ -552,11 +633,14 @@ export default function NowChargedLandingPage() {
           <div>
             <p className="font-bold text-white" style={display}>NowCharged</p>
             <p className="mt-1 text-sm text-slate-400">EV Charging Valet · Toronto & Greater Toronto Area</p>
+            <p className="mt-1 text-sm text-slate-400">
+              <a href="mailto:info@nowcharged.com" className="hover:text-white transition-colors">info@nowcharged.com</a>
+            </p>
             <p className="mt-1 text-sm text-slate-500">© 2026 NowCharged. All rights reserved.</p>
           </div>
-          <div className="flex gap-6 text-sm text-slate-400">
-            {[["#how","How it works"],["#services","Services"],["#callback","Callback"],["#faq","FAQ"]].map(([h,l])=>(
-              <a key={h} href={h} className="hover:text-white transition-colors">{l}</a>
+          <div className="flex flex-wrap gap-6 text-sm text-slate-400">
+            {[["how","How it works"],["services","Services"],["callback","Callback"],["faq","FAQ"],["careers","Careers"]].map(([id,l])=>(
+              <button key={id} onClick={() => scrollTo(id)} className="hover:text-white transition-colors">{l}</button>
             ))}
           </div>
         </div>
