@@ -9,7 +9,7 @@ export default function ThankYouPage() {
         </div>
 
         <h1 className="text-4xl font-black tracking-tight md:text-6xl">
-          Thanks we received your request.
+          Thanks, we received your request.
         </h1>
 
         <p className="mt-6 text-lg leading-8 text-slate-300 md:text-xl">
