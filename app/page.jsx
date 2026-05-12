@@ -56,12 +56,12 @@ export default function NowChargedLandingPage() {
       name: "Scheduled Charge",
       price: "From $89",
       tag: null,
-      detail: "A planned pickup and return. Best for routine charging when timing isn't urgent.",
+      detail: "Pick a time, we handle the rest. Best when you can plan a day ahead.",
       features: [
         "We come to your parking spot",
         "Drive your EV to a DC fast charger",
         "Return it charged and ready",
-        "Quote confirmed before we book",
+        "Price confirmed before we start",
       ],
       dark: false,
     },
@@ -69,12 +69,12 @@ export default function NowChargedLandingPage() {
       name: "Same-Day / Priority",
       price: "From $129",
       tag: "Most requested",
-      detail: "Need it sooner? We prioritize your request when availability in your area allows.",
+      detail: "Need it today? We'll do our best to make it happen.",
       features: [
         "Faster turnaround when available",
         "Same pickup-charge-return process",
-        "Reviewed by phone before confirming",
-        "Surcharges may apply",
+        "Confirmed by phone first",
+        "Subject to availability",
       ],
       dark: true,
     },
@@ -82,12 +82,12 @@ export default function NowChargedLandingPage() {
       name: "Monthly Plan",
       price: "Custom",
       tag: null,
-      detail: "Regular scheduled pickups for drivers who rely on NowCharged as their primary charging solution. Lower per-visit pricing than one-off bookings.",
+      detail: "For drivers who charge with us regularly. Better pricing, preferred slots, less hassle.",
       features: [
         "Recurring scheduled pickups",
-        "Preferred time slots",
+        "Your preferred time slots locked in",
         "Custom pricing by frequency",
-        "Better rate vs. per-visit pricing",
+        "Better rate than one-off bookings",
       ],
       dark: false,
     },
@@ -95,7 +95,7 @@ export default function NowChargedLandingPage() {
       name: "Business / Fleet",
       price: "Custom",
       tag: null,
-      detail: "Condos, workplaces, and small fleets. We coordinate regular charging runs for multiple vehicles.",
+      detail: "Multiple vehicles, one solution. We coordinate the runs so you don't have to.",
       features: [
         "Multi-vehicle coordination",
         "Building or lot pickup",
@@ -110,20 +110,20 @@ export default function NowChargedLandingPage() {
     {
       icon: "phone",
       num: "01",
-      title: "Request a callback",
-      text: "Tell us your location, parking setup, and when you need your car back. This is not a confirmed booking — it's a first conversation.",
+      title: "You tell us where",
+      text: "Share your location, parking spot, and when you need your car back. We call to confirm — takes two minutes.",
     },
     {
       icon: "car",
       num: "02",
-      title: "We pick up your car",
-      text: "A NowCharged driver comes to your spot, takes your EV to a nearby DC fast charger, and charges it on your behalf.",
+      title: "We grab your keys",
+      text: "A NowCharged driver comes to your spot and takes your EV to the nearest DC fast charger.",
     },
     {
       icon: "key",
       num: "03",
-      title: "Your car comes back charged",
-      text: "We return your vehicle to its spot — charged, ready to drive. You don't need to be present for pickup or drop-off.",
+      title: "It comes back charged",
+      text: "Your car is back in its spot, charged and ready to go. You don't even need to be there.",
     },
   ];
 
@@ -131,7 +131,7 @@ export default function NowChargedLandingPage() {
     {
       icon: "building",
       title: "Condo & apartment residents",
-      sub: "No outlet in your building? That's the whole point of NowCharged.",
+      sub: "Most Toronto condos weren't built for EV owners. We were.",
       points: [
         "We pick up from your parking spot",
         "Drive to a nearby DC fast charger",
@@ -142,7 +142,7 @@ export default function NowChargedLandingPage() {
     {
       icon: "car",
       title: "Businesses & fleets",
-      sub: "Keep your EVs on the road without managing charging logistics yourself.",
+      sub: "Your vehicles stay charged. You stay focused.",
       points: [
         "Multi-vehicle coordination",
         "Workplace or lot pickup",
@@ -152,61 +152,57 @@ export default function NowChargedLandingPage() {
     },
   ];
 
-  const trustItems = [
-    {
-      icon: "shield",
-      title: "We drive your car",
-      text: "A NowCharged driver handles your vehicle from pickup to return. Insurance and liability details are confirmed with you on the callback before anything is booked.",
-    },
-    {
-      icon: "document",
-      title: "Service fee vs. charging cost",
-      text: "Our fee covers the pickup, driving, and return. DC fast charging electricity costs are billed separately — confirmed before your visit, never a surprise.",
-    },
-    {
-      icon: "pin",
-      title: "Toronto & GTA only",
-      text: "We currently operate in Toronto and the Greater Toronto Area. Enter your postal code and we'll confirm whether your location is covered before scheduling anything.",
-    },
-    {
-      icon: "clock",
-      title: "Results depend on conditions",
-      text: "Charge level depends on battery state, charger type, appointment length, and the vehicle. We'll set clear expectations on the call.",
-    },
-  ];
-
   const faqs = [
     {
       q: "Is my car safe when you drive it?",
-      a: "We handle your vehicle with full care from pickup to return. Specific insurance and liability details are reviewed with you by phone before any booking is confirmed — we don't skip that step.",
+      a: "We handle your vehicle with full care from pickup to return. Insurance and liability details are reviewed with you by phone before any booking is confirmed — we don't skip that step.",
     },
     {
       q: "What type of charger do you use?",
-      a: "We use DC fast chargers at nearby public or partner charging locations — not portable Level 2 equipment. This is a scheduled valet service, not a mobile charger-to-car setup.",
+      a: "DC fast chargers at nearby public charging locations — not a portable unit that comes to your car. We drive your EV to the charger, not the other way around.",
     },
     {
-      q: "How long does the whole process take?",
-      a: "It depends on your battery state, the charger available, and the agreed appointment length. Most visits range from 45 minutes to a few hours. We confirm the expected window on the call.",
+      q: "How long does the whole thing take?",
+      a: "Most visits run 45 minutes to a couple of hours depending on your battery state and the charger available. We confirm the expected window before we start.",
     },
     {
       q: "Do I need to be there for pickup or drop-off?",
-      a: "No. Many customers leave their car in a designated spot. Key handoff details — access codes, parking specifics — are sorted during the callback so there are no surprises on the day.",
+      a: "Nope. Most customers leave their car in their spot. We sort out key handoff — access codes, parking details — on the call so there are no surprises on the day.",
     },
     {
       q: "Are charging costs included in the service fee?",
-      a: "No. The listed service fees cover pickup, driving, and return. DC fast charging electricity costs are billed separately and confirmed before your booking.",
+      a: "No — and we're upfront about that. Our fee covers the pickup, drive, and return. DC fast charging electricity is billed separately and confirmed before we start.",
     },
     {
-      q: "Is this an emergency or roadside service?",
-      a: "No. NowCharged is a scheduled charging valet. We don't do roadside recovery or emergency dispatch for stranded vehicles — our service is planned in advance.",
+      q: "Is this emergency or roadside?",
+      a: "No. NowCharged is scheduled only. We don't do emergency dispatch or roadside recovery — everything is planned in advance.",
     },
     {
-      q: "What areas do you serve?",
-      a: "Toronto and the Greater Toronto Area. Enter your postal code in the callback form and we'll confirm coverage before scheduling anything.",
+      q: "What areas do you cover?",
+      a: "Toronto and the Greater Toronto Area. Drop your postal code in the form and we'll confirm right away whether we cover your area.",
     },
     {
-      q: "Is the callback form a confirmed booking?",
-      a: "No. Submitting the form only asks us to call you. Nothing is booked or charged until we speak, confirm your location, and you approve the quote.",
+      q: "Does filling out the form book a job?",
+      a: "No. It just asks us to call you. Nothing is booked or charged until we've spoken, you know the price, and you say go.",
+    },
+  ];
+
+  const beforeYouBook = [
+    {
+      q: "Do you actually drive my car?",
+      a: "Yes. Our driver picks up your vehicle, drives it to a nearby DC fast charger, and returns it to your spot. We walk through how that works — including insurance — on the call before anything is scheduled.",
+    },
+    {
+      q: "What are the two costs I'm paying?",
+      a: "First is our service fee — that covers pickup, driving, and return. Second is the DC fast charging electricity cost, billed separately. Both are confirmed before we start. No surprises.",
+    },
+    {
+      q: "Do you serve my area?",
+      a: "We're in Toronto and the GTA right now. The fastest way to check is to drop your postal code in the form — we'll confirm on the call whether you're covered.",
+    },
+    {
+      q: "Can you guarantee how much charge my car gets?",
+      a: "Honestly, no. Battery state, charger speed, and appointment length all affect the result. We'll give you a real estimate on the call based on your specific car and situation — not a number we can't back up.",
     },
   ];
 
@@ -230,14 +226,14 @@ export default function NowChargedLandingPage() {
           </button>
 
           <nav className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
-            {[["how", "How it works"], ["services", "Services"], ["trust", "What to know"], ["faq", "FAQ"], ["careers", "Careers"]].map(([id, l]) => (
+            {[["how", "How it works"], ["services", "Services"], ["faq", "FAQ"], ["careers", "Careers"]].map(([id, l]) => (
               <button key={id} onClick={() => scrollTo(id)} className="hover:text-white transition-colors">{l}</button>
             ))}
           </nav>
 
           <div className="flex items-center gap-3">
             <button onClick={() => scrollTo("callback")} className="hidden md:inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
-              Request Callback <Icon name="arrow" className="h-4 w-4" />
+              Get Started <Icon name="arrow" className="h-4 w-4" />
             </button>
             <button onClick={() => setMenuOpen(o => !o)} className="rounded-xl border border-white/10 p-2 text-white md:hidden" aria-label="Toggle menu">
               <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
@@ -248,11 +244,11 @@ export default function NowChargedLandingPage() {
         {menuOpen && (
           <div className="border-t border-white/10 bg-slate-950 px-6 py-5 md:hidden">
             <nav className="flex flex-col gap-4 text-sm">
-              {[["how", "How it works"], ["services", "Services"], ["trust", "What to know"], ["faq", "FAQ"], ["careers", "Careers"]].map(([id, l]) => (
+              {[["how", "How it works"], ["services", "Services"], ["faq", "FAQ"], ["careers", "Careers"]].map(([id, l]) => (
                 <button key={id} onClick={() => { scrollTo(id); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">{l}</button>
               ))}
               <button onClick={() => { scrollTo("callback"); setMenuOpen(false); }} className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950">
-                Request Callback <Icon name="arrow" className="h-4 w-4" />
+                Get Started <Icon name="arrow" className="h-4 w-4" />
               </button>
             </nav>
           </div>
@@ -279,7 +275,7 @@ export default function NowChargedLandingPage() {
 
             <div className="mt-8 flex flex-wrap gap-4">
               <button onClick={() => scrollTo("callback")} className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-7 py-3.5 text-base font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
-                Request Callback <Icon name="arrow" className="h-5 w-5" />
+                Get Started <Icon name="arrow" className="h-5 w-5" />
               </button>
               <button onClick={() => scrollTo("how")} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-base text-white hover:bg-white/10 transition-colors">
                 See how it works
@@ -301,7 +297,7 @@ export default function NowChargedLandingPage() {
           <div className="mx-auto max-w-7xl">
             <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Who it's for</p>
             <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
-              Built for drivers without home charging.
+              No outlet. No problem.
             </h2>
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               {audiences.map(a => (
@@ -330,7 +326,7 @@ export default function NowChargedLandingPage() {
           <div className="mx-auto max-w-7xl">
             <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">How it works</p>
             <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
-              Three steps, no charger at home required.
+              Three steps. Zero hassle.
             </h2>
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {steps.map(s => (
@@ -352,9 +348,9 @@ export default function NowChargedLandingPage() {
           <div className="mx-auto max-w-7xl">
             <div className="mb-10">
               <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Services & pricing</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Choose your starting point.</h2>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Pick what works for you.</h2>
               <p className="mt-3 max-w-lg text-slate-500 text-sm leading-6">
-                Prices shown are NowCharged service fees only. DC fast charging electricity costs are billed separately and confirmed before any booking.
+                Our fee covers the pickup, drive, and return. Charging electricity is separate — confirmed before we start.
               </p>
             </div>
 
@@ -379,7 +375,7 @@ export default function NowChargedLandingPage() {
                     ))}
                   </div>
                   <button onClick={() => scrollTo("callback")} className={`mt-7 inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-colors ${s.dark ? "bg-emerald-400 text-slate-950 hover:bg-emerald-300" : "border border-slate-200 text-slate-700 hover:bg-slate-50"}`}>
-                    Request Callback <Icon name="arrow" className="h-4 w-4" />
+                    Check Availability <Icon name="arrow" className="h-4 w-4" />
                   </button>
                 </div>
               ))}
@@ -387,27 +383,68 @@ export default function NowChargedLandingPage() {
           </div>
         </section>
 
-        {/* ── Trust / What to know ── */}
-        <section id="trust" className="bg-slate-900 px-6 py-20">
-          <div className="mx-auto max-w-7xl">
+        {/* ── FAQ ── */}
+        <section id="faq" className="bg-slate-900 px-6 py-20">
+          <div className="mx-auto max-w-4xl">
             <div className="mb-10">
-              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">What to know</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
-                Honest before you book.
-              </h2>
-              <p className="mt-3 max-w-xl text-slate-400 text-sm leading-6">
-                We'd rather you know the full picture before the callback than explain it awkwardly after.
-              </p>
+              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">FAQ</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Got questions?</h2>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {trustItems.map(item => (
-                <div key={item.title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-6">
-                  <Icon name={item.icon} className="mb-4 h-7 w-7 text-emerald-300" />
-                  <h3 className="text-lg font-bold" style={display}>{item.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">{item.text}</p>
+
+            <div className="space-y-3">
+              {faqs.map((faq, i) => (
+                <div key={faq.q} className="rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                  >
+                    <h3 className="text-base font-semibold leading-snug pr-2">{faq.q}</h3>
+                    <Icon
+                      name="chevron"
+                      className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-5 pb-5">
+                      <p className="text-sm leading-7 text-slate-300">{faq.a}</p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
+
+            {/* Before you book subsection */}
+            <div className="mt-14">
+              <div className="mb-6 border-t border-white/10 pt-10">
+                <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Before you book</p>
+                <h3 className="mt-3 text-2xl font-black tracking-tight md:text-3xl" style={display}>
+                  The stuff worth knowing upfront.
+                </h3>
+                <p className="mt-2 text-sm text-slate-400">We'd rather you read this now than be surprised later.</p>
+              </div>
+              <div className="space-y-3">
+                {beforeYouBook.map((item, i) => (
+                  <div key={item.q} className="rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden">
+                    <button
+                      onClick={() => setOpenFaq(openFaq === `b${i}` ? null : `b${i}`)}
+                      className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                    >
+                      <h3 className="text-base font-semibold leading-snug pr-2">{item.q}</h3>
+                      <Icon
+                        name="chevron"
+                        className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${openFaq === `b${i}` ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {openFaq === `b${i}` && (
+                      <div className="px-5 pb-5">
+                        <p className="text-sm leading-7 text-slate-300">{item.a}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -415,15 +452,15 @@ export default function NowChargedLandingPage() {
         <section id="callback" className="px-6 py-20">
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
             <div>
-              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Request a callback</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Have us call you first.</h2>
+              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Get Started</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Tell us about your situation.</h2>
               <p className="mt-4 leading-8 text-slate-300 text-sm">
-                Send the basics. We'll call to confirm your location, parking setup, and whether we serve your area — before anything is scheduled or charged.
+                Fill in the basics and we'll call you back to confirm your location, check availability, and walk you through pricing — no commitment, no surprises.
               </p>
 
               <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                 <p className="text-sm leading-7 text-slate-300">
-                  <span className="font-semibold text-white">No automatic booking.</span> Submitting this form only asks NowCharged to call you. Nothing is confirmed until you approve the quote by phone.
+                  <span className="font-semibold text-white">This is not a sales call.</span> We call to confirm your postal code is covered, explain exactly what the service costs, and answer any questions — before anything is booked.
                 </p>
               </div>
 
@@ -492,40 +529,9 @@ export default function NowChargedLandingPage() {
                 type="submit"
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-400 px-6 py-3.5 font-bold text-slate-950 hover:bg-emerald-300 transition-colors"
               >
-                Request Callback <Icon name="arrow" className="h-5 w-5" />
+                Get Started <Icon name="arrow" className="h-5 w-5" />
               </button>
             </form>
-          </div>
-        </section>
-
-        {/* ── FAQ ── */}
-        <section id="faq" className="bg-slate-900 px-6 py-20">
-          <div className="mx-auto max-w-4xl">
-            <div className="mb-10">
-              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">FAQ</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Common questions.</h2>
-            </div>
-            <div className="space-y-3">
-              {faqs.map((faq, i) => (
-                <div key={faq.q} className="rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden">
-                  <button
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="flex w-full items-center justify-between gap-4 p-5 text-left"
-                  >
-                    <h3 className="text-base font-semibold leading-snug pr-2">{faq.q}</h3>
-                    <Icon
-                      name="chevron"
-                      className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {openFaq === i && (
-                    <div className="px-5 pb-5">
-                      <p className="text-sm leading-7 text-slate-300">{faq.a}</p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -533,14 +539,14 @@ export default function NowChargedLandingPage() {
         <section className="px-6 py-20">
           <div className="mx-auto max-w-5xl rounded-[2rem] bg-emerald-400 p-10 text-center text-slate-950 md:p-16">
             <h2 className="text-4xl font-black tracking-tight md:text-5xl" style={display}>
-              No charger at home?<br />We've got it.
+              Your EV deserves a charge.<br />We'll make it happen.
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-slate-800">
-              Tell us where you are and what you drive. We'll sort out the details on the call — no commitment required to reach out.
+              Tell us where you are and what you drive. Two minutes to fill out, we call you back and handle everything else.
             </p>
-            <a href="#callback" className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-950 px-8 py-4 text-base font-bold text-white hover:bg-slate-800 transition-colors">
-              Request a Callback <Icon name="arrow" className="h-5 w-5" />
-            </a>
+            <button onClick={() => scrollTo("callback")} className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-950 px-8 py-4 text-base font-bold text-white hover:bg-slate-800 transition-colors">
+              Get Started Today <Icon name="arrow" className="h-5 w-5" />
+            </button>
           </div>
         </section>
 
@@ -639,7 +645,7 @@ export default function NowChargedLandingPage() {
             <p className="mt-1 text-sm text-slate-500">© 2026 NowCharged. All rights reserved.</p>
           </div>
           <div className="flex flex-wrap gap-6 text-sm text-slate-400">
-            {[["how","How it works"],["services","Services"],["callback","Callback"],["faq","FAQ"],["careers","Careers"]].map(([id,l])=>(
+            {[["how","How it works"],["services","Services"],["callback","Get Started"],["faq","FAQ"],["careers","Careers"]].map(([id,l])=>(
               <button key={id} onClick={() => scrollTo(id)} className="hover:text-white transition-colors">{l}</button>
             ))}
           </div>
