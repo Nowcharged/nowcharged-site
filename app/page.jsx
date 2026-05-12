@@ -1,7 +1,13 @@
-import React from "react";
+"use client";
+
+import { useState } from "react";
+
+const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
+*, html { scroll-behavior: smooth; }
+`;
 
 function Icon({ name, className = "h-6 w-6" }) {
-  const common = {
+  const p = {
     className,
     viewBox: "0 0 24 24",
     fill: "none",
@@ -9,575 +15,549 @@ function Icon({ name, className = "h-6 w-6" }) {
     strokeWidth: 2,
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    "aria-hidden": "true",
+    "aria-hidden": true,
   };
-
   const icons = {
-    zap: (
-      <svg {...common}>
-        <path d="M13 2 3 14h8l-1 8 11-14h-8l1-6Z" />
-      </svg>
-    ),
-    battery: (
-      <svg {...common}>
-        <rect x="2" y="7" width="17" height="10" rx="2" />
-        <path d="M22 11v2" />
-        <path d="M7 11h4" />
-        <path d="m10 9-2 3h3l-2 3" />
-      </svg>
-    ),
-    calendar: (
-      <svg {...common}>
-        <path d="M8 2v4" />
-        <path d="M16 2v4" />
-        <rect x="3" y="4" width="18" height="18" rx="2" />
-        <path d="M3 10h18" />
-        <path d="m9 16 2 2 4-5" />
-      </svg>
-    ),
-    pin: (
-      <svg {...common}>
-        <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
-    ),
-    shield: (
-      <svg {...common}>
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
-        <path d="m9 12 2 2 4-5" />
-      </svg>
-    ),
-    clock: (
-      <svg {...common}>
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 6v6l4 2" />
-      </svg>
-    ),
-    check: (
-      <svg {...common}>
-        <path d="M20 6 9 17l-5-5" />
-      </svg>
-    ),
-    arrow: (
-      <svg {...common}>
-        <path d="M5 12h14" />
-        <path d="m12 5 7 7-7 7" />
-      </svg>
-    ),
-    car: (
-      <svg {...common}>
-        <path d="M5 17h14" />
-        <path d="M6 17v2" />
-        <path d="M18 17v2" />
-        <path d="M4 13 6.2 7.5A2.4 2.4 0 0 1 8.4 6h7.2a2.4 2.4 0 0 1 2.2 1.5L20 13" />
-        <path d="M3 13h18v4H3z" />
-        <circle cx="7" cy="15" r="1" />
-        <circle cx="17" cy="15" r="1" />
-      </svg>
-    ),
+    zap:      <svg {...p}><path d="M13 2 3 14h8l-1 8 11-14h-8l1-6Z"/></svg>,
+    battery:  <svg {...p}><rect x="2" y="7" width="17" height="10" rx="2"/><path d="M22 11v2"/><path d="M7 11h4"/><path d="m10 9-2 3h3l-2 3"/></svg>,
+    calendar: <svg {...p}><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-5"/></svg>,
+    pin:      <svg {...p}><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>,
+    shield:   <svg {...p}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-5"/></svg>,
+    clock:    <svg {...p}><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>,
+    check:    <svg {...p}><path d="M20 6 9 17l-5-5"/></svg>,
+    arrow:    <svg {...p}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>,
+    car:      <svg {...p}><path d="M5 17h14"/><path d="M6 17v2"/><path d="M18 17v2"/><path d="M4 13 6.2 7.5A2.4 2.4 0 0 1 8.4 6h7.2a2.4 2.4 0 0 1 2.2 1.5L20 13"/><path d="M3 13h18v4H3z"/><circle cx="7" cy="15" r="1"/><circle cx="17" cy="15" r="1"/></svg>,
+    phone:    <svg {...p}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.63 2.6a2 2 0 0 1-.45 2.11L8 9.72a16 16 0 0 0 6.28 6.28l1.29-1.29a2 2 0 0 1 2.11-.45c.83.3 1.7.51 2.6.63A2 2 0 0 1 22 16.92Z"/></svg>,
+    document: <svg {...p}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h6"/></svg>,
+    chevron:  <svg {...p}><path d="m6 9 6 6 6-6"/></svg>,
+    menu:     <svg {...p}><path d="M4 6h16M4 12h16M4 18h16"/></svg>,
+    close:    <svg {...p}><path d="M18 6 6 18M6 6l12 12"/></svg>,
+    building: <svg {...p}><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg>,
+    key:      <svg {...p}><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>,
+    bolt:     <svg {...p}><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>,
   };
-
-  return icons[name] || icons.zap;
+  return icons[name] ?? icons.zap;
 }
 
-function Button({ children, className = "", href = "#booking" }) {
-  return (
-    <a
-      href={href}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 focus:ring-offset-slate-950 ${className}`}
-    >
-      {children}
-    </a>
-  );
-}
+const display = { fontFamily: "'Manrope', sans-serif" };
+const body    = { fontFamily: "'DM Sans', system-ui, sans-serif" };
 
-function Card({ children, className = "" }) {
-  return <div className={`rounded-3xl border ${className}`}>{children}</div>;
-}
+const scrollTo = (id) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+};
 
 export default function NowChargedLandingPage() {
-  const pricing = [
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [openFaq, setOpenFaq]   = useState(null);
+
+  const services = [
     {
-      name: "Single Charge",
-      price: "$89",
-      cadence: "/ appointment",
-      detail: "One-time mobile EV charging appointment.",
+      name: "Scheduled Charge",
+      price: "From $89",
+      tag: null,
+      detail: "A planned pickup and return. Best for routine charging when timing isn't urgent.",
       features: [
-        "Book only when you need it",
-        "Good first-time customer option",
-        "Service window selected at booking",
-        "Same-day priority when available",
+        "We come to your parking spot",
+        "Drive your EV to a DC fast charger",
+        "Return it charged and ready",
+        "Quote confirmed before we book",
       ],
-      cta: "Book a Charge",
-      highlighted: false,
+      dark: false,
+    },
+    {
+      name: "Same-Day / Priority",
+      price: "From $129",
+      tag: "Most requested",
+      detail: "Need it sooner? We prioritize your request when availability in your area allows.",
+      features: [
+        "Faster turnaround when available",
+        "Same pickup-charge-return process",
+        "Reviewed by phone before confirming",
+        "Surcharges may apply",
+      ],
+      dark: true,
     },
     {
       name: "Monthly Plan",
-      price: "$299.99",
-      cadence: "/ month",
-      detail: "Recurring service for regular EV drivers.",
+      price: "Custom",
+      tag: null,
+      detail: "Regular scheduled pickups for drivers who rely on NowCharged as their primary charging solution. Lower per-visit pricing than one-off bookings.",
       features: [
-        "Up to 2 scheduled charges per week",
-        "Predictable monthly cost",
-        "Priority scheduling access",
-        "Built for routine commuting",
+        "Recurring scheduled pickups",
+        "Preferred time slots",
+        "Custom pricing by frequency",
+        "Better rate vs. per-visit pricing",
       ],
-      cta: "Join the Plan",
-      highlighted: true,
+      dark: false,
     },
     {
-      name: "Fleet / Business",
+      name: "Business / Fleet",
       price: "Custom",
-      cadence: "",
-      detail: "Charging support for teams, workplaces, and small fleets.",
+      tag: null,
+      detail: "Condos, workplaces, and small fleets. We coordinate regular charging runs for multiple vehicles.",
       features: [
-        "Multiple vehicle coordination",
-        "Custom service windows",
-        "Workplace and fleet support",
-        "Business invoicing available",
+        "Multi-vehicle coordination",
+        "Building or lot pickup",
+        "Fleet-level scheduling",
+        "Custom billing arrangements",
       ],
-      cta: "Request Quote",
-      highlighted: false,
+      dark: false,
     },
   ];
 
   const steps = [
     {
-      icon: "pin",
-      title: "Tell us where",
-      text: "Enter your location, vehicle details, and preferred service window.",
+      icon: "phone",
+      num: "01",
+      title: "Request a callback",
+      text: "Tell us your location, parking setup, and when you need your car back. This is not a confirmed booking — it's a first conversation.",
     },
     {
-      icon: "calendar",
-      title: "Choose your service",
-      text: "Select a single appointment, monthly plan, or business charging option.",
+      icon: "car",
+      num: "02",
+      title: "We pick up your car",
+      text: "A NowCharged driver comes to your spot, takes your EV to a nearby DC fast charger, and charges it on your behalf.",
     },
     {
-      icon: "battery",
-      title: "We charge your EV",
-      text: "A charging provider arrives during your service window and completes the appointment.",
+      icon: "key",
+      num: "03",
+      title: "Your car comes back charged",
+      text: "We return your vehicle to its spot — charged, ready to drive. You don't need to be present for pickup or drop-off.",
+    },
+  ];
+
+  const audiences = [
+    {
+      icon: "building",
+      title: "Condo & apartment residents",
+      sub: "No outlet in your building? That's the whole point of NowCharged.",
+      points: [
+        "We pick up from your parking spot",
+        "Drive to a nearby DC fast charger",
+        "Return it before you need it",
+        "No equipment installation required",
+      ],
+    },
+    {
+      icon: "car",
+      title: "Businesses & fleets",
+      sub: "Keep your EVs on the road without managing charging logistics yourself.",
+      points: [
+        "Multi-vehicle coordination",
+        "Workplace or lot pickup",
+        "Monthly and fleet plans available",
+        "Scheduling built around your hours",
+      ],
     },
   ];
 
   const trustItems = [
     {
       icon: "shield",
-      title: "Clear service standards",
-      text: "Appointment notes, access instructions, and service expectations are documented before arrival.",
+      title: "We drive your car",
+      text: "A NowCharged driver handles your vehicle from pickup to return. Insurance and liability details are confirmed with you on the callback before anything is booked.",
+    },
+    {
+      icon: "document",
+      title: "Service fee vs. charging cost",
+      text: "Our fee covers the pickup, driving, and return. DC fast charging electricity costs are billed separately — confirmed before your visit, never a surprise.",
+    },
+    {
+      icon: "pin",
+      title: "Toronto & GTA only",
+      text: "We currently operate in Toronto and the Greater Toronto Area. Enter your postal code and we'll confirm whether your location is covered before scheduling anything.",
     },
     {
       icon: "clock",
-      title: "Scheduled windows",
-      text: "Customers select preferred timing and receive confirmation before the service is completed.",
-    },
-    {
-      icon: "zap",
-      title: "Charging transparency",
-      text: "Charging results depend on vehicle, battery level, charger availability, weather, and site conditions.",
-    },
-    {
-      icon: "check",
-      title: "Practical access rules",
-      text: "Customers provide safe, lawful access to the vehicle and confirm parking or property instructions.",
+      title: "Results depend on conditions",
+      text: "Charge level depends on battery state, charger type, appointment length, and the vehicle. We'll set clear expectations on the call.",
     },
   ];
 
   const faqs = [
     {
-      q: "Is same-day charging available?",
-      a: "Yes, when capacity allows. Same-day bookings may include a priority surcharge depending on timing, distance, and availability.",
+      q: "Is my car safe when you drive it?",
+      a: "We handle your vehicle with full care from pickup to return. Specific insurance and liability details are reviewed with you by phone before any booking is confirmed — we don't skip that step.",
     },
     {
-      q: "Do I need to be home?",
-      a: "That depends on the service type and access instructions. Customers must provide safe, lawful access to the vehicle and charging location.",
+      q: "What type of charger do you use?",
+      a: "We use DC fast chargers at nearby public or partner charging locations — not portable Level 2 equipment. This is a scheduled valet service, not a mobile charger-to-car setup.",
     },
     {
-      q: "How much charge will I get?",
-      a: "Charging amount depends on the vehicle, starting battery level, appointment length, charger availability, and site conditions. Customers receive a clear service estimate before confirmation.",
+      q: "How long does the whole process take?",
+      a: "It depends on your battery state, the charger available, and the agreed appointment length. Most visits range from 45 minutes to a few hours. We confirm the expected window on the call.",
+    },
+    {
+      q: "Do I need to be there for pickup or drop-off?",
+      a: "No. Many customers leave their car in a designated spot. Key handoff details — access codes, parking specifics — are sorted during the callback so there are no surprises on the day.",
+    },
+    {
+      q: "Are charging costs included in the service fee?",
+      a: "No. The listed service fees cover pickup, driving, and return. DC fast charging electricity costs are billed separately and confirmed before your booking.",
+    },
+    {
+      q: "Is this an emergency or roadside service?",
+      a: "No. NowCharged is a scheduled charging valet. We don't do roadside recovery or emergency dispatch for stranded vehicles — our service is planned in advance.",
     },
     {
       q: "What areas do you serve?",
-      a: "NowCharged is preparing service coverage by region. Customers can start with a postal code so availability can be confirmed before booking.",
+      a: "Toronto and the Greater Toronto Area. Enter your postal code in the callback form and we'll confirm coverage before scheduling anything.",
+    },
+    {
+      q: "Is the callback form a confirmed booking?",
+      a: "No. Submitting the form only asks us to call you. Nothing is booked or charged until we speak, confirm your location, and you approve the quote.",
     },
   ];
 
+  const inputCls = "mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-400 transition-colors placeholder:text-slate-500 text-sm";
+
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl">
+    <div className="min-h-screen bg-slate-950 text-white" style={body}>
+      <style>{FONTS}</style>
+
+      {/* ── Header ── */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="#top" className="flex items-center gap-3" aria-label="NowCharged home">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 shadow-lg shadow-emerald-400/20">
-              <Icon name="zap" className="h-6 w-6" />
+          <button onClick={() => scrollTo("top")} className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 shadow-lg shadow-emerald-500/20">
+              <Icon name="zap" className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xl font-black tracking-tight">NowCharged</p>
-              <p className="text-xs text-slate-400">Mobile EV Charging</p>
+              <p className="text-lg font-extrabold tracking-tight leading-none" style={display}>NowCharged</p>
+              <p className="text-xs text-slate-400 mt-0.5">EV Charging Valet · Toronto & GTA</p>
             </div>
-          </a>
+          </button>
 
-          <nav className="hidden items-center gap-8 text-sm text-slate-300 md:flex" aria-label="Main navigation">
-            <a href="#how" className="hover:text-white">How it works</a>
-            <a href="#pricing" className="hover:text-white">Pricing</a>
-            <a href="#trust" className="hover:text-white">Safety</a>
-            <a href="#faq" className="hover:text-white">FAQ</a>
+          <nav className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+            {[["how", "How it works"], ["services", "Services"], ["trust", "What to know"], ["faq", "FAQ"]].map(([id, l]) => (
+              <button key={id} onClick={() => scrollTo(id)} className="hover:text-white transition-colors">{l}</button>
+            ))}
           </nav>
 
-          <Button className="bg-emerald-400 text-slate-950 hover:bg-emerald-300">Book Now</Button>
+          <div className="flex items-center gap-3">
+            <button onClick={() => scrollTo("callback")} className="hidden md:inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
+              Request Callback <Icon name="arrow" className="h-4 w-4" />
+            </button>
+            <button onClick={() => setMenuOpen(o => !o)} className="rounded-xl border border-white/10 p-2 text-white md:hidden" aria-label="Toggle menu">
+              <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
+            </button>
+          </div>
         </div>
+
+        {menuOpen && (
+          <div className="border-t border-white/10 bg-slate-950 px-6 py-5 md:hidden">
+            <nav className="flex flex-col gap-4 text-sm">
+              {[["how", "How it works"], ["services", "Services"], ["trust", "What to know"], ["faq", "FAQ"]].map(([id, l]) => (
+                <button key={id} onClick={() => { scrollTo(id); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">{l}</button>
+              ))}
+              <button onClick={() => { scrollTo("callback"); setMenuOpen(false); }} className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950">
+                Request Callback <Icon name="arrow" className="h-4 w-4" />
+              </button>
+            </nav>
+          </div>
+        )}
       </header>
 
       <main id="top">
-        <section className="relative overflow-hidden px-6 py-20 md:py-28">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(52,211,153,0.22),transparent_38%),radial-gradient(circle_at_80%_10%,rgba(56,189,248,0.15),transparent_35%)]" />
-          <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+
+        {/* ── Hero ── */}
+        <section className="relative overflow-hidden px-6 py-24 md:py-32">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_15%_25%,rgba(52,211,153,0.16),transparent_45%),radial-gradient(ellipse_at_85%_75%,rgba(56,189,248,0.09),transparent_45%)]" />
+          <div className="relative mx-auto max-w-7xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-300/10 px-4 py-1.5 text-sm text-emerald-200">
+              <Icon name="pin" className="h-3.5 w-3.5" /> Serving Toronto & the Greater Toronto Area
+            </div>
+
+            <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[1.04] tracking-tight md:text-7xl" style={display}>
+              Your EV, picked up,<br />charged, and returned.
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
+              NowCharged is a charging valet for EV drivers who can't charge at home. We drive your car to a nearby DC fast charger and bring it back — no home outlet needed.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+              <button onClick={() => scrollTo("callback")} className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-7 py-3.5 text-base font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
+                Request Callback <Icon name="arrow" className="h-5 w-5" />
+              </button>
+              <button onClick={() => scrollTo("how")} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-base text-white hover:bg-white/10 transition-colors">
+                See how it works
+              </button>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3">
+              {["We drive your car to the charger", "No home outlet required", "Scheduled, not emergency"].map(item => (
+                <div key={item} className="flex items-center gap-2 text-sm text-slate-300">
+                  <Icon name="check" className="h-4 w-4 text-emerald-400 shrink-0" /> {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Who it's for ── */}
+        <section className="bg-white px-6 py-20 text-slate-950">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Who it's for</p>
+            <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
+              Built for drivers without home charging.
+            </h2>
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {audiences.map(a => (
+                <div key={a.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-8">
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-950 text-emerald-400">
+                    <Icon name={a.icon} className="h-7 w-7" />
+                  </div>
+                  <h3 className="text-2xl font-bold" style={display}>{a.title}</h3>
+                  <p className="mt-1 text-slate-500 text-sm">{a.sub}</p>
+                  <div className="mt-5 space-y-3">
+                    {a.points.map(pt => (
+                      <div key={pt} className="flex items-start gap-3">
+                        <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
+                        <p className="text-slate-700 text-sm">{pt}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── How it works ── */}
+        <section id="how" className="px-6 py-20">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">How it works</p>
+            <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
+              Three steps, no charger at home required.
+            </h2>
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {steps.map(s => (
+                <div key={s.title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-8">
+                  <p className="text-6xl font-black leading-none text-white/10 select-none" style={display}>{s.num}</p>
+                  <div className="mt-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
+                    <Icon name={s.icon} className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-5 text-xl font-bold" style={display}>{s.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{s.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Services ── */}
+        <section id="services" className="bg-white px-6 py-20 text-slate-950">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-10">
+              <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Services & pricing</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Choose your starting point.</h2>
+              <p className="mt-3 max-w-lg text-slate-500 text-sm leading-6">
+                Prices shown are NowCharged service fees only. DC fast charging electricity costs are billed separately and confirmed before any booking.
+              </p>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-4">
+              {services.map(s => (
+                <div
+                  key={s.name}
+                  className={`rounded-3xl border p-7 flex flex-col ${s.dark ? "border-emerald-400 bg-slate-950 text-white" : "border-slate-200 bg-white text-slate-950"}`}
+                >
+                  {s.tag && (
+                    <span className="mb-4 self-start inline-flex rounded-full bg-emerald-400 px-3 py-1 text-xs font-bold text-slate-950">{s.tag}</span>
+                  )}
+                  <h3 className="text-xl font-bold" style={display}>{s.name}</h3>
+                  <p className="mt-3 text-4xl font-black" style={display}>{s.price}</p>
+                  <p className={`mt-3 text-sm leading-6 ${s.dark ? "text-slate-300" : "text-slate-500"}`}>{s.detail}</p>
+                  <div className="mt-6 space-y-3 flex-1">
+                    {s.features.map(f => (
+                      <div key={f} className="flex items-start gap-3">
+                        <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                        <p className={`text-sm ${s.dark ? "text-slate-200" : "text-slate-600"}`}>{f}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <button onClick={() => scrollTo("callback")} className={`mt-7 inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-colors ${s.dark ? "bg-emerald-400 text-slate-950 hover:bg-emerald-300" : "border border-slate-200 text-slate-700 hover:bg-slate-50"}`}>
+                    Request Callback <Icon name="arrow" className="h-4 w-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Trust / What to know ── */}
+        <section id="trust" className="bg-slate-900 px-6 py-20">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-10">
+              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">What to know</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
+                Honest before you book.
+              </h2>
+              <p className="mt-3 max-w-xl text-slate-400 text-sm leading-6">
+                We'd rather you know the full picture before the callback than explain it awkwardly after.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {trustItems.map(item => (
+                <div key={item.title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-6">
+                  <Icon name={item.icon} className="mb-4 h-7 w-7 text-emerald-300" />
+                  <h3 className="text-lg font-bold" style={display}>{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Callback Form ── */}
+        <section id="callback" className="px-6 py-20">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
             <div>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-300/10 px-4 py-2 text-sm text-emerald-200">
-                <Icon name="battery" className="h-4 w-4" />
-                On-demand charging for electric vehicles
-              </div>
-
-              <h1 className="max-w-4xl text-5xl font-black tracking-tight md:text-7xl">
-                EV charging that comes to you.
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
-                NowCharged helps EV drivers schedule convenient mobile charging at home, work, or wherever service is available — without hunting for a public charger.
+              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Request a callback</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Have us call you first.</h2>
+              <p className="mt-4 leading-8 text-slate-300 text-sm">
+                Send the basics. We'll call to confirm your location, parking setup, and whether we serve your area — before anything is scheduled or charged.
               </p>
 
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Button className="bg-emerald-400 px-7 text-base text-slate-950 hover:bg-emerald-300">
-                  Book a Charge <Icon name="arrow" className="h-5 w-5" />
-                </Button>
-                <Button href="#pricing" className="border border-white/20 bg-white/5 px-7 text-base text-white hover:bg-white/10">
-                  See Plans
-                </Button>
+              <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <p className="text-sm leading-7 text-slate-300">
+                  <span className="font-semibold text-white">No automatic booking.</span> Submitting this form only asks NowCharged to call you. Nothing is confirmed until you approve the quote by phone.
+                </p>
               </div>
 
-              <div className="mt-8 grid max-w-2xl gap-4 sm:grid-cols-3">
-                {["Single charge option", "Monthly plans", "Business support"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-sm text-slate-300">
-                    <Icon name="check" className="h-5 w-5 text-emerald-300" />
-                    {item}
+              <div className="mt-6 space-y-3">
+                {[
+                  "Service area confirmed by postal code",
+                  "Pricing explained before scheduling",
+                  "Key handoff details sorted on the call",
+                ].map(item => (
+                  <div key={item} className="flex items-center gap-3 text-sm text-slate-300">
+                    <Icon name="check" className="h-4 w-4 shrink-0 text-emerald-400" /> {item}
                   </div>
                 ))}
               </div>
             </div>
 
-            <Card className="border-white/10 bg-white/10 shadow-2xl shadow-emerald-950/30 backdrop-blur-xl">
-              <div className="p-6 md:p-8">
-                <div className="rounded-[1.5rem] bg-slate-900 p-6">
-                  <div className="mb-6 flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-sm text-slate-400">Estimated service</p>
-                      <p className="text-2xl font-bold text-white">Mobile EV Charge</p>
-                    </div>
-                    <div className="rounded-2xl bg-emerald-400/15 p-3 text-emerald-300">
-                      <Icon name="car" className="h-8 w-8" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="rounded-2xl bg-white/5 p-4">
-                      <p className="text-sm text-slate-400">Location</p>
-                      <p className="font-semibold text-white">Home, workplace, or approved parking location</p>
-                    </div>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <div className="rounded-2xl bg-white/5 p-4">
-                        <p className="text-sm text-slate-400">Service window</p>
-                        <p className="font-semibold text-white">Scheduled</p>
-                      </div>
-                      <div className="rounded-2xl bg-white/5 p-4">
-                        <p className="text-sm text-slate-400">Plan</p>
-                        <p className="font-semibold text-white">Single / Monthly</p>
-                      </div>
-                    </div>
-                    <Button className="w-full bg-emerald-400 text-slate-950 hover:bg-emerald-300">
-                      Start Booking
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </section>
-
-        <section id="how" className="px-6 py-20">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-12 max-w-2xl">
-              <p className="font-semibold text-emerald-300">How it works</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Book charging in minutes.</h2>
-              <p className="mt-4 text-slate-300">
-                A simple process built for people who do not want to plan their day around public charging stations.
-              </p>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-              {steps.map((step, index) => (
-                <Card key={step.title} className="border-white/10 bg-white/[0.06] text-white">
-                  <div className="p-7">
-                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
-                      <Icon name={step.icon} className="h-7 w-7" />
-                    </div>
-                    <p className="mb-2 text-sm font-bold text-slate-400">Step {index + 1}</p>
-                    <h3 className="text-2xl font-bold">{step.title}</h3>
-                    <p className="mt-3 leading-7 text-slate-300">{step.text}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="pricing" className="bg-white px-6 py-20 text-slate-950">
-          <div className="mx-auto max-w-7xl">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <p className="font-semibold text-emerald-700">Pricing</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Simple charging options.</h2>
-              <p className="mt-4 text-slate-600">
-                Start with a single appointment or choose a recurring plan for regular EV charging support.
-              </p>
-            </div>
-
-            <div className="grid gap-6 lg:grid-cols-3">
-              {pricing.map((plan) => (
-                <Card
-                  key={plan.name}
-                  className={
-                    plan.highlighted
-                      ? "border-emerald-400 bg-slate-950 text-white shadow-2xl shadow-emerald-900/20"
-                      : "border-slate-200 bg-white text-slate-950 shadow-sm"
-                  }
-                >
-                  <div className="p-8">
-                    {plan.highlighted && (
-                      <div className="mb-5 inline-flex rounded-full bg-emerald-400 px-3 py-1 text-sm font-bold text-slate-950">
-                        Most predictable
-                      </div>
-                    )}
-
-                    <h3 className="text-2xl font-black">{plan.name}</h3>
-
-                    <div className="mt-5 flex items-end gap-2">
-                      <p className="text-5xl font-black">{plan.price}</p>
-                      {plan.cadence && (
-                        <p className={plan.highlighted ? "mb-2 text-slate-300" : "mb-2 text-slate-500"}>
-                          {plan.cadence}
-                        </p>
-                      )}
-                    </div>
-
-                    <p className={`mt-4 leading-7 ${plan.highlighted ? "text-slate-300" : "text-slate-600"}`}>
-                      {plan.detail}
-                    </p>
-
-                    <div className="mt-7 space-y-3">
-                      {plan.features.map((feature) => (
-                        <div key={feature} className="flex gap-3">
-                          <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
-                          <p className={plan.highlighted ? "text-slate-200" : "text-slate-700"}>{feature}</p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Button
-                      className={
-                        plan.highlighted
-                          ? "mt-8 w-full bg-emerald-400 text-slate-950 hover:bg-emerald-300"
-                          : "mt-8 w-full bg-slate-950 text-white hover:bg-slate-800"
-                      }
-                    >
-                      {plan.cta}
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="booking" className="px-6 py-20">
-          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p className="font-semibold text-emerald-300">Start booking</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Check service availability.</h2>
-              <p className="mt-4 leading-8 text-slate-300">
-                Submit your details and we’ll confirm availability, timing, and pricing before your appointment is finalized.
-              </p>
-            </div>
-
             <form
-              action="https://formspree.io/f/xojrygne"
+              action="https://formsubmit.co/info@nowcharged.com"
               method="POST"
-              className="rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 md:p-8"
+              className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 md:p-8"
             >
-              <input type="hidden" name="_subject" value="New NowCharged Booking Request" />
+              <input type="hidden" name="_subject" value="New NowCharged Callback Request" />
+              <input type="hidden" name="_next" value="https://nowcharged.com/thank-you" />
+              <input type="hidden" name="_captcha" value="false" />
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Full name</span>
-                  <input
-                    name="full_name"
-                    required
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                    placeholder="Your name"
-                  />
+                  <span className="text-sm font-semibold text-slate-300">Name *</span>
+                  <input name="name" required className={inputCls} placeholder="Your name" />
                 </label>
-
                 <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Phone number</span>
-                  <input
-                    name="phone"
-                    required
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                    placeholder="647-555-1234"
-                  />
+                  <span className="text-sm font-semibold text-slate-300">Phone number *</span>
+                  <input name="phone" required className={inputCls} placeholder="647-555-1234" />
                 </label>
-
                 <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Email</span>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                    placeholder="you@email.com"
-                  />
+                  <span className="text-sm font-semibold text-slate-300">Postal code *</span>
+                  <input name="postal_code" required className={inputCls} placeholder="M5V 2T6" />
                 </label>
-
                 <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Postal code</span>
-                  <input
-                    name="postal_code"
-                    required
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                    placeholder="A1A 1A1"
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Vehicle type</span>
-                  <input
-                    name="vehicle_type"
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                    placeholder="Tesla Model 3"
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Current battery %</span>
-                  <input
-                    name="battery_percent"
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                    placeholder="Example: 12%"
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Service date</span>
-                  <input
-                    type="date"
-                    name="service_date"
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="text-sm font-semibold text-slate-300">Preferred window</span>
-                  <select
-                    name="preferred_window"
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                  >
-                    <option>Morning</option>
-                    <option>Afternoon</option>
-                    <option>Evening</option>
-                    <option>Same-day priority</option>
+                  <span className="text-sm font-semibold text-slate-300">Best time to call</span>
+                  <select name="best_time_to_call" className={inputCls}>
+                    <option>ASAP</option>
+                    <option>Morning (8am–12pm)</option>
+                    <option>Afternoon (12pm–5pm)</option>
+                    <option>Evening (5pm–8pm)</option>
+                    <option>Tomorrow</option>
                   </select>
                 </label>
               </div>
 
               <label className="mt-4 block">
-                <span className="text-sm font-semibold text-slate-300">Location notes</span>
+                <span className="text-sm font-semibold text-slate-300">What do you need? <span className="font-normal text-slate-500">(optional)</span></span>
                 <textarea
-                  name="location_notes"
-                  className="mt-2 min-h-28 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-300"
-                  placeholder="Parking details, access instructions, charger access, or building notes."
+                  name="message"
+                  className={`${inputCls} min-h-28 resize-none`}
+                  placeholder="e.g. condo resident, no home charging, want a monthly plan. Or just say 'not sure yet' and we'll walk you through it."
                 />
               </label>
 
+              <label className="mt-5 flex items-start gap-3 text-sm text-slate-300 cursor-pointer">
+                <input type="checkbox" name="contact_consent" required className="mt-1 shrink-0 accent-emerald-400" />
+                <span>I agree that NowCharged may contact me about this request.</span>
+              </label>
+
               <button
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-400 px-6 py-3 font-bold text-slate-950 transition hover:bg-emerald-300"
                 type="submit"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-400 px-6 py-3.5 font-bold text-slate-950 hover:bg-emerald-300 transition-colors"
               >
-                Check Availability <Icon name="arrow" className="h-5 w-5" />
+                Request Callback <Icon name="arrow" className="h-5 w-5" />
               </button>
             </form>
           </div>
         </section>
 
-        <section id="trust" className="px-6 py-20">
-          <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-            <div>
-              <p className="font-semibold text-emerald-300">Built for trust</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Clear service. Clear expectations.</h2>
-              <p className="mt-4 leading-8 text-slate-300">
-                NowCharged is designed around transparent booking, documented service windows, safe access instructions, and practical customer expectations.
-              </p>
-            </div>
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              {trustItems.map((item) => (
-                <Card key={item.title} className="border-white/10 bg-white/[0.06] text-white">
-                  <div className="p-6">
-                    <Icon name={item.icon} className="mb-4 h-8 w-8 text-emerald-300" />
-                    <h3 className="text-xl font-bold">{item.title}</h3>
-                    <p className="mt-3 leading-7 text-slate-300">{item.text}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
+        {/* ── FAQ ── */}
         <section id="faq" className="bg-slate-900 px-6 py-20">
           <div className="mx-auto max-w-4xl">
-            <div className="mb-10 text-center">
-              <p className="font-semibold text-emerald-300">FAQ</p>
-              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">Common questions.</h2>
+            <div className="mb-10">
+              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">FAQ</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Common questions.</h2>
             </div>
-
-            <div className="space-y-4">
-              {faqs.map((faq) => (
-                <Card key={faq.q} className="border-white/10 bg-white/[0.06] text-white">
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold">{faq.q}</h3>
-                    <p className="mt-3 leading-7 text-slate-300">{faq.a}</p>
-                  </div>
-                </Card>
+            <div className="space-y-3">
+              {faqs.map((faq, i) => (
+                <div key={faq.q} className="rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                  >
+                    <h3 className="text-base font-semibold leading-snug pr-2">{faq.q}</h3>
+                    <Icon
+                      name="chevron"
+                      className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-5 pb-5">
+                      <p className="text-sm leading-7 text-slate-300">{faq.a}</p>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </div>
         </section>
 
+        {/* ── CTA Banner ── */}
         <section className="px-6 py-20">
-          <div className="mx-auto max-w-5xl rounded-[2rem] bg-emerald-400 p-8 text-center text-slate-950 md:p-12">
-            <h2 className="text-4xl font-black tracking-tight md:text-5xl">Ready to stop hunting for chargers?</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-800">
-              Book a mobile EV charging appointment or join a recurring plan built around your driving routine.
+          <div className="mx-auto max-w-5xl rounded-[2rem] bg-emerald-400 p-10 text-center text-slate-950 md:p-16">
+            <h2 className="text-4xl font-black tracking-tight md:text-5xl" style={display}>
+              No charger at home?<br />We've got it.
+            </h2>
+            <p className="mx-auto mt-4 max-w-lg text-slate-800">
+              Tell us where you are and what you drive. We'll sort out the details on the call — no commitment required to reach out.
             </p>
-            <Button className="mt-8 bg-slate-950 px-8 text-base text-white hover:bg-slate-800">
-              Book a Charge <Icon name="arrow" className="h-5 w-5" />
-            </Button>
+            <a href="#callback" className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-950 px-8 py-4 text-base font-bold text-white hover:bg-slate-800 transition-colors">
+              Request a Callback <Icon name="arrow" className="h-5 w-5" />
+            </a>
           </div>
         </section>
+
       </main>
 
+      {/* ── Footer ── */}
       <footer className="border-t border-white/10 px-6 py-10">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 text-sm text-slate-400 md:flex-row md:items-center">
-          <p>© 2026 NowCharged. Mobile EV charging service.</p>
-          <div className="flex gap-5">
-            <a href="#" className="hover:text-white">Terms</a>
-            <a href="#" className="hover:text-white">Privacy</a>
-            <a href="#" className="hover:text-white">Contact</a>
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 md:flex-row md:items-center">
+          <div>
+            <p className="font-bold text-white" style={display}>NowCharged</p>
+            <p className="mt-1 text-sm text-slate-400">EV Charging Valet · Toronto & Greater Toronto Area</p>
+            <p className="mt-1 text-sm text-slate-500">© 2026 NowCharged. All rights reserved.</p>
+          </div>
+          <div className="flex gap-6 text-sm text-slate-400">
+            {[["#how","How it works"],["#services","Services"],["#callback","Callback"],["#faq","FAQ"]].map(([h,l])=>(
+              <a key={h} href={h} className="hover:text-white transition-colors">{l}</a>
+            ))}
           </div>
         </div>
       </footer>
