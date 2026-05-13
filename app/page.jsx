@@ -276,7 +276,13 @@ export default function NowChargedLandingPage() {
               <Icon name="pin" className="h-3.5 w-3.5" /> Serving Toronto & the Greater Toronto Area
             </div>
 
-            <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[1.04] tracking-tight md:text-7xl" style={display}>
+            <img
+              src="/toronto-pulse.png"
+              alt="Toronto skyline pulse line"
+              className="mt-8 h-14 md:h-20 w-auto opacity-70 select-none pointer-events-none"
+            />
+
+            <h1 className="mt-3 max-w-4xl text-5xl font-black leading-[1.04] tracking-tight md:text-7xl" style={display}>
               Your EV, picked up,<br />charged, and returned.
             </h1>
 
@@ -318,14 +324,25 @@ export default function NowChargedLandingPage() {
         {/* ── Who it's for ── */}
         <section className="bg-white px-6 py-20 text-slate-950">
           <div className="mx-auto max-w-7xl">
-            <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Who it's for</p>
-            <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
-              If you drive an EV, it's for you.
-            </h2>
-            <p className="mt-3 max-w-xl text-slate-500 text-sm leading-6">
-              Whether you're skipping the slow home charge, living in a condo with no outlet, or running a fleet — we make charging the easiest part of your day.
-            </p>
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+              <div>
+                <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Who it's for</p>
+                <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
+                  If you drive an EV, it's for you.
+                </h2>
+                <p className="mt-3 max-w-xl text-slate-500 text-sm leading-6">
+                  Whether you're skipping the slow home charge, living in a condo with no outlet, or running a fleet — we make charging the easiest part of your day.
+                </p>
+              </div>
+              <div className="flex justify-center lg:justify-end">
+                <img
+                  src="/ev-charging.png"
+                  alt="EV charging at a NowCharged station"
+                  className="w-full max-w-md h-auto"
+                />
+              </div>
+            </div>
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
               {audiences.map(a => (
                 <div key={a.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-8">
                   <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-950 text-emerald-400">
