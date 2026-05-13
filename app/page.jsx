@@ -54,7 +54,7 @@ export default function NowChargedLandingPage() {
   const services = [
     {
       name: "Scheduled Charge",
-      price: "From $89",
+      price: "From $50",
       tag: null,
       detail: "Pick a time, we handle the rest. Best when you can plan a day ahead.",
       features: [
@@ -67,7 +67,7 @@ export default function NowChargedLandingPage() {
     },
     {
       name: "Same-Day / Priority",
-      price: "From $129",
+      price: "From $75",
       tag: "Most requested",
       detail: "Need it today? We'll do our best to make it happen.",
       features: [
@@ -129,20 +129,31 @@ export default function NowChargedLandingPage() {
 
   const audiences = [
     {
+      icon: "car",
+      title: "Daily EV drivers",
+      sub: "Skip the slow home charge. Spend the time doing literally anything else.",
+      points: [
+        "We pick up from wherever you park",
+        "Drive to a DC fast charger nearby",
+        "Return it ready for the next day",
+        "Faster than charging overnight",
+      ],
+    },
+    {
       icon: "building",
       title: "Condo & apartment residents",
-      sub: "Most Toronto condos weren't built for EV owners. We were.",
+      sub: "No outlet in your building? Doesn't matter — we've got it.",
       points: [
-        "We pick up from your parking spot",
-        "Drive to a nearby DC fast charger",
-        "Return it before you need it",
         "No equipment installation required",
+        "Works for any parking setup",
+        "Lockbox or concierge key handoff",
+        "Built around buildings without EV infrastructure",
       ],
     },
     {
       icon: "car",
       title: "Businesses & fleets",
-      sub: "Your vehicles stay charged. You stay focused.",
+      sub: "Your vehicles stay charged. You stay focused on what matters.",
       points: [
         "Multi-vehicle coordination",
         "Workplace or lot pickup",
@@ -226,7 +237,7 @@ export default function NowChargedLandingPage() {
           </button>
 
           <nav className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
-            {[["how", "How it works"], ["services", "Services"], ["faq", "FAQ"], ["careers", "Careers"]].map(([id, l]) => (
+            {[["how", "How it works"], ["services", "Services"], ["faq", "FAQ"], ["book", "Book"], ["careers", "Careers"]].map(([id, l]) => (
               <button key={id} onClick={() => scrollTo(id)} className="hover:text-white transition-colors">{l}</button>
             ))}
           </nav>
@@ -244,7 +255,7 @@ export default function NowChargedLandingPage() {
         {menuOpen && (
           <div className="border-t border-white/10 bg-slate-950 px-6 py-5 md:hidden">
             <nav className="flex flex-col gap-4 text-sm">
-              {[["how", "How it works"], ["services", "Services"], ["faq", "FAQ"], ["careers", "Careers"]].map(([id, l]) => (
+              {[["how", "How it works"], ["services", "Services"], ["faq", "FAQ"], ["book", "Book"], ["careers", "Careers"]].map(([id, l]) => (
                 <button key={id} onClick={() => { scrollTo(id); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">{l}</button>
               ))}
               <button onClick={() => { scrollTo("callback"); setMenuOpen(false); }} className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950">
@@ -270,17 +281,29 @@ export default function NowChargedLandingPage() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
-              NowCharged is a charging valet for EV drivers who can't charge at home. We drive your car to a nearby DC fast charger and bring it back — no home outlet needed.
+              NowCharged is a charging valet for EV drivers in Toronto and the GTA. We pick up your car, drive it to a DC fast charger, and bring it back ready — no waiting, no home setup needed.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
               <button onClick={() => scrollTo("callback")} className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-7 py-3.5 text-base font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
                 Get Started <Icon name="arrow" className="h-5 w-5" />
               </button>
+              <a
+                href="https://calendar.app.google/oQTVVQLVHtXfe68f7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-300/10 px-7 py-3.5 text-base font-bold text-emerald-200 hover:bg-emerald-300/20 transition-colors"
+              >
+                Book a Time <Icon name="arrow" className="h-5 w-5" />
+              </a>
               <button onClick={() => scrollTo("how")} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-base text-white hover:bg-white/10 transition-colors">
                 See how it works
               </button>
             </div>
+
+            <p className="mt-5 text-sm text-slate-400">
+              New here? Start with <button onClick={() => scrollTo("callback")} className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">Get Started</button>. Looking to book again? <a href="https://calendar.app.google/oQTVVQLVHtXfe68f7" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">Pick a time</a>.
+            </p>
 
             <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3">
               {["We drive your car to the charger", "No home outlet required", "Scheduled, not emergency"].map(item => (
@@ -297,9 +320,12 @@ export default function NowChargedLandingPage() {
           <div className="mx-auto max-w-7xl">
             <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Who it's for</p>
             <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
-              No outlet. No problem.
+              If you drive an EV, it's for you.
             </h2>
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <p className="mt-3 max-w-xl text-slate-500 text-sm leading-6">
+              Whether you're skipping the slow home charge, living in a condo with no outlet, or running a fleet — we make charging the easiest part of your day.
+            </p>
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
               {audiences.map(a => (
                 <div key={a.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-8">
                   <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-950 text-emerald-400">
@@ -532,6 +558,36 @@ export default function NowChargedLandingPage() {
                 Get Started <Icon name="arrow" className="h-5 w-5" />
               </button>
             </form>
+          </div>
+        </section>
+
+        {/* ── Returning Customer Booking ── */}
+        <section id="book" className="px-6 py-20">
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/[0.04] p-10 md:p-14">
+            <div className="grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-center">
+              <div>
+                <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Booking again?</p>
+                <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
+                  Pick a time. We'll handle the rest.
+                </h2>
+                <p className="mt-4 text-slate-300 leading-7">
+                  Skip the back-and-forth. Choose a slot that works for you and we'll be there.
+                </p>
+                <p className="mt-3 text-sm text-slate-400">
+                  First time? <button onClick={() => scrollTo("callback")} className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">Start with a callback</button> so we can confirm coverage in your area.
+                </p>
+              </div>
+              <div className="flex justify-start md:justify-end">
+                <a
+                  href="https://calendar.app.google/oQTVVQLVHtXfe68f7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-8 py-4 text-base font-bold text-slate-950 hover:bg-emerald-300 transition-colors"
+                >
+                  Book a time <Icon name="arrow" className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
