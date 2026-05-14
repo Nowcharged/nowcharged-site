@@ -98,6 +98,112 @@ function PlugVisual({ type }) {
 export default function ChargersPage() {
   const [activeCharger, setActiveCharger] = useState(0);
   const [activeConnector, setActiveConnector] = useState(0);
+  const [vehicleQuery, setVehicleQuery] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+
+  const vehicles = [
+    // Tesla
+    { make: "Tesla", model: "Model Y (Standard)", year: "2025", battery: "60 kWh", range: "500 km", connector: "NACS", peakDC: "175 kW", dcTime: "25 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Tesla", model: "Model Y (Long Range)", year: "2025", battery: "75 kWh", range: "586 km", connector: "NACS", peakDC: "250 kW", dcTime: "20 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "Tesla", model: "Model Y (Performance)", year: "2025", battery: "82 kWh", range: "514 km", connector: "NACS", peakDC: "250 kW", dcTime: "20 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "Tesla", model: "Model 3 (RWD)", year: "2025", battery: "60 kWh", range: "438 km", connector: "NACS", peakDC: "170 kW", dcTime: "25 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Tesla", model: "Model 3 (Long Range)", year: "2025", battery: "75 kWh", range: "584 km", connector: "NACS", peakDC: "250 kW", dcTime: "20 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "Tesla", model: "Model X", year: "2025", battery: "100 kWh", range: "560 km", connector: "NACS", peakDC: "250 kW", dcTime: "25 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Tesla", model: "Model S", year: "2025", battery: "100 kWh", range: "650 km", connector: "NACS", peakDC: "250 kW", dcTime: "25 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Tesla", model: "Cybertruck", year: "2025", battery: "123 kWh", range: "547 km", connector: "NACS", peakDC: "250 kW", dcTime: "35 min (10-80%)", level2Time: "11 hr (full)" },
+
+    // Hyundai
+    { make: "Hyundai", model: "Ioniq 5 (Standard)", year: "2025-2026", battery: "63 kWh", range: "390 km", connector: "NACS (2025+) / CCS1", peakDC: "175 kW", dcTime: "20-25 min (10-80%)", level2Time: "5.5 hr (full)" },
+    { make: "Hyundai", model: "Ioniq 5 (Long Range)", year: "2025-2026", battery: "84 kWh", range: "488 km", connector: "NACS (2025+) / CCS1", peakDC: "235 kW", dcTime: "20-30 min (10-80%)", level2Time: "7.5 hr (full)" },
+    { make: "Hyundai", model: "Ioniq 5 N", year: "2025", battery: "84 kWh", range: "356 km", connector: "CCS1", peakDC: "235 kW", dcTime: "18 min (10-80%)", level2Time: "7.5 hr (full)" },
+    { make: "Hyundai", model: "Ioniq 6", year: "2025", battery: "77 kWh", range: "581 km", connector: "CCS1", peakDC: "235 kW", dcTime: "18 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Hyundai", model: "Ioniq 9", year: "2026", battery: "110 kWh", range: "539 km", connector: "NACS / CCS1", peakDC: "235 kW", dcTime: "24 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Hyundai", model: "Kona Electric", year: "2025-2026", battery: "64 kWh", range: "418 km", connector: "CCS1", peakDC: "100 kW", dcTime: "43 min (10-80%)", level2Time: "6.5 hr (full)" },
+
+    // Kia
+    { make: "Kia", model: "EV6", year: "2025", battery: "77 kWh", range: "499 km", connector: "CCS1", peakDC: "235 kW", dcTime: "18 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Kia", model: "EV6 GT", year: "2025", battery: "77 kWh", range: "424 km", connector: "CCS1", peakDC: "235 kW", dcTime: "18 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Kia", model: "EV9", year: "2025-2026", battery: "99 kWh", range: "488 km", connector: "CCS1", peakDC: "210 kW", dcTime: "24 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Kia", model: "Niro EV", year: "2025-2026", battery: "64 kWh", range: "407 km", connector: "CCS1", peakDC: "85 kW", dcTime: "43 min (10-80%)", level2Time: "6.5 hr (full)" },
+    { make: "Kia", model: "EV4", year: "2026", battery: "81 kWh", range: "510 km", connector: "CCS1", peakDC: "150 kW", dcTime: "30 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "Kia", model: "EV5", year: "2026-2027", battery: "88 kWh", range: "530 km", connector: "CCS1", peakDC: "150 kW", dcTime: "30 min (10-80%)", level2Time: "8.5 hr (full)" },
+
+    // Ford
+    { make: "Ford", model: "Mustang Mach-E (Standard)", year: "2025-2026", battery: "73 kWh", range: "402 km", connector: "CCS1 / NACS adapter", peakDC: "150 kW", dcTime: "36-38 min (10-80%)", level2Time: "11 hr (full)" },
+    { make: "Ford", model: "Mustang Mach-E (Extended)", year: "2025-2026", battery: "91 kWh", range: "515 km", connector: "CCS1 / NACS adapter", peakDC: "150 kW", dcTime: "43-45 min (10-80%)", level2Time: "14 hr (full)" },
+    { make: "Ford", model: "Mustang Mach-E GT", year: "2025-2026", battery: "91 kWh", range: "435 km", connector: "CCS1 / NACS adapter", peakDC: "150 kW", dcTime: "43 min (10-80%)", level2Time: "14 hr (full)" },
+    { make: "Ford", model: "F-150 Lightning (Standard)", year: "2025", battery: "98 kWh", range: "386 km", connector: "CCS1 / NACS adapter", peakDC: "150 kW", dcTime: "41 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Ford", model: "F-150 Lightning (Extended)", year: "2025", battery: "131 kWh", range: "515 km", connector: "CCS1 / NACS adapter", peakDC: "150 kW", dcTime: "41 min (10-80%)", level2Time: "13 hr (full)" },
+
+    // Chevrolet
+    { make: "Chevrolet", model: "Equinox EV", year: "2025-2026", battery: "85 kWh", range: "513 km", connector: "CCS1 / NACS adapter", peakDC: "150 kW", dcTime: "35 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Chevrolet", model: "Blazer EV", year: "2025", battery: "85 kWh", range: "534 km", connector: "CCS1 / NACS adapter", peakDC: "190 kW", dcTime: "30 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Chevrolet", model: "Silverado EV (Work Truck)", year: "2025", battery: "200 kWh", range: "725 km", connector: "CCS1 / NACS adapter", peakDC: "350 kW", dcTime: "40 min (10-80%)", level2Time: "20 hr (full)" },
+    { make: "Chevrolet", model: "Bolt", year: "2027", battery: "65 kWh", range: "410 km", connector: "NACS", peakDC: "150 kW", dcTime: "30 min (10-80%)", level2Time: "7 hr (full)" },
+
+    // Cadillac (GM)
+    { make: "Cadillac", model: "Lyriq", year: "2025-2026", battery: "102 kWh", range: "525 km", connector: "CCS1 / NACS adapter", peakDC: "190 kW", dcTime: "37 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Cadillac", model: "Escalade IQ", year: "2025-2026", battery: "200 kWh", range: "740 km", connector: "CCS1 / NACS adapter", peakDC: "350 kW", dcTime: "40 min (10-80%)", level2Time: "20 hr (full)" },
+    { make: "Cadillac", model: "Optiq", year: "2026", battery: "85 kWh", range: "483 km", connector: "CCS1 / NACS adapter", peakDC: "150 kW", dcTime: "35 min (10-80%)", level2Time: "10 hr (full)" },
+
+    // GMC
+    { make: "GMC", model: "Sierra EV", year: "2026", battery: "200 kWh", range: "725 km", connector: "CCS1 / NACS adapter", peakDC: "350 kW", dcTime: "40 min (10-80%)", level2Time: "20 hr (full)" },
+    { make: "GMC", model: "Hummer EV Pickup", year: "2026", battery: "212 kWh", range: "529 km", connector: "CCS1 / NACS adapter", peakDC: "350 kW", dcTime: "40 min (10-80%)", level2Time: "21 hr (full)" },
+
+    // Volkswagen
+    { make: "Volkswagen", model: "ID.4", year: "2025", battery: "82 kWh", range: "467 km", connector: "CCS1", peakDC: "175 kW", dcTime: "36 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "Volkswagen", model: "ID. Buzz", year: "2025", battery: "91 kWh", range: "377 km", connector: "CCS1", peakDC: "200 kW", dcTime: "30 min (10-80%)", level2Time: "9 hr (full)" },
+
+    // Audi
+    { make: "Audi", model: "Q4 e-tron", year: "2025-2026", battery: "82 kWh", range: "418 km", connector: "CCS1", peakDC: "175 kW", dcTime: "28 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "Audi", model: "Q6 e-tron", year: "2026", battery: "94 kWh", range: "488 km", connector: "CCS1", peakDC: "260 kW", dcTime: "21 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Audi", model: "Q8 e-tron", year: "2025", battery: "114 kWh", range: "459 km", connector: "CCS1", peakDC: "170 kW", dcTime: "31 min (10-80%)", level2Time: "11 hr (full)" },
+    { make: "Audi", model: "e-tron GT", year: "2025-2026", battery: "97 kWh", range: "459 km", connector: "CCS1", peakDC: "320 kW", dcTime: "18 min (10-80%)", level2Time: "10 hr (full)" },
+
+    // BMW
+    { make: "BMW", model: "i4 eDrive40", year: "2025", battery: "84 kWh", range: "509 km", connector: "CCS1", peakDC: "205 kW", dcTime: "30 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "BMW", model: "iX xDrive50", year: "2025-2026", battery: "112 kWh", range: "521 km", connector: "CCS1", peakDC: "200 kW", dcTime: "35 min (10-80%)", level2Time: "11 hr (full)" },
+    { make: "BMW", model: "i5 eDrive40", year: "2025-2026", battery: "84 kWh", range: "475 km", connector: "CCS1", peakDC: "205 kW", dcTime: "30 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "BMW", model: "i7", year: "2025-2026", battery: "106 kWh", range: "525 km", connector: "CCS1", peakDC: "195 kW", dcTime: "34 min (10-80%)", level2Time: "10 hr (full)" },
+
+    // Mercedes-Benz
+    { make: "Mercedes-Benz", model: "EQE Sedan", year: "2025", battery: "90 kWh", range: "488 km", connector: "CCS1", peakDC: "173 kW", dcTime: "32 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Mercedes-Benz", model: "EQE SUV", year: "2025", battery: "90 kWh", range: "418 km", connector: "CCS1", peakDC: "170 kW", dcTime: "32 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Mercedes-Benz", model: "EQS Sedan", year: "2025", battery: "108 kWh", range: "560 km", connector: "CCS1", peakDC: "200 kW", dcTime: "31 min (10-80%)", level2Time: "11 hr (full)" },
+    { make: "Mercedes-Benz", model: "EQB", year: "2025", battery: "70 kWh", range: "402 km", connector: "CCS1", peakDC: "100 kW", dcTime: "32 min (10-80%)", level2Time: "7 hr (full)" },
+
+    // Rivian
+    { make: "Rivian", model: "R1T (Standard)", year: "2025", battery: "92.5 kWh", range: "415 km", connector: "CCS1 / NACS adapter", peakDC: "218 kW", dcTime: "27 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Rivian", model: "R1T (Large)", year: "2025", battery: "109 kWh", range: "529 km", connector: "CCS1 / NACS adapter", peakDC: "220 kW", dcTime: "35 min (10-80%)", level2Time: "11 hr (full)" },
+    { make: "Rivian", model: "R1T (Max)", year: "2025", battery: "141.5 kWh", range: "676 km", connector: "CCS1 / NACS adapter", peakDC: "220 kW", dcTime: "38 min (10-80%)", level2Time: "14 hr (full)" },
+    { make: "Rivian", model: "R1S", year: "2025", battery: "109 kWh", range: "513 km", connector: "CCS1 / NACS adapter", peakDC: "220 kW", dcTime: "35 min (10-80%)", level2Time: "11 hr (full)" },
+
+    // Lucid
+    { make: "Lucid", model: "Air Pure", year: "2025-2026", battery: "88 kWh", range: "660 km", connector: "CCS1", peakDC: "300 kW", dcTime: "22 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Lucid", model: "Air Touring", year: "2025-2026", battery: "92 kWh", range: "684 km", connector: "CCS1", peakDC: "300 kW", dcTime: "22 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Lucid", model: "Gravity", year: "2025-2026", battery: "120 kWh", range: "725 km", connector: "NACS", peakDC: "400 kW", dcTime: "20 min (10-80%)", level2Time: "12 hr (full)" },
+
+    // Polestar
+    { make: "Polestar", model: "2", year: "2025", battery: "82 kWh", range: "454 km", connector: "CCS1", peakDC: "205 kW", dcTime: "28 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "Polestar", model: "3", year: "2025-2026", battery: "111 kWh", range: "443 km", connector: "CCS1", peakDC: "250 kW", dcTime: "30 min (10-80%)", level2Time: "11 hr (full)" },
+
+    // Other popular EVs
+    { make: "Honda", model: "Prologue", year: "2025", battery: "85 kWh", range: "481 km", connector: "CCS1", peakDC: "150 kW", dcTime: "35 min (10-80%)", level2Time: "10 hr (full)" },
+    { make: "Nissan", model: "Ariya", year: "2025", battery: "87 kWh", range: "490 km", connector: "CCS1", peakDC: "130 kW", dcTime: "35 min (10-80%)", level2Time: "10.5 hr (full)" },
+    { make: "Nissan", model: "Leaf", year: "2025", battery: "60 kWh", range: "342 km", connector: "CHAdeMO", peakDC: "100 kW", dcTime: "45 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Toyota", model: "bZ4X", year: "2025", battery: "71 kWh", range: "406 km", connector: "CCS1", peakDC: "150 kW", dcTime: "30 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Subaru", model: "Solterra", year: "2025", battery: "71 kWh", range: "365 km", connector: "CCS1", peakDC: "150 kW", dcTime: "30 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Mazda", model: "CX-90 PHEV / EV", year: "2025", battery: "68 kWh", range: "330 km", connector: "CCS1", peakDC: "125 kW", dcTime: "30 min (10-80%)", level2Time: "8 hr (full)" },
+    { make: "Genesis", model: "GV60", year: "2025-2026", battery: "77 kWh", range: "397 km", connector: "CCS1", peakDC: "235 kW", dcTime: "18 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Genesis", model: "Electrified GV70", year: "2025-2026", battery: "77 kWh", range: "377 km", connector: "CCS1", peakDC: "235 kW", dcTime: "18 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Jaguar", model: "I-Pace", year: "2024", battery: "90 kWh", range: "470 km", connector: "CCS1", peakDC: "100 kW", dcTime: "44 min (10-80%)", level2Time: "9 hr (full)" },
+    { make: "Volvo", model: "EX30", year: "2025", battery: "69 kWh", range: "442 km", connector: "CCS1", peakDC: "153 kW", dcTime: "28 min (10-80%)", level2Time: "7 hr (full)" },
+    { make: "Volvo", model: "EX90", year: "2025-2026", battery: "111 kWh", range: "499 km", connector: "CCS1", peakDC: "250 kW", dcTime: "30 min (10-80%)", level2Time: "11 hr (full)" },
+  ];
+
+  const filteredVehicles = vehicleQuery
+    ? vehicles.filter(v => `${v.make} ${v.model}`.toLowerCase().includes(vehicleQuery.toLowerCase()))
+    : [];
 
   const chargers = [
     {
@@ -363,6 +469,125 @@ export default function ChargersPage() {
             <p className="mt-6 text-center text-sm text-slate-400">
               NowCharged uses <span className="text-emerald-300 font-semibold">DC Fast Charging</span> to get your car back to you quickly.
             </p>
+          </div>
+        </section>
+
+        {/* Vehicle Lookup */}
+        <section className="px-6 py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-10">
+              <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Find your EV</p>
+              <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
+                Your car, your charger.
+              </h2>
+              <p className="mt-3 max-w-xl text-slate-400 text-sm leading-7">
+                Type your EV's make or model below to see what charger it uses and what to expect from a charging session.
+              </p>
+            </div>
+
+            <div className="relative mb-6">
+              <input
+                type="text"
+                value={vehicleQuery}
+                onChange={(e) => { setVehicleQuery(e.target.value); setSelectedVehicle(null); }}
+                placeholder="Try 'Tesla Model Y' or 'Ioniq 5'..."
+                className="w-full rounded-2xl border border-white/10 bg-slate-900 px-6 py-4 text-base text-white outline-none focus:border-emerald-400 transition-colors placeholder:text-slate-500"
+              />
+            </div>
+
+            {vehicleQuery && !selectedVehicle && (
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] max-h-80 overflow-y-auto">
+                {filteredVehicles.length === 0 ? (
+                  <div className="p-6 text-center">
+                    <p className="text-sm text-slate-400 mb-3">No match found for "{vehicleQuery}"</p>
+                    <a
+                      href={`mailto:info@nowcharged.com?subject=Vehicle Suggestion for NowCharged&body=Hi NowCharged team,%0D%0A%0D%0AI couldn't find my EV on your Chargers 101 page. Could you add it?%0D%0A%0D%0AVehicle: ${vehicleQuery}%0D%0AYear: %0D%0ATrim: %0D%0A%0D%0AThanks!`}
+                      className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950 hover:bg-emerald-300 transition-colors"
+                    >
+                      Suggest this vehicle <Icon name="arrow" className="h-4 w-4" />
+                    </a>
+                  </div>
+                ) : (
+                  filteredVehicles.map((v, i) => (
+                    <button
+                      key={i}
+                      onClick={() => { setSelectedVehicle(v); setVehicleQuery(`${v.make} ${v.model}`); }}
+                      className="w-full text-left px-6 py-4 border-b border-white/5 last:border-0 hover:bg-white/[0.04] transition-colors"
+                    >
+                      <p className="font-bold text-white">{v.make} {v.model}</p>
+                      <p className="text-xs text-slate-400 mt-1">{v.year} · {v.range} range · {v.connector}</p>
+                    </button>
+                  ))
+                )}
+              </div>
+            )}
+
+            {selectedVehicle && (
+              <div className="rounded-3xl border-2 border-emerald-400/40 bg-emerald-400/5 p-8 md:p-10">
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <p className="text-sm text-emerald-300 uppercase tracking-wider">{selectedVehicle.year}</p>
+                    <h3 className="mt-1 text-3xl font-black" style={display}>{selectedVehicle.make} {selectedVehicle.model}</h3>
+                  </div>
+                  <button
+                    onClick={() => { setSelectedVehicle(null); setVehicleQuery(""); }}
+                    className="text-sm text-slate-400 hover:text-white transition-colors"
+                  >
+                    Reset
+                  </button>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="rounded-2xl bg-slate-950 p-5">
+                    <p className="text-xs uppercase tracking-wider text-emerald-300">Connector type</p>
+                    <p className="mt-2 text-lg font-bold text-white">{selectedVehicle.connector}</p>
+                  </div>
+                  <div className="rounded-2xl bg-slate-950 p-5">
+                    <p className="text-xs uppercase tracking-wider text-emerald-300">Battery capacity</p>
+                    <p className="mt-2 text-lg font-bold text-white">{selectedVehicle.battery}</p>
+                  </div>
+                  <div className="rounded-2xl bg-slate-950 p-5">
+                    <p className="text-xs uppercase tracking-wider text-emerald-300">Official range</p>
+                    <p className="mt-2 text-lg font-bold text-white">{selectedVehicle.range}</p>
+                  </div>
+                  <div className="rounded-2xl bg-slate-950 p-5">
+                    <p className="text-xs uppercase tracking-wider text-emerald-300">Peak DC fast charging</p>
+                    <p className="mt-2 text-lg font-bold text-white">{selectedVehicle.peakDC}</p>
+                  </div>
+                  <div className="rounded-2xl bg-emerald-950/40 border border-emerald-400/30 p-5">
+                    <p className="text-xs uppercase tracking-wider text-emerald-300">DC fast charge time</p>
+                    <p className="mt-2 text-lg font-bold text-white">{selectedVehicle.dcTime}</p>
+                  </div>
+                  <div className="rounded-2xl bg-slate-950 p-5">
+                    <p className="text-xs uppercase tracking-wider text-emerald-300">Level 2 home charging</p>
+                    <p className="mt-2 text-lg font-bold text-white">{selectedVehicle.level2Time}</p>
+                  </div>
+                </div>
+
+                <p className="mt-6 text-xs text-slate-400 leading-6">
+                  Numbers are manufacturer estimates and can vary based on weather, charger speed, battery state, and driving conditions. Range is based on official WLTP or NRCan ratings.
+                </p>
+              </div>
+            )}
+
+            {/* Always-visible suggestion section */}
+            <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-center">
+              <p className="text-sm text-slate-300 mb-3">
+                Can't find your vehicle? We're always adding more.
+              </p>
+              <a
+                href="mailto:info@nowcharged.com?subject=Vehicle Suggestion for NowCharged&body=Hi NowCharged team,%0D%0A%0D%0AI'd like to suggest adding the following EV to your Chargers 101 page:%0D%0A%0D%0AMake: %0D%0AModel: %0D%0AYear: %0D%0ATrim (if known): %0D%0A%0D%0AThanks!"
+                className="inline-flex items-center gap-2 text-sm font-bold text-emerald-300 hover:text-emerald-200 underline underline-offset-4"
+              >
+                Leave us a suggestion <Icon name="arrow" className="h-4 w-4" />
+              </a>
+            </div>
+
+            {!vehicleQuery && (
+              <p className="text-center text-xs text-slate-500 mt-4">
+                Showing data for {vehicles.length} popular EVs in Canada.
+              </p>
+            )}
           </div>
         </section>
 
