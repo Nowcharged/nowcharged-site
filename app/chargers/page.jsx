@@ -375,7 +375,7 @@ export default function ChargersPage() {
           <div className="relative mx-auto max-w-5xl">
             <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Chargers 101</p>
             <h1 className="mt-4 text-5xl font-black leading-[1.04] tracking-tight md:text-7xl" style={display}>
-              Everything about EV chargers, without the jargon.
+              Everything about EV chargers.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
               EV charging can feel like a foreign language at first. We'll break it all down so you actually understand what's happening when you plug in.
