@@ -121,14 +121,15 @@ export default function ToolsPage() {
     "L5N": { lat: 43.5824, lng: -79.7570, name: "Mississauga / Meadowvale Village" },
     "L5R": { lat: 43.6066, lng: -79.6588, name: "Mississauga / Hurontario" },
     "L4T": { lat: 43.7197, lng: -79.6512, name: "Mississauga / Malton" },
-    "L6Y": { lat: 43.6822, lng: -79.7591, name: "Brampton / South" },
-    "L6Z": { lat: 43.7140, lng: -79.7993, name: "Brampton / Heart Lake" },
-    "L6S": { lat: 43.7398, lng: -79.7290, name: "Brampton / Bramalea" },
+    "L6Y": { lat: 43.6822, lng: -79.7591, name: "Brampton / South / Steeles" },
+    "L6Z": { lat: 43.7140, lng: -79.7993, name: "Brampton / Heart Lake / Sandalwood" },
+    "L6S": { lat: 43.7398, lng: -79.7290, name: "Brampton / Bramalea / Sandalwood East" },
     "L6T": { lat: 43.7280, lng: -79.7038, name: "Brampton / Bramalea South" },
-    "L6P": { lat: 43.7497, lng: -79.7641, name: "Brampton / Castlemore" },
-    "L6V": { lat: 43.7042, lng: -79.7600, name: "Brampton / Downtown" },
+    "L6P": { lat: 43.7497, lng: -79.7641, name: "Brampton / Castlemore / Springdale" },
+    "L6V": { lat: 43.7042, lng: -79.7600, name: "Brampton / Downtown / Queen Street" },
     "L6W": { lat: 43.6917, lng: -79.7325, name: "Brampton / Peel Village" },
-    "L6X": { lat: 43.6929, lng: -79.7848, name: "Brampton / Fletcher's Meadow" },
+    "L6X": { lat: 43.6929, lng: -79.7848, name: "Brampton / Fletcher's Meadow / Mount Pleasant" },
+    "L7A": { lat: 43.7022, lng: -79.8275, name: "Brampton / Credit Valley / Mount Pleasant" },
     "L4L": { lat: 43.7820, lng: -79.6212, name: "Vaughan / Woodbridge" },
     "L4J": { lat: 43.8013, lng: -79.4501, name: "Vaughan / Thornhill" },
     "L4K": { lat: 43.8074, lng: -79.4970, name: "Vaughan / Concord" },
@@ -176,18 +177,46 @@ export default function ToolsPage() {
     e?.preventDefault();
     setPostalError("");
     setShowCount(24);
-    const clean = userPostal.toUpperCase().replace(/\s/g, "").substring(0, 3);
-    if (clean.length !== 3) {
-      setPostalError("Enter at least the first 3 characters of your postal code (e.g. M5V)");
+    const input = userPostal.trim();
+    if (!input) {
+      setPostalError("Enter a postal code or area name");
       return;
     }
-    const coords = postalCoords[clean];
-    if (!coords) {
-      setPostalError(`We don't have data for ${clean} yet. Try the FSA from your area or contact us.`);
+
+    // First try: postal code match (first 3 chars)
+    const cleanPostal = input.toUpperCase().replace(/\s/g, "").substring(0, 3);
+    if (postalCoords[cleanPostal]) {
+      setUserCoords({ ...postalCoords[cleanPostal], code: cleanPostal });
+      return;
+    }
+
+    // Second try: neighborhood/area name match
+    const lowerInput = input.toLowerCase();
+    const matches = Object.entries(postalCoords)
+      .filter(([code, data]) => data.name.toLowerCase().includes(lowerInput))
+      .map(([code, data]) => ({ code, ...data }));
+
+    if (matches.length === 0) {
+      setPostalError(`Couldn't find "${input}". Try a postal code (like M5V) or a major area (like Mississauga, Brampton, Vaughan, Scarborough).`);
       setUserCoords(null);
       return;
     }
-    setUserCoords({ ...coords, code: clean });
+
+    // Use the average coordinates of all matches as the search center
+    // This way "Mississauga" centers on the middle of all Mississauga FSAs
+    const avgLat = matches.reduce((sum, m) => sum + m.lat, 0) / matches.length;
+    const avgLng = matches.reduce((sum, m) => sum + m.lng, 0) / matches.length;
+    // Pick the most general name (e.g. just "Mississauga" if multiple matches share that prefix)
+    const displayName = matches.length === 1
+      ? matches[0].name
+      : `${input.charAt(0).toUpperCase() + input.slice(1).toLowerCase()} area`;
+
+    setUserCoords({
+      lat: avgLat,
+      lng: avgLng,
+      name: displayName,
+      code: matches.length === 1 ? matches[0].code : `${matches.length} areas`,
+    });
   };
 
   const clearPostal = () => {
@@ -589,7 +618,7 @@ export default function ToolsPage() {
                 DC fast chargers we use.
               </h2>
               <p className="mt-3 max-w-2xl text-slate-400 text-sm leading-7">
-                Enter your postal code to see DC fast chargers within 25km of your location.
+                Enter your postal code or area name (Mississauga, Brampton, Scarborough, etc.) to see DC fast chargers within 25km.
               </p>
             </div>
 
@@ -601,9 +630,9 @@ export default function ToolsPage() {
                     type="text"
                     value={userPostal}
                     onChange={(e) => setUserPostal(e.target.value)}
-                    placeholder="Your postal code (e.g. M5V or M5V 3A8)"
+                    placeholder="Postal code or area (e.g. M5V, Mississauga, Brampton)"
                     className="w-full rounded-2xl border border-white/10 bg-slate-900 px-5 py-3.5 text-sm text-white outline-none focus:border-emerald-400 transition-colors placeholder:text-slate-500"
-                    maxLength={7}
+                    maxLength={40}
                   />
                   {postalError && (
                     <p className="mt-2 text-xs text-rose-300">{postalError}</p>
