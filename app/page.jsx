@@ -154,6 +154,7 @@ export default function NowChargedLandingPage() {
       <button onClick={() => scrollTo("how")} className="hover:text-white transition-colors">How it works</button>
       <a href="/pricing" className="hover:text-white transition-colors">Pricing</a>
       <a href="/tools" className="hover:text-white transition-colors">Find your EV</a>
+      <a href="/chargers" className="hover:text-white transition-colors">Chargers 101</a>
       <a href="/trust" className="hover:text-white transition-colors">Trust</a>
       <a href="/faq" className="hover:text-white transition-colors">FAQ</a>
      </nav>
