@@ -50,6 +50,7 @@ export default function ToolsPage() {
   const [userPostal, setUserPostal] = useState("");
   const [userCoords, setUserCoords] = useState(null);
   const [postalError, setPostalError] = useState("");
+  const [showCount, setShowCount] = useState(24);
 
   // Postal code prefix → approximate lat/lng for Toronto/GTA
   // First 3 chars of a Canadian postal code identify a Forward Sortation Area
@@ -174,6 +175,7 @@ export default function ToolsPage() {
   const handlePostalSubmit = (e) => {
     e?.preventDefault();
     setPostalError("");
+    setShowCount(24);
     const clean = userPostal.toUpperCase().replace(/\s/g, "").substring(0, 3);
     if (clean.length !== 3) {
       setPostalError("Enter at least the first 3 characters of your postal code (e.g. M5V)");
@@ -192,6 +194,7 @@ export default function ToolsPage() {
     setUserPostal("");
     setUserCoords(null);
     setPostalError("");
+    setShowCount(24);
   };
 
   // Haversine distance in km
@@ -334,7 +337,7 @@ export default function ToolsPage() {
   useEffect(() => {
     const fetchChargers = async () => {
       try {
-        const url = "https://api.openchargemap.io/v3/poi?output=json&countrycode=CA&latitude=43.7&longitude=-79.4&distance=40&distanceunit=KM&maxresults=200&levelid=3&compact=false&verbose=true";
+        const url = "https://api.openchargemap.io/v3/poi?output=json&countrycode=CA&latitude=43.75&longitude=-79.55&distance=60&distanceunit=KM&maxresults=500&levelid=3&compact=false&verbose=true";
         const res = await fetch(url, {
           headers: {
             "X-API-Key": "87779217-322b-48f2-85c8-ea1c8d592286"
@@ -647,7 +650,7 @@ export default function ToolsPage() {
                     ) : (
                       <>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                          {displayChargers.slice(0, 24).map(c => {
+                          {displayChargers.slice(0, showCount).map(c => {
                             const town = c.AddressInfo?.Town;
                             const postal = c.AddressInfo?.Postcode;
                             const address = c.AddressInfo?.AddressLine1;
@@ -671,11 +674,23 @@ export default function ToolsPage() {
                             );
                           })}
                         </div>
+
+                        {showCount < displayChargers.length && (
+                          <div className="mt-6 text-center">
+                            <button
+                              onClick={() => setShowCount(showCount + 24)}
+                              className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-6 py-3 text-sm font-bold text-emerald-300 hover:bg-emerald-400/20 transition-colors"
+                            >
+                              Show 24 more <Icon name="arrow" className="h-4 w-4" />
+                            </button>
+                          </div>
+                        )}
+
                         <p className="mt-6 text-xs text-slate-500 text-center">
                           {userCoords ? (
-                            <>Showing {Math.min(displayChargers.length, 24)} of {displayChargers.length} chargers within 25km of {userCoords.name}.</>
+                            <>Showing {Math.min(displayChargers.length, showCount)} of {displayChargers.length} chargers within 25km of {userCoords.name}.</>
                           ) : (
-                            <>Showing {Math.min(displayChargers.length, 24)} of {displayChargers.length} DC fast chargers in the GTA. Search by postal code above to narrow down.</>
+                            <>Showing {Math.min(displayChargers.length, showCount)} of {displayChargers.length} DC fast chargers in the GTA. Search by postal code above to narrow down.</>
                           )}
                         </p>
                       </>
