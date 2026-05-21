@@ -51,48 +51,6 @@ export default function NowChargedLandingPage() {
  const [menuOpen, setMenuOpen] = useState(false);
  const [openFaq, setOpenFaq]  = useState(null);
 
- const services = [
-  {
-   name: "Scheduled Charge",
-   price: "From $50",
-   tag: null,
-   detail: "Pick a time, we handle the rest. Best when you can plan a day ahead.",
-   features: [
-    "We come to your parking spot",
-    "Drive your EV to a DC fast charger",
-    "Return it charged and ready",
-    "Price confirmed before we start",
-   ],
-   dark: false,
-  },
-  {
-   name: "Same-Day / Priority",
-   price: "From $75",
-   tag: "Most requested",
-   detail: "Need it today? We'll do our best to make it happen.",
-   features: [
-    "Faster turnaround when available",
-    "Same pickup-charge-return process",
-    "Confirmed by phone first",
-    "Subject to availability",
-   ],
-   dark: true,
-  },
-  {
-   name: "Monthly Plan",
-   price: "Custom",
-   tag: null,
-   detail: "For drivers who charge with us regularly. Better pricing, preferred slots, less hassle.",
-   features: [
-    "Recurring scheduled pickups",
-    "Your preferred time slots locked in",
-    "Custom pricing by frequency",
-    "Better rate than one-off bookings",
-   ],
-   dark: false,
-  },
- ];
-
  const steps = [
   {
    icon: "phone",
@@ -153,27 +111,15 @@ export default function NowChargedLandingPage() {
  const faqs = [
   {
    q: "Is my car safe when you drive it?",
-   a: "Yes. Your car is in good hands from pickup to return. We walk through insurance and liability with you by phone before any booking. It's not a step we skip.",
-  },
-  {
-   q: "What type of charger do you use?",
-   a: "We use DC fast chargers at public charging stations near you. NowCharged is not a portable charger that comes to your car. We drive your EV to the charger.",
-  },
-  {
-   q: "How long does the whole thing take?",
-   a: "Most visits take 45 minutes to a couple of hours. The exact time depends on your battery state and which charger we use. We give you the expected window before we start.",
+   a: "Yes. Your car is in good hands from pickup to return. We walk through insurance and liability with you by phone before any booking.",
   },
   {
    q: "Do I need to be there for pickup or drop-off?",
-   a: "Nope. Most customers leave their car in their spot. We sort out the key handoff, access codes, and parking details on the call. No surprises on the day of.",
+   a: "Nope. Most customers leave their car in their spot. We sort out the key handoff, access codes, and parking details on the call.",
   },
   {
    q: "Are charging costs included in the service fee?",
-   a: "No, and we're upfront about that. Our fee covers the pickup, drive, and return. DC fast charging electricity is billed separately and confirmed before we start.",
-  },
-  {
-   q: "Is this emergency or roadside?",
-   a: "No. NowCharged is scheduled only. We don't do emergency dispatch or roadside recovery. Everything is planned in advance.",
+   a: "No. Our fee covers the pickup, drive, and return. DC fast charging electricity is billed separately and confirmed before we start.",
   },
   {
    q: "What areas do you cover?",
@@ -182,25 +128,6 @@ export default function NowChargedLandingPage() {
   {
    q: "Does filling out the form book a job?",
    a: "No. It just asks us to call you. Nothing is booked or charged until we've spoken, you know the price, and you say go.",
-  },
- ];
-
- const beforeYouBook = [
-  {
-   q: "Do you actually drive my car?",
-   a: "Yes. Our driver picks up your vehicle, drives it to a nearby DC fast charger, and returns it to your spot. Insurance details are part of the call before anything is scheduled.",
-  },
-  {
-   q: "What are the two costs I'm paying?",
-   a: "First, our service fee for pickup, driving, and return. Second, the DC fast charging electricity cost, billed separately. Both are confirmed before we start. No surprises.",
-  },
-  {
-   q: "Do you serve my area?",
-   a: "We're in Toronto and the GTA right now. Drop your postal code in the form. We'll confirm on the call whether you're covered.",
-  },
-  {
-   q: "Can you guarantee how much charge my car gets?",
-   a: "Honestly, no. Battery state, charger speed, and appointment length all affect the result. We give you a real estimate on the call based on your car and situation, not a number we can't back up.",
   },
  ];
 
@@ -225,11 +152,10 @@ export default function NowChargedLandingPage() {
 
      <nav className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
       <button onClick={() => scrollTo("how")} className="hover:text-white transition-colors">How it works</button>
-      <button onClick={() => scrollTo("services")} className="hover:text-white transition-colors">Services</button>
-      <a href="/chargers" className="hover:text-white transition-colors">Chargers 101</a>
-      <button onClick={() => scrollTo("faq")} className="hover:text-white transition-colors">FAQ</button>
-      <button onClick={() => scrollTo("book")} className="hover:text-white transition-colors">Book</button>
-      <button onClick={() => scrollTo("careers")} className="hover:text-white transition-colors">Careers</button>
+      <a href="/pricing" className="hover:text-white transition-colors">Pricing</a>
+      <a href="/tools" className="hover:text-white transition-colors">Find your EV</a>
+      <a href="/trust" className="hover:text-white transition-colors">Trust</a>
+      <a href="/faq" className="hover:text-white transition-colors">FAQ</a>
      </nav>
 
      <div className="flex items-center gap-3">
@@ -246,11 +172,11 @@ export default function NowChargedLandingPage() {
      <div className="border-t border-white/10 bg-slate-950 px-6 py-5 md:hidden">
       <nav className="flex flex-col gap-4 text-sm">
        <button onClick={() => { scrollTo("how"); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">How it works</button>
-       <button onClick={() => { scrollTo("services"); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">Services</button>
+       <a href="/pricing" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>Pricing</a>
+       <a href="/tools" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>Find your EV</a>
+       <a href="/trust" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>Trust & Safety</a>
        <a href="/chargers" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>Chargers 101</a>
-       <button onClick={() => { scrollTo("faq"); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">FAQ</button>
-       <button onClick={() => { scrollTo("book"); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">Book</button>
-       <button onClick={() => { scrollTo("careers"); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">Careers</button>
+       <a href="/faq" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>FAQ</a>
        <button onClick={() => { scrollTo("callback"); setMenuOpen(false); }} className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950">
         Get Started <Icon name="arrow" className="h-4 w-4" />
        </button>
@@ -287,21 +213,13 @@ export default function NowChargedLandingPage() {
        <button onClick={() => scrollTo("callback")} className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-7 py-3.5 text-base font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
         Get Started <Icon name="arrow" className="h-5 w-5" />
        </button>
-       <a
-        href="https://calendar.app.google/oQTVVQLVHtXfe68f7"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-300/10 px-7 py-3.5 text-base font-bold text-emerald-200 hover:bg-emerald-300/20 transition-colors"
-       >
-        Book a Time <Icon name="arrow" className="h-5 w-5" />
-       </a>
        <button onClick={() => scrollTo("how")} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-base text-white hover:bg-white/10 transition-colors">
-        See how it works
+        How it works
        </button>
       </div>
 
       <p className="mt-5 text-sm text-slate-400">
-       New here? Start with <button onClick={() => scrollTo("callback")} className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">Get Started</button>. Looking to book again? <a href="https://calendar.app.google/oQTVVQLVHtXfe68f7" target="_blank" rel="noopener noreferrer" className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">Pick a time</a>.
+       Returning customer? <a href="/pricing" className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">See pricing & book again</a>
       </p>
 
       <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3">
@@ -379,42 +297,46 @@ export default function NowChargedLandingPage() {
      </div>
     </section>
 
-    {/* ── Services ── */}
-    <section id="services" className="bg-white px-6 py-20 text-slate-950">
-     <div className="mx-auto max-w-7xl">
-      <div className="mb-10">
-       <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Services & pricing</p>
-       <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Pick what works for you.</h2>
-       <p className="mt-3 max-w-lg text-slate-500 text-sm leading-6">
-        Our fee covers the pickup, drive, and return. Charging electricity is separate and confirmed before we start.
-       </p>
-      </div>
+    {/* ── Pricing Preview ── */}
+    <section className="bg-white px-6 py-20 text-slate-950">
+     <div className="mx-auto max-w-5xl">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+       <div>
+        <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Pricing</p>
+        <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
+         Starts at $50.
+        </h2>
+        <p className="mt-4 text-slate-600 text-base leading-7">
+         Flat service fee. Charging electricity is billed separately at-cost. No surprises, no hidden fees, no fine print.
+        </p>
+        <a href="/pricing" className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-bold text-white hover:bg-slate-800 transition-colors">
+         See full pricing <Icon name="arrow" className="h-4 w-4" />
+        </a>
+       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-       {services.map(s => (
-        <div
-         key={s.name}
-         className={`rounded-3xl border p-7 flex flex-col ${s.dark ? "border-emerald-400 bg-slate-950 text-white" : "border-slate-200 bg-white text-slate-950"}`}
-        >
-         {s.tag && (
-          <span className="mb-4 self-start inline-flex rounded-full bg-emerald-400 px-3 py-1 text-xs font-bold text-slate-950">{s.tag}</span>
-         )}
-         <h3 className="text-xl font-bold" style={display}>{s.name}</h3>
-         <p className="mt-3 text-4xl font-black" style={display}>{s.price}</p>
-         <p className={`mt-3 text-sm leading-6 ${s.dark ? "text-slate-300" : "text-slate-500"}`}>{s.detail}</p>
-         <div className="mt-6 space-y-3 flex-1">
-          {s.features.map(f => (
-           <div key={f} className="flex items-start gap-3">
-            <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-            <p className={`text-sm ${s.dark ? "text-slate-200" : "text-slate-600"}`}>{f}</p>
-           </div>
-          ))}
+       <div className="space-y-3">
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 flex items-center justify-between">
+         <div>
+          <p className="text-sm font-bold text-slate-900" style={display}>Scheduled Charge</p>
+          <p className="text-xs text-slate-500 mt-0.5">Plan a day ahead</p>
          </div>
-         <button onClick={() => scrollTo("callback")} className={`mt-7 inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-colors ${s.dark ? "bg-emerald-400 text-slate-950 hover:bg-emerald-300" : "border border-slate-200 text-slate-700 hover:bg-slate-50"}`}>
-          Check Availability <Icon name="arrow" className="h-4 w-4" />
-         </button>
+         <p className="text-2xl font-black text-slate-900" style={display}>$50</p>
         </div>
-       ))}
+        <div className="rounded-2xl border-2 border-emerald-400 bg-emerald-50 p-5 flex items-center justify-between">
+         <div>
+          <p className="text-sm font-bold text-slate-900" style={display}>Same-Day / Priority</p>
+          <p className="text-xs text-slate-500 mt-0.5">When availability allows</p>
+         </div>
+         <p className="text-2xl font-black text-slate-900" style={display}>$75</p>
+        </div>
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 flex items-center justify-between">
+         <div>
+          <p className="text-sm font-bold text-slate-900" style={display}>Monthly Plan</p>
+          <p className="text-xs text-slate-500 mt-0.5">Recurring, lower per-visit</p>
+         </div>
+         <p className="text-2xl font-black text-slate-900" style={display}>Custom</p>
+        </div>
+       </div>
       </div>
      </div>
     </section>
@@ -425,6 +347,7 @@ export default function NowChargedLandingPage() {
       <div className="mb-10">
        <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">FAQ</p>
        <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Got questions?</h2>
+       <p className="mt-3 text-sm text-slate-400">The five most common ones. Full list on the FAQ page.</p>
       </div>
 
       <div className="space-y-3">
@@ -449,36 +372,10 @@ export default function NowChargedLandingPage() {
        ))}
       </div>
 
-      {/* Before you book subsection */}
-      <div className="mt-14">
-       <div className="mb-6 border-t border-white/10 pt-10">
-        <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Before you book</p>
-        <h3 className="mt-3 text-2xl font-black tracking-tight md:text-3xl" style={display}>
-         The stuff worth knowing upfront.
-        </h3>
-        <p className="mt-2 text-sm text-slate-400">We'd rather you read this now than be surprised later.</p>
-       </div>
-       <div className="space-y-3">
-        {beforeYouBook.map((item, i) => (
-         <div key={item.q} className="rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden">
-          <button
-           onClick={() => setOpenFaq(openFaq === `b${i}` ? null : `b${i}`)}
-           className="flex w-full items-center justify-between gap-4 p-5 text-left"
-          >
-           <h3 className="text-base font-semibold leading-snug pr-2">{item.q}</h3>
-           <Icon
-            name="chevron"
-            className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${openFaq === `b${i}` ? "rotate-180" : ""}`}
-           />
-          </button>
-          {openFaq === `b${i}` && (
-           <div className="px-5 pb-5">
-            <p className="text-sm leading-7 text-slate-300">{item.a}</p>
-           </div>
-          )}
-         </div>
-        ))}
-       </div>
+      <div className="mt-10 text-center">
+       <a href="/faq" className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-6 py-3 text-sm font-bold text-emerald-300 hover:bg-emerald-400/20 transition-colors">
+        See all questions <Icon name="arrow" className="h-4 w-4" />
+       </a>
       </div>
 
      </div>
@@ -571,36 +468,6 @@ export default function NowChargedLandingPage() {
      </div>
     </section>
 
-    {/* ── Returning Customer Booking ── */}
-    <section id="book" className="px-6 py-20">
-     <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/[0.04] p-10 md:p-14">
-      <div className="grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-center">
-       <div>
-        <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Booking again?</p>
-        <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
-         Pick a time. We'll handle the rest.
-        </h2>
-        <p className="mt-4 text-slate-300 leading-7">
-         Skip the back-and-forth. Choose a slot that works for you and we'll be there.
-        </p>
-        <p className="mt-3 text-sm text-slate-400">
-         First time? <button onClick={() => scrollTo("callback")} className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">Start with a callback</button> so we can confirm coverage in your area.
-        </p>
-       </div>
-       <div className="flex justify-start md:justify-end">
-        <a
-         href="https://calendar.app.google/oQTVVQLVHtXfe68f7"
-         target="_blank"
-         rel="noopener noreferrer"
-         className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-8 py-4 text-base font-bold text-slate-950 hover:bg-emerald-300 transition-colors"
-        >
-         Book a time <Icon name="arrow" className="h-5 w-5" />
-        </a>
-       </div>
-      </div>
-     </div>
-    </section>
-
     {/* ── CTA Banner ── */}
     <section className="px-6 py-20">
      <div className="mx-auto max-w-5xl rounded-[2rem] bg-emerald-400 p-10 text-center text-slate-950 md:p-16">
@@ -616,104 +483,64 @@ export default function NowChargedLandingPage() {
      </div>
     </section>
 
-    {/* ── Careers ── */}
-    <section id="careers" className="bg-slate-900 px-6 py-20">
-     <div className="mx-auto max-w-7xl">
-      <div className="mb-10">
-       <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Careers</p>
-       <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
-        Drive with NowCharged.
-       </h2>
-       <p className="mt-4 max-w-xl text-slate-300 text-sm leading-7">
-        We're looking for reliable, professional drivers in Toronto and the GTA to join NowCharged as independent contractors. You set your availability, we send you the jobs.
-       </p>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-
-       {/* Role card */}
-       <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-8">
-        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
-         <Icon name="car" className="h-7 w-7" />
-        </div>
-        <h3 className="text-2xl font-bold" style={display}>EV Valet Driver</h3>
-        <p className="mt-1 text-sm text-slate-400">Independent Contractor · Toronto & GTA · Flexible</p>
-
-        <div className="mt-6 space-y-3">
-         {[
-          "Pick up customer EVs from their parking spot",
-          "Drive to a nearby DC fast charger and charge the vehicle",
-          "Return the car to the customer's spot",
-          "Work on-call. Jobs are sent when available, you choose to accept",
-          "Competitive hourly pay, paid per completed job",
-         ].map(pt => (
-          <div key={pt} className="flex items-start gap-3">
-           <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-           <p className="text-sm text-slate-300">{pt}</p>
-          </div>
-         ))}
-        </div>
-       </div>
-
-       {/* Requirements + apply card */}
-       <div className="flex flex-col gap-6">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-8">
-         <h3 className="text-lg font-bold mb-4" style={display}>What we're looking for</h3>
-         <div className="space-y-3">
-          {[
-           "Valid Ontario G driver's licence",
-           "Clean driving record",
-           "Comfortable driving electric vehicles",
-           "Familiarity with public DC fast charging is a plus",
-           "Reliable, punctual, and professional with customer vehicles",
-           "Based in Toronto or the GTA",
-          ].map(pt => (
-           <div key={pt} className="flex items-start gap-3">
-            <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-            <p className="text-sm text-slate-300">{pt}</p>
-           </div>
-          ))}
-         </div>
-        </div>
-
-        <div className="rounded-3xl border border-emerald-400/30 bg-emerald-400/5 p-8">
-         <h3 className="text-lg font-bold" style={display}>How to apply</h3>
-         <p className="mt-3 text-sm leading-7 text-slate-300">
-          Send a short email introducing yourself, your driving experience, and your general availability. Successful applicants will be asked to review and sign an independent contractor agreement before onboarding.
-         </p>
-         <a
-          href="mailto:info@nowcharged.com?subject=Driver Application – NowCharged"
-          className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-400 px-6 py-3 text-sm font-bold text-slate-950 hover:bg-emerald-300 transition-colors"
-         >
-          Email us to apply <Icon name="arrow" className="h-4 w-4" />
-         </a>
-         <p className="mt-4 text-xs text-slate-500">
-          Send your email to info@nowcharged.com. We'll get back to you within a few business days.
-         </p>
-        </div>
-       </div>
-
-      </div>
-     </div>
-    </section>
-
    </main>
 
    {/* ── Footer ── */}
-   <footer className="border-t border-white/10 px-6 py-10">
-    <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 md:flex-row md:items-center">
-     <div>
-      <p className="font-bold text-white" style={display}>NowCharged</p>
-      <p className="mt-1 text-sm text-slate-400">EV Charging Valet · Toronto & Greater Toronto Area</p>
-      <p className="mt-1 text-sm text-slate-400">
-       <a href="mailto:info@nowcharged.com" className="hover:text-white transition-colors">info@nowcharged.com</a>
-      </p>
-      <p className="mt-1 text-sm text-slate-500">© 2026 NowCharged. All rights reserved.</p>
+   <footer className="border-t border-white/10 bg-slate-950 px-6 py-14">
+    <div className="mx-auto max-w-7xl">
+     <div className="grid gap-10 md:grid-cols-4">
+
+      {/* Brand column */}
+      <div className="md:col-span-1">
+       <div className="flex items-center gap-3 mb-4">
+        <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950">
+         <Icon name="zap" className="h-5 w-5" />
+        </div>
+        <p className="font-extrabold text-white" style={display}>NowCharged</p>
+       </div>
+       <p className="text-sm text-slate-400 leading-6">
+        EV charging valet for Toronto and the Greater Toronto Area.
+       </p>
+       <p className="mt-4 text-sm">
+        <a href="mailto:info@nowcharged.com" className="text-emerald-300 hover:text-emerald-200 transition-colors">info@nowcharged.com</a>
+       </p>
+      </div>
+
+      {/* Service column */}
+      <div>
+       <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Service</p>
+       <div className="space-y-3 text-sm">
+        <button onClick={() => scrollTo("how")} className="block text-slate-300 hover:text-white transition-colors">How it works</button>
+        <a href="/pricing" className="block text-slate-300 hover:text-white transition-colors">Pricing</a>
+        <a href="/tools" className="block text-slate-300 hover:text-white transition-colors">Find your EV</a>
+        <button onClick={() => scrollTo("callback")} className="block text-slate-300 hover:text-white transition-colors">Get started</button>
+       </div>
+      </div>
+
+      {/* Resources column */}
+      <div>
+       <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Resources</p>
+       <div className="space-y-3 text-sm">
+        <a href="/chargers" className="block text-slate-300 hover:text-white transition-colors">Chargers 101</a>
+        <a href="/trust" className="block text-slate-300 hover:text-white transition-colors">Trust & safety</a>
+        <a href="/faq" className="block text-slate-300 hover:text-white transition-colors">FAQ</a>
+       </div>
+      </div>
+
+      {/* Company column */}
+      <div>
+       <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Company</p>
+       <div className="space-y-3 text-sm">
+        <a href="/careers" className="block text-slate-300 hover:text-white transition-colors">Drive with us</a>
+        <a href="mailto:info@nowcharged.com" className="block text-slate-300 hover:text-white transition-colors">Contact</a>
+       </div>
+      </div>
+
      </div>
-     <div className="flex flex-wrap gap-6 text-sm text-slate-400">
-      {[["how","How it works"],["services","Services"],["callback","Get Started"],["faq","FAQ"],["careers","Careers"]].map(([id,l])=>(
-       <button key={id} onClick={() => scrollTo(id)} className="hover:text-white transition-colors">{l}</button>
-      ))}
+
+     <div className="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between gap-4 text-xs text-slate-500">
+      <p>© 2026 NowCharged. Registered Ontario business.</p>
+      <p>Serving Toronto & the Greater Toronto Area.</p>
      </div>
     </div>
    </footer>
