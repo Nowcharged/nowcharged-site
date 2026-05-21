@@ -174,11 +174,9 @@ export default function ToolsPage() {
         });
         if (!res.ok) throw new Error(`API returned ${res.status}: ${res.statusText}`);
         const data = await res.json();
-        const dcFastOnly = data.filter(c =>
-          c.Connections && c.Connections.some(conn =>
-            conn.Level && conn.Level.IsFastChargeCapable === true
-          )
-        );
+        // levelid=3 in the URL already filters for DC fast on the server
+        // Just keep stations that have at least one connection
+        const dcFastOnly = data.filter(c => c.Connections && c.Connections.length > 0);
         setChargers(dcFastOnly);
         setMapLoading(false);
       } catch (err) {
@@ -434,7 +432,8 @@ export default function ToolsPage() {
                 )}
                 {mapError && (
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8">
-                    <p className="text-sm text-slate-400 mb-4">Couldn't load chargers from OpenChargeMap right now.</p>
+                    <p className="text-sm text-slate-400 mb-2">Couldn't load chargers from OpenChargeMap right now.</p>
+                    <p className="text-xs text-slate-500 mb-4">Error: {mapError}</p>
                     <p className="text-xs text-slate-500">Try refreshing, or browse OpenChargeMap directly at openchargemap.org</p>
                   </div>
                 )}
