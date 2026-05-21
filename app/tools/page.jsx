@@ -342,20 +342,29 @@ export default function ToolsPage() {
   const calcEstimate = () => {
     const effectiveKW = Math.min(chargerKW, carMaxKW);
     const startKWh = (startPct / 100) * battery;
+    const targetCap = 0.80; // We charge to 80% by default for efficiency
+    const targetKWh = battery * targetCap;
     let currentKWh = startKWh;
+
     for (let i = 0; i < duration; i++) {
+      // Stop charging once we hit the 80% cap
+      if (currentKWh >= targetKWh) break;
+
       const currentPct = (currentKWh / battery) * 100;
       let chargeRate;
       if (currentPct < 20) chargeRate = effectiveKW * 0.9;
       else if (currentPct < 60) chargeRate = effectiveKW * 1.0;
       else if (currentPct < 80) chargeRate = effectiveKW * 0.65;
-      else if (currentPct < 90) chargeRate = effectiveKW * 0.35;
-      else chargeRate = effectiveKW * 0.18;
-      currentKWh = Math.min(currentKWh + chargeRate / 60, battery);
+      else chargeRate = 0; // Hard stop at 80%
+
+      // Don't exceed the 80% cap
+      currentKWh = Math.min(currentKWh + chargeRate / 60, targetKWh);
     }
+
     const finalPctRaw = (currentKWh / battery) * 100;
-    const conservativeLow = Math.max(startPct + 1, Math.round(finalPctRaw - 8));
-    const conservativeHigh = Math.max(conservativeLow + 1, Math.round(finalPctRaw - 3));
+    // Conservative buffer: subtract 3-5% to under-promise
+    const conservativeLow = Math.max(startPct + 1, Math.round(finalPctRaw - 5));
+    const conservativeHigh = Math.max(conservativeLow + 1, Math.round(finalPctRaw - 2));
     const kWhAdded = currentKWh - startKWh;
     return { low: conservativeLow, high: conservativeHigh, kWhAdded: kWhAdded.toFixed(1) };
   };
@@ -601,7 +610,7 @@ export default function ToolsPage() {
                     </div>
                   </div>
                   <p className="mt-5 text-xs text-slate-500 leading-6">
-                    Real results often beat this estimate. We use a conservative model accounting for charging curve tapering, temperature, and charger variability.
+                    Real results often beat this estimate. We charge to 80% by default for efficiency, since fast charging slows down significantly above 80%. Need a full charge? Just let us know on the call.
                   </p>
                 </div>
               </div>
@@ -632,7 +641,6 @@ export default function ToolsPage() {
                     onChange={(e) => setUserPostal(e.target.value)}
                     placeholder="Postal code or area (e.g. M5V, Mississauga, Brampton)"
                     className="w-full rounded-2xl border border-white/10 bg-slate-900 px-5 py-3.5 text-sm text-white outline-none focus:border-emerald-400 transition-colors placeholder:text-slate-500"
-                    maxLength={40}
                   />
                   {postalError && (
                     <p className="mt-2 text-xs text-rose-300">{postalError}</p>
