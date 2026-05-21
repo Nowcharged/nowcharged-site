@@ -47,6 +47,174 @@ export default function ToolsPage() {
   const [mapLoading, setMapLoading] = useState(true);
   const [mapError, setMapError] = useState(null);
   const [selectedCharger, setSelectedCharger] = useState(null);
+  const [userPostal, setUserPostal] = useState("");
+  const [userCoords, setUserCoords] = useState(null);
+  const [postalError, setPostalError] = useState("");
+
+  // Postal code prefix → approximate lat/lng for Toronto/GTA
+  // First 3 chars of a Canadian postal code identify a Forward Sortation Area
+  const postalCoords = {
+    "M5V": { lat: 43.6438, lng: -79.3961, name: "Downtown / King West" },
+    "M5J": { lat: 43.6428, lng: -79.3795, name: "Harbourfront" },
+    "M5H": { lat: 43.6488, lng: -79.3823, name: "Financial District" },
+    "M5G": { lat: 43.6571, lng: -79.3884, name: "Discovery District" },
+    "M5T": { lat: 43.6534, lng: -79.4006, name: "Kensington / Chinatown" },
+    "M5S": { lat: 43.6629, lng: -79.3957, name: "University of Toronto" },
+    "M4Y": { lat: 43.6644, lng: -79.3805, name: "Church-Wellesley" },
+    "M5R": { lat: 43.6735, lng: -79.4099, name: "Annex / Yorkville" },
+    "M5W": { lat: 43.6481, lng: -79.3796, name: "Downtown" },
+    "M5X": { lat: 43.6494, lng: -79.3812, name: "Downtown" },
+    "M4E": { lat: 43.6764, lng: -79.2930, name: "The Beaches" },
+    "M4L": { lat: 43.6685, lng: -79.3149, name: "Leslieville" },
+    "M4M": { lat: 43.6595, lng: -79.3398, name: "Riverdale" },
+    "M4K": { lat: 43.6766, lng: -79.3500, name: "Riverdale / Danforth" },
+    "M6J": { lat: 43.6489, lng: -79.4187, name: "Trinity-Bellwoods" },
+    "M6K": { lat: 43.6371, lng: -79.4282, name: "Parkdale" },
+    "M6H": { lat: 43.6685, lng: -79.4280, name: "Dovercourt / Bloordale" },
+    "M6G": { lat: 43.6705, lng: -79.4194, name: "Christie / Dufferin Grove" },
+    "M6P": { lat: 43.6562, lng: -79.4642, name: "High Park / Roncesvalles" },
+    "M6N": { lat: 43.6700, lng: -79.4767, name: "The Junction" },
+    "M6R": { lat: 43.6505, lng: -79.4499, name: "Roncesvalles" },
+    "M4V": { lat: 43.6849, lng: -79.4019, name: "Forest Hill / Summerhill" },
+    "M4S": { lat: 43.7035, lng: -79.3886, name: "Davisville" },
+    "M4R": { lat: 43.7144, lng: -79.4042, name: "North Toronto" },
+    "M4N": { lat: 43.7287, lng: -79.3949, name: "Lawrence Park" },
+    "M4P": { lat: 43.7150, lng: -79.3877, name: "Mount Pleasant" },
+    "M4T": { lat: 43.6918, lng: -79.3859, name: "Rosedale" },
+    "M5N": { lat: 43.7028, lng: -79.4174, name: "Forest Hill North" },
+    "M5P": { lat: 43.6890, lng: -79.4118, name: "Forest Hill" },
+    "M5M": { lat: 43.7330, lng: -79.4198, name: "Bedford Park" },
+    "M2N": { lat: 43.7639, lng: -79.4116, name: "North York Centre" },
+    "M2K": { lat: 43.7689, lng: -79.3892, name: "Bayview Village" },
+    "M2J": { lat: 43.7766, lng: -79.3461, name: "Henry Farm" },
+    "M2H": { lat: 43.8030, lng: -79.3454, name: "Hillcrest Village" },
+    "M2M": { lat: 43.7919, lng: -79.4144, name: "Newtonbrook" },
+    "M2L": { lat: 43.7551, lng: -79.3724, name: "York Mills" },
+    "M2P": { lat: 43.7440, lng: -79.4019, name: "York Mills West" },
+    "M2R": { lat: 43.7855, lng: -79.4421, name: "Willowdale West" },
+    "M3A": { lat: 43.7530, lng: -79.3299, name: "Don Mills" },
+    "M3B": { lat: 43.7456, lng: -79.3525, name: "Don Mills" },
+    "M3C": { lat: 43.7252, lng: -79.3404, name: "Flemingdon Park" },
+    "M3H": { lat: 43.7544, lng: -79.4427, name: "Downsview" },
+    "M3J": { lat: 43.7755, lng: -79.4861, name: "York University Heights" },
+    "M3K": { lat: 43.7376, lng: -79.4647, name: "Downsview" },
+    "M3L": { lat: 43.7402, lng: -79.5167, name: "Downsview / Roding" },
+    "M3M": { lat: 43.7270, lng: -79.4956, name: "Downsview / Wilson Heights" },
+    "M3N": { lat: 43.7615, lng: -79.5208, name: "Downsview / Jane and Finch" },
+    "M9A": { lat: 43.6677, lng: -79.5328, name: "Islington / Etobicoke" },
+    "M9B": { lat: 43.6499, lng: -79.5544, name: "Etobicoke" },
+    "M9C": { lat: 43.6435, lng: -79.5775, name: "Etobicoke / Markland Wood" },
+    "M8V": { lat: 43.6049, lng: -79.5018, name: "New Toronto / Mimico" },
+    "M8W": { lat: 43.6029, lng: -79.5435, name: "Long Branch / Alderwood" },
+    "M8X": { lat: 43.6535, lng: -79.5085, name: "Kingsway" },
+    "M8Y": { lat: 43.6362, lng: -79.4977, name: "Stonegate / Queensway" },
+    "M8Z": { lat: 43.6285, lng: -79.5202, name: "Mimico North" },
+    "L5B": { lat: 43.5890, lng: -79.6441, name: "Mississauga / City Centre" },
+    "L5C": { lat: 43.5798, lng: -79.6396, name: "Mississauga / Cooksville" },
+    "L5A": { lat: 43.5793, lng: -79.6105, name: "Mississauga / East" },
+    "L4W": { lat: 43.6433, lng: -79.6388, name: "Mississauga / Airport" },
+    "L4V": { lat: 43.6850, lng: -79.6178, name: "Mississauga / Airport" },
+    "L4Y": { lat: 43.6105, lng: -79.6203, name: "Mississauga / Lakeview" },
+    "L4Z": { lat: 43.5984, lng: -79.6695, name: "Mississauga / Hurontario" },
+    "L5M": { lat: 43.5621, lng: -79.7351, name: "Mississauga / Meadowvale" },
+    "L5N": { lat: 43.5824, lng: -79.7570, name: "Mississauga / Meadowvale Village" },
+    "L5R": { lat: 43.6066, lng: -79.6588, name: "Mississauga / Hurontario" },
+    "L4T": { lat: 43.7197, lng: -79.6512, name: "Mississauga / Malton" },
+    "L6Y": { lat: 43.6822, lng: -79.7591, name: "Brampton / South" },
+    "L6Z": { lat: 43.7140, lng: -79.7993, name: "Brampton / Heart Lake" },
+    "L6S": { lat: 43.7398, lng: -79.7290, name: "Brampton / Bramalea" },
+    "L6T": { lat: 43.7280, lng: -79.7038, name: "Brampton / Bramalea South" },
+    "L6P": { lat: 43.7497, lng: -79.7641, name: "Brampton / Castlemore" },
+    "L6V": { lat: 43.7042, lng: -79.7600, name: "Brampton / Downtown" },
+    "L6W": { lat: 43.6917, lng: -79.7325, name: "Brampton / Peel Village" },
+    "L6X": { lat: 43.6929, lng: -79.7848, name: "Brampton / Fletcher's Meadow" },
+    "L4L": { lat: 43.7820, lng: -79.6212, name: "Vaughan / Woodbridge" },
+    "L4J": { lat: 43.8013, lng: -79.4501, name: "Vaughan / Thornhill" },
+    "L4K": { lat: 43.8074, lng: -79.4970, name: "Vaughan / Concord" },
+    "L6A": { lat: 43.8649, lng: -79.5232, name: "Vaughan / Maple" },
+    "L3R": { lat: 43.8500, lng: -79.3380, name: "Markham" },
+    "L3T": { lat: 43.8073, lng: -79.4180, name: "Thornhill / Markham" },
+    "L3P": { lat: 43.8841, lng: -79.2667, name: "Markham" },
+    "L1S": { lat: 43.8489, lng: -79.0784, name: "Ajax" },
+    "L1T": { lat: 43.8736, lng: -79.0884, name: "Ajax" },
+    "L1V": { lat: 43.8329, lng: -79.0987, name: "Pickering" },
+    "L1X": { lat: 43.8479, lng: -79.1295, name: "Pickering" },
+    "L1H": { lat: 43.8843, lng: -78.9234, name: "Oshawa" },
+    "L1G": { lat: 43.9068, lng: -78.8527, name: "Oshawa" },
+    "L1K": { lat: 43.8838, lng: -78.8413, name: "Oshawa" },
+    "M1B": { lat: 43.8067, lng: -79.1944, name: "Scarborough / Malvern" },
+    "M1C": { lat: 43.7849, lng: -79.1604, name: "Scarborough / Highland Creek" },
+    "M1E": { lat: 43.7634, lng: -79.1944, name: "Scarborough / West Hill" },
+    "M1G": { lat: 43.7702, lng: -79.2189, name: "Scarborough / Woburn" },
+    "M1H": { lat: 43.7732, lng: -79.2390, name: "Scarborough / Cedarbrae" },
+    "M1J": { lat: 43.7445, lng: -79.2391, name: "Scarborough / Eglinton East" },
+    "M1K": { lat: 43.7280, lng: -79.2625, name: "Scarborough / Kennedy Park" },
+    "M1L": { lat: 43.7110, lng: -79.2849, name: "Scarborough / Clairlea" },
+    "M1M": { lat: 43.7166, lng: -79.2391, name: "Scarborough / Bluffs" },
+    "M1N": { lat: 43.6925, lng: -79.2645, name: "Scarborough / Birch Cliff" },
+    "M1P": { lat: 43.7572, lng: -79.2731, name: "Scarborough / Dorset Park" },
+    "M1R": { lat: 43.7506, lng: -79.2952, name: "Scarborough / Wexford" },
+    "M1S": { lat: 43.7942, lng: -79.2624, name: "Scarborough / Agincourt" },
+    "M1T": { lat: 43.7806, lng: -79.3013, name: "Scarborough / Tam O'Shanter" },
+    "M1V": { lat: 43.8157, lng: -79.2740, name: "Scarborough / Agincourt N" },
+    "M1W": { lat: 43.7965, lng: -79.3187, name: "Scarborough / L'Amoreaux" },
+    "M1X": { lat: 43.8364, lng: -79.2103, name: "Scarborough / Upper Rouge" },
+    "L7T": { lat: 43.3582, lng: -79.7918, name: "Burlington" },
+    "L7P": { lat: 43.3525, lng: -79.8295, name: "Burlington" },
+    "L7L": { lat: 43.3686, lng: -79.7842, name: "Burlington" },
+    "L7M": { lat: 43.3947, lng: -79.8230, name: "Burlington" },
+    "L7R": { lat: 43.3270, lng: -79.7990, name: "Burlington" },
+    "L6H": { lat: 43.4570, lng: -79.7050, name: "Oakville" },
+    "L6J": { lat: 43.4495, lng: -79.6677, name: "Oakville" },
+    "L6K": { lat: 43.4332, lng: -79.6841, name: "Oakville" },
+    "L6L": { lat: 43.4047, lng: -79.7041, name: "Oakville" },
+    "L6M": { lat: 43.4625, lng: -79.7378, name: "Oakville" },
+  };
+
+  const handlePostalSubmit = (e) => {
+    e?.preventDefault();
+    setPostalError("");
+    const clean = userPostal.toUpperCase().replace(/\s/g, "").substring(0, 3);
+    if (clean.length !== 3) {
+      setPostalError("Enter at least the first 3 characters of your postal code (e.g. M5V)");
+      return;
+    }
+    const coords = postalCoords[clean];
+    if (!coords) {
+      setPostalError(`We don't have data for ${clean} yet. Try the FSA from your area or contact us.`);
+      setUserCoords(null);
+      return;
+    }
+    setUserCoords({ ...coords, code: clean });
+  };
+
+  const clearPostal = () => {
+    setUserPostal("");
+    setUserCoords(null);
+    setPostalError("");
+  };
+
+  // Haversine distance in km
+  const distanceKm = (lat1, lng1, lat2, lng2) => {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) * Math.sin(dLng/2)**2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  };
+
+  // Compute displayed chargers based on user location filter
+  const displayChargers = userCoords
+    ? chargers
+        .map(c => ({
+          ...c,
+          _distance: c.AddressInfo?.Latitude && c.AddressInfo?.Longitude
+            ? distanceKm(userCoords.lat, userCoords.lng, c.AddressInfo.Latitude, c.AddressInfo.Longitude)
+            : 999
+        }))
+        .filter(c => c._distance <= 25)
+        .sort((a, b) => a._distance - b._distance)
+    : chargers;
 
   const vehicles = [
     { make: "Tesla", model: "Model Y (Standard)", year: "2025", battery: "60 kWh", range: "500 km", connector: "NACS", peakDC: "175 kW", dcTime: "25 min (10-80%)", level2Time: "7 hr (full)" },
@@ -166,7 +334,7 @@ export default function ToolsPage() {
   useEffect(() => {
     const fetchChargers = async () => {
       try {
-        const url = "https://api.openchargemap.io/v3/poi?output=json&countrycode=CA&latitude=43.7&longitude=-79.4&distance=40&distanceunit=KM&maxresults=200&levelid=3&compact=true&verbose=false";
+        const url = "https://api.openchargemap.io/v3/poi?output=json&countrycode=CA&latitude=43.7&longitude=-79.4&distance=40&distanceunit=KM&maxresults=200&levelid=3&compact=false&verbose=true";
         const res = await fetch(url, {
           headers: {
             "X-API-Key": "87779217-322b-48f2-85c8-ea1c8d592286"
@@ -418,9 +586,41 @@ export default function ToolsPage() {
                 DC fast chargers we use.
               </h2>
               <p className="mt-3 max-w-2xl text-slate-400 text-sm leading-7">
-                Public DC fast charging stations in Toronto and the GTA. We route your car to one of these based on your location and the fastest available option at booking time.
+                Enter your postal code to see DC fast chargers within 25km of your location.
               </p>
             </div>
+
+            {/* Postal code search */}
+            <form onSubmit={handlePostalSubmit} className="mb-8">
+              <div className="flex flex-wrap gap-3 items-start">
+                <div className="flex-1 min-w-[220px]">
+                  <input
+                    type="text"
+                    value={userPostal}
+                    onChange={(e) => setUserPostal(e.target.value)}
+                    placeholder="Your postal code (e.g. M5V or M5V 3A8)"
+                    className="w-full rounded-2xl border border-white/10 bg-slate-900 px-5 py-3.5 text-sm text-white outline-none focus:border-emerald-400 transition-colors placeholder:text-slate-500"
+                    maxLength={7}
+                  />
+                  {postalError && (
+                    <p className="mt-2 text-xs text-rose-300">{postalError}</p>
+                  )}
+                  {userCoords && (
+                    <p className="mt-2 text-xs text-emerald-300">
+                      ✓ Showing chargers within 25km of {userCoords.name} ({userCoords.code})
+                    </p>
+                  )}
+                </div>
+                <button type="submit" className="rounded-2xl bg-emerald-400 px-6 py-3.5 text-sm font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
+                  Search
+                </button>
+                {userCoords && (
+                  <button type="button" onClick={clearPostal} className="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-3.5 text-sm text-slate-300 hover:bg-white/[0.08] transition-colors">
+                    Clear
+                  </button>
+                )}
+              </div>
+            </form>
 
             <div className="grid gap-6 lg:grid-cols-[1fr_350px]">
               <div className="rounded-3xl border border-white/10 bg-slate-900 overflow-hidden min-h-[500px] relative">
@@ -439,26 +639,47 @@ export default function ToolsPage() {
                 )}
                 {!mapLoading && !mapError && (
                   <div className="p-6">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                      {chargers.slice(0, 24).map(c => (
-                        <button
-                          key={c.ID}
-                          onClick={() => setSelectedCharger(c)}
-                          className={`text-left rounded-xl border p-3 transition-colors ${selectedCharger?.ID === c.ID ? "border-emerald-400 bg-emerald-400/10" : "border-white/10 bg-white/[0.04] hover:bg-white/[0.08]"}`}
-                        >
-                          <div className="flex items-start gap-2">
-                            <Icon name="pin" className="h-4 w-4 shrink-0 text-emerald-300 mt-0.5" />
-                            <div className="min-w-0">
-                              <p className="text-xs font-bold truncate">{c.AddressInfo?.Title || "Charging station"}</p>
-                              <p className="text-[10px] text-slate-400 truncate mt-0.5">{c.AddressInfo?.Town || "Toronto area"}</p>
-                            </div>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                    <p className="mt-6 text-xs text-slate-500 text-center">
-                      Showing {Math.min(chargers.length, 24)} of {chargers.length} DC fast chargers found within 40km of downtown Toronto. Data from OpenChargeMap.
-                    </p>
+                    {displayChargers.length === 0 ? (
+                      <div className="text-center py-20">
+                        <p className="text-sm text-slate-400 mb-2">No DC fast chargers found within 25km of {userCoords?.name || "your location"}.</p>
+                        <p className="text-xs text-slate-500">Try a wider area, or contact us for help routing your charge.</p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                          {displayChargers.slice(0, 24).map(c => {
+                            const town = c.AddressInfo?.Town;
+                            const postal = c.AddressInfo?.Postcode;
+                            const address = c.AddressInfo?.AddressLine1;
+                            const areaCode = postal ? postal.split(" ")[0] : null;
+                            const locationLabel = areaCode || town || address?.split(",")[0] || "Toronto area";
+                            const distance = c._distance ? `${c._distance.toFixed(1)} km` : null;
+                            return (
+                              <button
+                                key={c.ID}
+                                onClick={() => setSelectedCharger(c)}
+                                className={`text-left rounded-xl border p-3 transition-colors ${selectedCharger?.ID === c.ID ? "border-emerald-400 bg-emerald-400/10" : "border-white/10 bg-white/[0.04] hover:bg-white/[0.08]"}`}
+                              >
+                                <div className="flex items-start gap-2">
+                                  <Icon name="pin" className="h-4 w-4 shrink-0 text-emerald-300 mt-0.5" />
+                                  <div className="min-w-0">
+                                    <p className="text-xs font-bold truncate">{c.AddressInfo?.Title || "Charging station"}</p>
+                                    <p className="text-[10px] text-slate-400 truncate mt-0.5">{locationLabel}{distance && ` · ${distance}`}</p>
+                                  </div>
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </div>
+                        <p className="mt-6 text-xs text-slate-500 text-center">
+                          {userCoords ? (
+                            <>Showing {Math.min(displayChargers.length, 24)} of {displayChargers.length} chargers within 25km of {userCoords.name}.</>
+                          ) : (
+                            <>Showing {Math.min(displayChargers.length, 24)} of {displayChargers.length} DC fast chargers in the GTA. Search by postal code above to narrow down.</>
+                          )}
+                        </p>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
@@ -476,15 +697,31 @@ export default function ToolsPage() {
                       <div className="mt-5">
                         <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">Connectors</p>
                         <div className="space-y-2">
-                          {selectedCharger.Connections.slice(0, 4).map((conn, i) => (
-                            <div key={i} className="rounded-xl bg-white/[0.04] p-3">
-                              <p className="text-sm font-semibold">{conn.ConnectionType?.Title || "Unknown connector"}</p>
-                              <p className="text-xs text-slate-400 mt-1">
-                                {conn.PowerKW ? `${conn.PowerKW} kW` : "Power: not specified"}
-                                {conn.Level?.Title && ` · ${conn.Level.Title}`}
-                              </p>
-                            </div>
-                          ))}
+                          {selectedCharger.Connections.slice(0, 4).map((conn, i) => {
+                            // Map common connector IDs to names if API doesn't return them
+                            const connectorNames = {
+                              1: "Type 1 (J1772)",
+                              2: "CHAdeMO",
+                              25: "Type 2 (Mennekes)",
+                              27: "Tesla (Roadster)",
+                              30: "Tesla (Model S/X)",
+                              32: "CCS Type 1",
+                              33: "CCS Type 2",
+                              1036: "NACS / Tesla",
+                            };
+                            const connectorName = conn.ConnectionType?.Title 
+                              || connectorNames[conn.ConnectionTypeID]
+                              || `Connector type ${conn.ConnectionTypeID || "unspecified"}`;
+                            return (
+                              <div key={i} className="rounded-xl bg-white/[0.04] p-3">
+                                <p className="text-sm font-semibold">{connectorName}</p>
+                                <p className="text-xs text-slate-400 mt-1">
+                                  {conn.PowerKW ? `${conn.PowerKW} kW` : "Power: not specified"}
+                                  {conn.Level?.Title && ` · ${conn.Level.Title}`}
+                                </p>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
                     )}
