@@ -167,8 +167,12 @@ export default function ToolsPage() {
     const fetchChargers = async () => {
       try {
         const url = "https://api.openchargemap.io/v3/poi?output=json&countrycode=CA&latitude=43.7&longitude=-79.4&distance=40&distanceunit=KM&maxresults=200&levelid=3&compact=true&verbose=false";
-        const res = await fetch(url, { headers: { "X-API-Key": "" } });
-        if (!res.ok) throw new Error("OpenChargeMap unavailable");
+        const res = await fetch(url, {
+          headers: {
+            "X-API-Key": "87779217-322b-48f2-85c8-ea1c8d592286"
+          }
+        });
+        if (!res.ok) throw new Error(`API returned ${res.status}: ${res.statusText}`);
         const data = await res.json();
         const dcFastOnly = data.filter(c =>
           c.Connections && c.Connections.some(conn =>
@@ -178,6 +182,7 @@ export default function ToolsPage() {
         setChargers(dcFastOnly);
         setMapLoading(false);
       } catch (err) {
+        console.error("Charger fetch error:", err);
         setMapError(err.message);
         setMapLoading(false);
       }
