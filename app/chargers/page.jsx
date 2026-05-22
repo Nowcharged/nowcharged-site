@@ -19,6 +19,8 @@ function Icon({ name, className = "h-6 w-6" }) {
     bolt:    <svg {...p}><circle cx="12" cy="12" r="10" /><path d="m13 7-3 6h3l-2 4" /></svg>,
     check:   <svg {...p}><path d="M20 6 9 17l-5-5" /></svg>,
     x:       <svg {...p}><path d="M18 6 6 18M6 6l12 12" /></svg>,
+    xclose:  <svg {...p}><path d="M18 6 6 18M6 6l12 12" /></svg>,
+    menu:    <svg {...p}><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="18" x2="20" y2="18" /></svg>,
   };
   return icons[name] || icons.zap;
 }
@@ -93,6 +95,59 @@ function PlugVisual({ type }) {
     ),
   };
   return visuals[type] || visuals["J1772"];
+}
+
+// Shared nav header used across all sub-pages
+function SiteHeader() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navLinks = [
+    { href: "/#how", label: "How it works" },
+    { href: "/pricing", label: "Pricing" },
+    { href: "/tools", label: "Find your EV" },
+    { href: "/chargers", label: "Chargers 101" },
+    { href: "/trust", label: "Trust" },
+    { href: "/faq", label: "FAQ" },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <a href="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 shadow-lg shadow-emerald-500/20">
+            <Icon name="zap" className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-lg font-extrabold tracking-tight leading-none" style={display}>NowCharged</p>
+            <p className="text-xs text-slate-400 mt-0.5">EV Charging Valet · Toronto & GTA</p>
+          </div>
+        </a>
+
+        <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
+          {navLinks.map(link => (
+            <a key={link.href} href={link.href} className="hover:text-white transition-colors">{link.label}</a>
+          ))}
+        </nav>
+
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden text-slate-300 hover:text-white"
+          aria-label="Menu"
+        >
+          <Icon name={menuOpen ? "xclose" : "menu"} className="h-6 w-6" />
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="md:hidden border-t border-white/10 bg-slate-950 px-6 py-5">
+          <nav className="flex flex-col gap-4 text-sm">
+            {navLinks.map(link => (
+              <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)} className="text-slate-300 hover:text-white">{link.label}</a>
+            ))}
+          </nav>
+        </div>
+      )}
+    </header>
+  );
 }
 
 export default function ChargersPage() {
@@ -246,22 +301,7 @@ export default function ChargersPage() {
     <div className="min-h-screen bg-slate-950 text-white" style={body}>
       <style>{FONTS}</style>
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="/" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 shadow-lg shadow-emerald-500/20">
-              <Icon name="zap" className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-lg font-extrabold tracking-tight leading-none" style={display}>NowCharged</p>
-              <p className="text-xs text-slate-400 mt-0.5">EV Charging Valet · Toronto & GTA</p>
-            </div>
-          </a>
-          <a href="/" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
-            <Icon name="arrowL" className="h-4 w-4" /> Back to home
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main>
         <section className="relative overflow-hidden px-6 py-20 md:py-28">
