@@ -104,7 +104,7 @@ export default function FAQPage() {
       faqs: [
         {
           q: "Do you actually drive my car?",
-          a: "Yes. Our driver picks up your vehicle, drives it to a nearby DC fast charger, and returns it to your spot. Insurance details are reviewed with you by phone before any booking is confirmed.",
+          a: "Yes. Our driver picks up your vehicle, drives it to a nearby DC fast charger, and returns it to your spot. We're fully insured and walk through everything with you by phone before any booking.",
         },
         {
           q: "What type of charger do you use?",
@@ -154,15 +154,11 @@ export default function FAQPage() {
         },
         {
           q: "What if my car gets damaged?",
-          a: "Photos taken at pickup and return give you a clear baseline. For driving-related incidents, the driver's auto insurance and our commercial coverage handle the claim. We provide all documentation.",
+          a: "Photos taken at pickup and return give you a clear baseline. If something happens that's on us, we handle it. We're fully insured for exactly this kind of situation.",
         },
         {
           q: "Can you guarantee how much charge my car gets?",
           a: "Honestly, no. Battery state, charger speed, and appointment length all affect the result. We give you a real estimate on the call based on your specific car and situation, not a number we can't back up.",
-        },
-        {
-          q: "Will my insurance cover this?",
-          a: "Most personal auto insurance policies allow third-party drivers for valet services, but it's worth confirming with your insurer before booking. We're happy to share proof of our commercial coverage if helpful.",
         },
       ],
     },
