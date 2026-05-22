@@ -111,7 +111,7 @@ export default function NowChargedLandingPage() {
  const faqs = [
   {
    q: "Is my car safe when you drive it?",
-   a: "Yes. Your car is in good hands from pickup to return. We walk through insurance and liability with you by phone before any booking.",
+   a: "Yes. Your car is in good hands from pickup to return. We're fully insured and walk through everything with you by phone before any booking.",
   },
   {
    q: "Do I need to be there for pickup or drop-off?",
