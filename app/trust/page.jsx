@@ -89,8 +89,8 @@ export default function TrustSafetyPage() {
     },
     {
       icon: "shield",
-      title: "Proper insurance",
-      detail: "We carry commercial garage liability insurance specifically designed for businesses that handle customer vehicles. We can share proof of coverage on request.",
+      title: "Fully insured",
+      detail: "We carry the commercial insurance designed for businesses that handle customer vehicles. Details available on request.",
     },
     {
       icon: "camera",
@@ -142,8 +142,8 @@ export default function TrustSafetyPage() {
     },
     {
       step: "4",
-      title: "Insurance steps in",
-      text: "For driving-related incidents, the driver's auto insurance and our commercial coverage handle the claim. We provide all documentation.",
+      title: "We make it right",
+      text: "If something happens that's on us, we handle it. Our coverage is in place for exactly this kind of situation. We don't make customers chase claims alone.",
     },
   ];
 
@@ -243,23 +243,6 @@ export default function TrustSafetyPage() {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-slate-900 px-6 py-20">
-          <div className="mx-auto max-w-4xl">
-            <div className="rounded-3xl border border-emerald-400/30 bg-emerald-400/5 p-8 md:p-12">
-              <h3 className="text-2xl font-black mb-4" style={display}>A note on insurance, in plain English.</h3>
-              <p className="text-sm leading-7 text-slate-300 mb-4">
-                We carry commercial garage liability insurance, which covers third-party damages that happen during the service. Your own auto insurance is the primary policy if there's a driving-related incident.
-              </p>
-              <p className="text-sm leading-7 text-slate-300 mb-4">
-                Before any booking, we recommend confirming with your insurance company that your policy allows third-party drivers for valet services. Most do, but it's worth a quick call.
-              </p>
-              <p className="text-sm leading-7 text-slate-300">
-                We're happy to share proof of our coverage. Email <a href="mailto:info@nowcharged.com" className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">info@nowcharged.com</a> and we'll send it.
-              </p>
             </div>
           </div>
         </section>
