@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
 *, html { scroll-behavior: smooth; }`;
 
@@ -12,6 +14,8 @@ function Icon({ name, className = "h-6 w-6" }) {
     zap:     <svg {...p}><path d="M13 2 3 14h8l-1 8 11-14h-8l1-6Z" /></svg>,
     arrow:   <svg {...p}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>,
     arrowL:  <svg {...p}><path d="M19 12H5" /><path d="m12 19-7-7 7-7" /></svg>,
+    xclose:  <svg {...p}><path d="M18 6 6 18M6 6l12 12" /></svg>,
+    menu:    <svg {...p}><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="18" x2="20" y2="18" /></svg>,
     check:   <svg {...p}><path d="M20 6 9 17l-5-5" /></svg>,
     shield:  <svg {...p}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /><path d="m9 12 2 2 4-5" /></svg>,
     user:    <svg {...p}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>,
@@ -21,6 +25,59 @@ function Icon({ name, className = "h-6 w-6" }) {
     camera:  <svg {...p}><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z" /><circle cx="12" cy="13" r="3" /></svg>,
   };
   return icons[name] || icons.zap;
+}
+
+// Shared nav header used across all sub-pages
+function SiteHeader() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navLinks = [
+    { href: "/#how", label: "How it works" },
+    { href: "/pricing", label: "Pricing" },
+    { href: "/tools", label: "Find your EV" },
+    { href: "/chargers", label: "Chargers 101" },
+    { href: "/trust", label: "Trust" },
+    { href: "/faq", label: "FAQ" },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <a href="/" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 shadow-lg shadow-emerald-500/20">
+            <Icon name="zap" className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-lg font-extrabold tracking-tight leading-none" style={display}>NowCharged</p>
+            <p className="text-xs text-slate-400 mt-0.5">EV Charging Valet · Toronto & GTA</p>
+          </div>
+        </a>
+
+        <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
+          {navLinks.map(link => (
+            <a key={link.href} href={link.href} className="hover:text-white transition-colors">{link.label}</a>
+          ))}
+        </nav>
+
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden text-slate-300 hover:text-white"
+          aria-label="Menu"
+        >
+          <Icon name={menuOpen ? "xclose" : "menu"} className="h-6 w-6" />
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="md:hidden border-t border-white/10 bg-slate-950 px-6 py-5">
+          <nav className="flex flex-col gap-4 text-sm">
+            {navLinks.map(link => (
+              <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)} className="text-slate-300 hover:text-white">{link.label}</a>
+            ))}
+          </nav>
+        </div>
+      )}
+    </header>
+  );
 }
 
 export default function TrustSafetyPage() {
@@ -94,22 +151,7 @@ export default function TrustSafetyPage() {
     <div className="min-h-screen bg-slate-950 text-white" style={body}>
       <style>{FONTS}</style>
 
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="/" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 shadow-lg shadow-emerald-500/20">
-              <Icon name="zap" className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-lg font-extrabold tracking-tight leading-none" style={display}>NowCharged</p>
-              <p className="text-xs text-slate-400 mt-0.5">EV Charging Valet · Toronto & GTA</p>
-            </div>
-          </a>
-          <a href="/" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors">
-            <Icon name="arrowL" className="h-4 w-4" /> Back to home
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main>
         <section className="relative overflow-hidden px-6 py-20 md:py-28">
