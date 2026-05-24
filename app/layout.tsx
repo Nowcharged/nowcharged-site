@@ -1,17 +1,146 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "NowCharged",
-  description: "Mobile EV Charging",
+  metadataBase: new URL("https://nowcharged.com"),
+  title: {
+    default: "NowCharged | EV Charging Valet in Toronto & GTA",
+    template: "%s | NowCharged",
+  },
+  description: "NowCharged is an EV charging valet service for Toronto, Mississauga, Vaughan, Markham, Brampton, and the rest of the GTA. We pick up your electric vehicle, drive it to a DC fast charger, and return it charged. No home charger required.",
+  keywords: [
+    "EV charging valet Toronto",
+    "EV charging service Toronto",
+    "mobile EV charging GTA",
+    "EV charging Mississauga",
+    "EV charging Vaughan",
+    "EV charging Markham",
+    "EV charging Brampton",
+    "condo EV charging Toronto",
+    "DC fast charging Toronto",
+    "someone to charge my EV",
+    "EV charging concierge",
+    "electric vehicle charging service",
+  ],
+  authors: [{ name: "NowCharged" }],
+  creator: "NowCharged",
+  publisher: "NowCharged",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "NowCharged | EV Charging Valet in Toronto & GTA",
+    description: "We pick up your EV, drive it to a DC fast charger, and return it charged. Serving Toronto, Mississauga, Vaughan, Markham, Brampton, and the GTA.",
+    url: "https://nowcharged.com",
+    siteName: "NowCharged",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 1200,
+        alt: "NowCharged - EV Charging Valet",
+      },
+    ],
+    locale: "en_CA",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NowCharged | EV Charging Valet in Toronto & GTA",
+    description: "We pick up your EV, drive it to a DC fast charger, and return it charged. No home charger required.",
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://nowcharged.com",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// LocalBusiness structured data for local SEO
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://nowcharged.com",
+  name: "NowCharged",
+  description: "EV charging valet service in Toronto and the Greater Toronto Area. We pick up your electric vehicle, charge it at a DC fast charger, and return it to you.",
+  url: "https://nowcharged.com",
+  image: "https://nowcharged.com/logo.png",
+  logo: "https://nowcharged.com/logo.png",
+  email: "info@nowcharged.com",
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Toronto",
+    addressRegion: "ON",
+    addressCountry: "CA",
+  },
+  areaServed: [
+    { "@type": "City", name: "Toronto" },
+    { "@type": "City", name: "Mississauga" },
+    { "@type": "City", name: "Vaughan" },
+    { "@type": "City", name: "Markham" },
+    { "@type": "City", name: "Brampton" },
+    { "@type": "City", name: "Richmond Hill" },
+    { "@type": "City", name: "Oakville" },
+    { "@type": "City", name: "Burlington" },
+    { "@type": "City", name: "Ajax" },
+    { "@type": "City", name: "Pickering" },
+    { "@type": "City", name: "Oshawa" },
+  ],
+  serviceType: "EV Charging Valet Service",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "EV Charging Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Scheduled Charge",
+          description: "A planned EV pickup, DC fast charge, and return to your spot.",
+        },
+        price: "50.00",
+        priceCurrency: "CAD",
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Same-Day Priority Charge",
+          description: "Same-day EV pickup, charge, and return when availability allows.",
+        },
+        price: "75.00",
+        priceCurrency: "CAD",
+      },
+    ],
+  },
+};
+
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
