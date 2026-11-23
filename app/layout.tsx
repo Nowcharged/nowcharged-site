@@ -1,138 +1,52 @@
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL("https://nowcharged.com"),
-  title: {
-    default: "NowCharged | EV Charging & Dealership Valet in Toronto & GTA",
-    template: "%s | NowCharged",
-  },
-  description: "NowCharged offers door-to-door EV charging and dealership service pickup and return in Toronto and the Greater Toronto Area.",
-  keywords: [
-    "EV charging valet Toronto",
-    "EV charging service Toronto",
-    "mobile EV charging GTA",
-    "EV charging Mississauga",
-    "EV charging Vaughan",
-    "EV charging Markham",
-    "EV charging Brampton",
-    "condo EV charging Toronto",
-    "DC fast charging Toronto",
-    "someone to charge my EV",
-    "EV charging concierge",
-    "electric vehicle charging service",
-  ],
-  authors: [{ name: "NowCharged" }],
-  creator: "NowCharged",
-  publisher: "NowCharged",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
-  },
-  openGraph: {
-    title: "NowCharged | EV Charging & Dealership Valet in Toronto & GTA",
-    description: "Door-to-door EV charging and dealership service valet in Toronto and the GTA.",
-    url: "https://nowcharged.com",
-    siteName: "NowCharged",
-    images: [
-      {
-        url: "/logo.png",
-        width: 1200,
-        height: 1200,
-        alt: "NowCharged - EV Charging Valet",
-      },
-    ],
-    locale: "en_CA",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "NowCharged | EV Charging & Dealership Valet in Toronto & GTA",
-    description: "Door-to-door EV charging and dealership service valet in Toronto and the GTA.",
-    images: ["/logo.png"],
-  },
-  // Preview branch only: prevent search indexing.
+  title: { default: "NowCharged | Toronto & GTA Car Valet", template: "%s | NowCharged" },
+  description: "Door-to-door EV charging valet and dealership pickup and return in Toronto and the Greater Toronto Area.",
+  icons: { icon: "/dispatch-icon.svg" },
   robots: { index: false, follow: false },
-  alternates: {
-    canonical: "https://nowcharged.com",
-  },
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
-// LocalBusiness structured data for local SEO
-const businessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": "https://nowcharged.com",
-  name: "NowCharged",
-  description: "Door-to-door EV charging and dealership service valet in Toronto and the Greater Toronto Area.",
-  url: "https://nowcharged.com",
-  image: "https://nowcharged.com/logo.png",
-  logo: "https://nowcharged.com/logo.png",
-  email: "info@nowcharged.com",
-  priceRange: "$$",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Toronto",
-    addressRegion: "ON",
-    addressCountry: "CA",
-  },
-  areaServed: [
-    { "@type": "City", name: "Toronto" },
-    { "@type": "City", name: "Mississauga" },
-    { "@type": "City", name: "Vaughan" },
-    { "@type": "City", name: "Markham" },
-    { "@type": "City", name: "Brampton" },
-    { "@type": "City", name: "Richmond Hill" },
-    { "@type": "City", name: "Oakville" },
-    { "@type": "City", name: "Burlington" },
-    { "@type": "City", name: "Ajax" },
-    { "@type": "City", name: "Pickering" },
-    { "@type": "City", name: "Oshawa" },
-  ],
-  serviceType: ["EV Charging Valet", "Dealership Service Valet"],
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "EV Charging Services",
-    itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Scheduled Charge",
-          description: "A planned EV pickup, DC fast charge, and return to your spot.",
-        },
-        price: "50.00",
-        priceCurrency: "CAD",
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Same-Day Priority Charge",
-          description: "Same-day EV pickup, charge, and return when availability allows.",
-        },
-        price: "75.00",
-        priceCurrency: "CAD",
-      },
-    ],
-  },
-};
+const services = [
+  ["EV charging", "/services/ev-charging"],
+  ["Dealership pickup", "/services/dealership-pickup"],
+];
+const resources = [
+  ["Charging 101", "/chargers"],
+  ["EV tools", "/tools"],
+  ["Service area", "/coverage"],
+  ["How we handle your car", "/trust"],
+  ["FAQ", "/faq"],
+  ["Careers", "/careers"],
+];
 
-export default function RootLayout({ children }) {
+function Brand() {
+  return <a href="/" className="nc-brand" aria-label="NowCharged home"><svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="currentColor"/><path d="M17.5 4.8 8 17h7.1l-.7 10.2 9.6-12.7h-7.2z" fill="#def56a"/></svg><span>Now<span className="nc-brand-end">Charged</span></span></a>;
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
-        />
-      </head>
-      <body>{children}</body>
+    <html lang="en-CA">
+      <body>
+        <a className="nc-skip" href="#content">Skip to content</a>
+        <div className="nc-preview"><div className="nc-shell"><b>WEBSITE PREVIEW</b><span>Requests and bookings are disabled.</span></div></div>
+        <header className="nc-header"><div className="nc-shell nc-head-inner">
+          <Brand />
+          <nav className="nc-desktop-nav" aria-label="Main navigation">
+            {services.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
+            <a href="/pricing">Pricing</a>
+            <details className="nc-nav-more"><summary>Driver resources <span aria-hidden="true">+</span></summary><div>{resources.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</div></details>
+          </nav>
+          <a className="nc-button nc-button--dark nc-head-cta" href="/request">Explore a pickup <span aria-hidden="true">↗</span></a>
+          <details className="nc-mobile-menu"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation">{[...services, ["Pricing", "/pricing"], ...resources, ["Explore a pickup", "/request"]].map(([label,href]) => <a key={href} href={href}>{label}<span aria-hidden="true">↗</span></a>)}</nav></details>
+        </div></header>
+        <div id="content" tabIndex={-1}>{children}</div>
+        <footer className="nc-footer"><div className="nc-shell">
+          <div className="nc-foot-top"><div><Brand /><p>We take the car.<br/>You keep your day.</p></div><nav aria-label="Services"><h2>THE VALET</h2>{[...services, ["Pricing", "/pricing"], ["Service area", "/coverage"]].map(([label, href]) => <a href={href} key={href}>{label}</a>)}</nav><nav aria-label="Help"><h2>DRIVER RESOURCES</h2>{resources.filter(([,href]) => href !== "/coverage").map(([label, href]) => <a href={href} key={href}>{label}</a>)}</nav></div>
+          <div className="nc-foot-bottom"><span>NOWCHARGED · TORONTO &amp; GTA</span><span>PREVIEW ONLY · NOT TAKING BOOKINGS</span></div>
+        </div></footer>
+      </body>
     </html>
   );
 }
