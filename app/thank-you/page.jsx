@@ -3,7 +3,7 @@
 export default function ThankYouPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-6 py-20" style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');`}</style>
+      <style>{``}</style>
 
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_15%_25%,rgba(52,211,153,0.16),transparent_45%),radial-gradient(ellipse_at_85%_75%,rgba(56,189,248,0.09),transparent_45%)] pointer-events-none" />
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
+const FONTS = `
 *, html { scroll-behavior: smooth; }`;
 
 const display = { fontFamily: "'Manrope', sans-serif" };
@@ -89,8 +89,8 @@ export default function TrustSafetyPage() {
     },
     {
       icon: "shield",
-      title: "Fully insured",
-      detail: "We carry the commercial insurance designed for businesses that handle customer vehicles. Details available on request.",
+      title: "Pickup and return details",
+      detail: "We walk through vehicle access, pickup and return details with you before any booking.",
     },
     {
       icon: "camera",
@@ -142,8 +142,8 @@ export default function TrustSafetyPage() {
     },
     {
       step: "4",
-      title: "We make it right",
-      text: "If something happens that's on us, we handle it. Our coverage is in place for exactly this kind of situation. We don't make customers chase claims alone.",
+      title: "Incident follow-up",
+      text: "If an incident occurs, we share the relevant details and documentation with you and discuss next steps.",
     },
   ];
 

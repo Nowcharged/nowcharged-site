@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
+const FONTS = `
 *, html { scroll-behavior: smooth; }`;
 
 const display = { fontFamily: "'Manrope', sans-serif" };
@@ -104,7 +104,7 @@ export default function FAQPage() {
       faqs: [
         {
           q: "Do you actually drive my car?",
-          a: "Yes. Our driver picks up your vehicle, drives it to a nearby DC fast charger, and returns it to your spot. We're fully insured and walk through everything with you by phone before any booking.",
+          a: "Our driver takes your vehicle to a nearby DC fast charger and returns it to your spot. We review the pickup, key handoff and return details with you before you decide whether to book.",
         },
         {
           q: "What type of charger do you use?",
@@ -154,7 +154,7 @@ export default function FAQPage() {
         },
         {
           q: "What if my car gets damaged?",
-          a: "Photos taken at pickup and return give you a clear baseline. If something happens that's on us, we handle it. We're fully insured for exactly this kind of situation.",
+          a: "Photos taken at pickup and return help document the vehicle's condition. If an incident occurs, we contact you and share the relevant details and documentation.",
         },
         {
           q: "Can you guarantee how much charge my car gets?",

@@ -3,10 +3,10 @@ import "./globals.css";
 export const metadata = {
   metadataBase: new URL("https://nowcharged.com"),
   title: {
-    default: "NowCharged | EV Charging Valet in Toronto & GTA",
+    default: "NowCharged | EV Charging & Dealership Valet in Toronto & GTA",
     template: "%s | NowCharged",
   },
-  description: "NowCharged is an EV charging valet service for Toronto, Mississauga, Vaughan, Markham, Brampton, and the rest of the GTA. We pick up your electric vehicle, drive it to a DC fast charger, and return it charged. No home charger required.",
+  description: "NowCharged offers door-to-door EV charging and dealership service pickup and return in Toronto and the Greater Toronto Area.",
   keywords: [
     "EV charging valet Toronto",
     "EV charging service Toronto",
@@ -35,8 +35,8 @@ export const metadata = {
     apple: "/logo.png",
   },
   openGraph: {
-    title: "NowCharged | EV Charging Valet in Toronto & GTA",
-    description: "We pick up your EV, drive it to a DC fast charger, and return it charged. Serving Toronto, Mississauga, Vaughan, Markham, Brampton, and the GTA.",
+    title: "NowCharged | EV Charging & Dealership Valet in Toronto & GTA",
+    description: "Door-to-door EV charging and dealership service valet in Toronto and the GTA.",
     url: "https://nowcharged.com",
     siteName: "NowCharged",
     images: [
@@ -52,21 +52,12 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NowCharged | EV Charging Valet in Toronto & GTA",
-    description: "We pick up your EV, drive it to a DC fast charger, and return it charged. No home charger required.",
+    title: "NowCharged | EV Charging & Dealership Valet in Toronto & GTA",
+    description: "Door-to-door EV charging and dealership service valet in Toronto and the GTA.",
     images: ["/logo.png"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  // Preview branch only: prevent search indexing.
+  robots: { index: false, follow: false },
   alternates: {
     canonical: "https://nowcharged.com",
   },
@@ -78,7 +69,7 @@ const businessSchema = {
   "@type": "LocalBusiness",
   "@id": "https://nowcharged.com",
   name: "NowCharged",
-  description: "EV charging valet service in Toronto and the Greater Toronto Area. We pick up your electric vehicle, charge it at a DC fast charger, and return it to you.",
+  description: "Door-to-door EV charging and dealership service valet in Toronto and the Greater Toronto Area.",
   url: "https://nowcharged.com",
   image: "https://nowcharged.com/logo.png",
   logo: "https://nowcharged.com/logo.png",
@@ -103,7 +94,7 @@ const businessSchema = {
     { "@type": "City", name: "Pickering" },
     { "@type": "City", name: "Oshawa" },
   ],
-  serviceType: "EV Charging Valet Service",
+  serviceType: ["EV Charging Valet", "Dealership Service Valet"],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "EV Charging Services",

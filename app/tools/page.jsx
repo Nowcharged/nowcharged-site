@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
+const FONTS = `
 *, html { scroll-behavior: smooth; }`;
 
 const display = { fontFamily: "'Manrope', sans-serif" };
@@ -426,30 +426,10 @@ export default function ToolsPage() {
 
   const estimate = calcEstimate();
 
-  // Fetch chargers
+  // The review deployment does not query the live charger service.
   useEffect(() => {
-    const fetchChargers = async () => {
-      try {
-        const url = "https://api.openchargemap.io/v3/poi?output=json&countrycode=CA&latitude=43.75&longitude=-79.55&distance=60&distanceunit=KM&maxresults=500&levelid=3&compact=false&verbose=true";
-        const res = await fetch(url, {
-          headers: {
-            "X-API-Key": "87779217-322b-48f2-85c8-ea1c8d592286"
-          }
-        });
-        if (!res.ok) throw new Error(`API returned ${res.status}: ${res.statusText}`);
-        const data = await res.json();
-        // levelid=3 in the URL already filters for DC fast on the server
-        // Just keep stations that have at least one connection
-        const dcFastOnly = data.filter(c => c.Connections && c.Connections.length > 0);
-        setChargers(dcFastOnly);
-        setMapLoading(false);
-      } catch (err) {
-        console.error("Charger fetch error:", err);
-        setMapError(err.message);
-        setMapLoading(false);
-      }
-    };
-    fetchChargers();
+    setMapError("Live charger lookup is off in this preview.");
+    setMapLoading(false);
   }, []);
 
   return (
@@ -801,7 +781,7 @@ export default function ToolsPage() {
                               33: "CCS Type 2",
                               1036: "NACS / Tesla",
                             };
-                            const connectorName = conn.ConnectionType?.Title 
+                            const connectorName = conn.ConnectionType?.Title
                               || connectorNames[conn.ConnectionTypeID]
                               || `Connector type ${conn.ConnectionTypeID || "unspecified"}`;
                             return (

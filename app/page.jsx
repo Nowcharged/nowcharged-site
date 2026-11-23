@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap');
-*, html { scroll-behavior: smooth; }
-`;
+const FONTS = ``;
 
 function Icon({ name, className = "h-6 w-6" }) {
  const p = {
@@ -43,75 +41,42 @@ const display = { fontFamily: "'Manrope', sans-serif" };
 const body  = { fontFamily: "'DM Sans', system-ui, sans-serif" };
 
 const scrollTo = (id) => {
- const el = document.getElementById(id);
- if (el) el.scrollIntoView({ behavior: "smooth" });
+ document.getElementById(id)?.scrollIntoView();
 };
+
+const services = [
+ { id: "ev", name: "EV charging valet", icon: "battery", description: "We pick up your EV, take it to a DC fast charger, and return it to your spot." },
+ { id: "dealership", name: "Dealership service valet", icon: "car", description: "Ask about pickup and return for your dealership appointment. Inquiries only; pickups are not yet available." },
+];
+
+// Preview branch only: this version cannot send callback data.
+const previewOnly = true;
 
 export default function NowChargedLandingPage() {
  const [menuOpen, setMenuOpen] = useState(false);
  const [openFaq, setOpenFaq]  = useState(null);
 
- const steps = [
-  {
-   icon: "phone",
-   num: "01",
-   title: "You tell us where",
-   text: "Tell us your location, parking spot, and when you need your car back. We call to confirm. Takes two minutes.",
-  },
-  {
-   icon: "car",
-   num: "02",
-   title: "We grab your keys",
-   text: "A NowCharged driver comes to your spot and takes your EV to the nearest DC fast charger.",
-  },
-  {
-   icon: "key",
-   num: "03",
-   title: "It comes back charged",
-   text: "Your car is back in its spot, charged and ready to go. You don't even need to be there.",
-  },
- ];
+ const [service, setService] = useState("");
+ const [previewNotice, setPreviewNotice] = useState(false);
+ const [details, setDetails] = useState("");
+ const RequestPanel = previewOnly ? "div" : "form";
 
- const audiences = [
-  {
-   icon: "car",
-   title: "Daily EV drivers",
-   sub: "Skip the slow home charge. Spend the time doing literally anything else.",
-   points: [
-    "We pick up from wherever you park",
-    "Drive to a DC fast charger nearby",
-    "Return it ready for the next day",
-    "Faster than charging overnight",
-   ],
-  },
-  {
-   icon: "building",
-   title: "Condo & apartment residents",
-   sub: "No outlet in your building? Doesn't matter. We've got it.",
-   points: [
-    "No equipment installation required",
-    "Works for any parking setup",
-    "Lockbox or concierge key handoff",
-    "Built around buildings without EV infrastructure",
-   ],
-  },
-  {
-   icon: "key",
-   title: "Travelers & busy weeks",
-   sub: "Heading out of town or slammed with meetings? We've got the charging covered.",
-   points: [
-    "Schedule charges around your week",
-    "No need to wait at a public charger",
-    "Return to a fully charged car",
-    "Perfect for back-to-back travel days",
-   ],
-  },
+ function chooseService(id) {
+  setService(id);
+  document.getElementById("request-service")?.focus({ preventScroll: true });
+  scrollTo("callback");
+ }
+
+ const steps = [
+  { icon: "phone", num: "01", title: "Tell us what you need", text: "Choose a service and share your pickup postal code. For dealership service, include the dealership and appointment details if you have them." },
+  { icon: "key", num: "02", title: "Confirm the details", text: "We discuss pickup, timing, price and key handoff with you before any booking." },
+  { icon: "car", num: "03", title: "Get your car back", text: "We return your EV after charging. Our planned dealership valet would bring the car back after service; the dealership handles all maintenance and repairs." },
  ];
 
  const faqs = [
   {
-   q: "Is my car safe when you drive it?",
-   a: "Yes. Your car is in good hands from pickup to return. We're fully insured and walk through everything with you by phone before any booking.",
+   q: "What happens before pickup?",
+   a: "We review the pickup, key handoff and return details with you before you decide whether to book.",
   },
   {
    q: "Do I need to be there for pickup or drop-off?",
@@ -126,6 +91,10 @@ export default function NowChargedLandingPage() {
    a: "Toronto and the Greater Toronto Area. Drop your postal code in the form and we'll confirm right away whether we cover your area.",
   },
   {
+   q: "Is dealership pickup available now?",
+   a: "Not yet. You can ask about the planned service, but we aren’t taking dealership bookings.",
+  },
+  {
    q: "Does filling out the form book a job?",
    a: "No. It just asks us to call you. Nothing is booked or charged until we've spoken, you know the price, and you say go.",
   },
@@ -134,25 +103,25 @@ export default function NowChargedLandingPage() {
  const inputCls = "mt-2 w-full rounded-2xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-emerald-400 transition-colors placeholder:text-slate-500 text-sm";
 
  return (
-  <div className="min-h-screen bg-slate-950 text-white" style={body}>
+  <div className="nc-site min-h-screen bg-slate-950 text-white" style={body}>
    <style>{FONTS}</style>
 
    {/* ── Header ── */}
    <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 backdrop-blur-xl">
     <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-     <button onClick={() => scrollTo("top")} className="flex items-center gap-3">
+     <a href="#top" className="flex items-center gap-3 text-left">
       <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-400 text-slate-950 shadow-lg shadow-emerald-500/20">
        <Icon name="zap" className="h-5 w-5" />
       </div>
       <div>
        <p className="text-lg font-extrabold tracking-tight leading-none" style={display}>NowCharged</p>
-       <p className="text-xs text-slate-400 mt-0.5">EV Charging Valet · Toronto & GTA</p>
+       <p className="text-xs text-slate-400 mt-0.5">Car Valet · Toronto & GTA</p>
       </div>
-     </button>
+     </a>
 
-     <nav className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+     <nav className="hidden items-center gap-7 text-sm text-slate-300 lg:flex">
       <button onClick={() => scrollTo("how")} className="hover:text-white transition-colors">How it works</button>
-      <a href="/pricing" className="hover:text-white transition-colors">Pricing</a>
+      <a href="/pricing" className="hover:text-white transition-colors">EV Pricing</a>
       <a href="/tools" className="hover:text-white transition-colors">Find your EV</a>
       <a href="/chargers" className="hover:text-white transition-colors">Chargers 101</a>
       <a href="/trust" className="hover:text-white transition-colors">Trust</a>
@@ -160,130 +129,68 @@ export default function NowChargedLandingPage() {
      </nav>
 
      <div className="flex items-center gap-3">
-      <button onClick={() => scrollTo("callback")} className="hidden md:inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
-       Get Started <Icon name="arrow" className="h-4 w-4" />
+      <button onClick={() => scrollTo("callback")} className="hidden lg:inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
+       Request a callback <Icon name="arrow" className="h-4 w-4" />
       </button>
-      <button onClick={() => setMenuOpen(o => !o)} className="rounded-xl border border-white/10 p-2 text-white md:hidden" aria-label="Toggle menu">
+      <button onClick={() => setMenuOpen(o => !o)} className="flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-white/10 p-2 text-white lg:hidden" aria-label="Toggle menu" aria-expanded={menuOpen} aria-controls="mobile-navigation">
        <Icon name={menuOpen ? "close" : "menu"} className="h-5 w-5" />
       </button>
      </div>
     </div>
 
-    {menuOpen && (
-     <div className="border-t border-white/10 bg-slate-950 px-6 py-5 md:hidden">
+    <div id="mobile-navigation" className={menuOpen ? "border-t border-white/10 bg-slate-950 px-6 py-5 lg:hidden" : "hidden"}>
       <nav className="flex flex-col gap-4 text-sm">
        <button onClick={() => { scrollTo("how"); setMenuOpen(false); }} className="text-left text-slate-300 hover:text-white">How it works</button>
-       <a href="/pricing" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>Pricing</a>
+       <a href="/pricing" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>EV Pricing</a>
        <a href="/tools" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>Find your EV</a>
        <a href="/trust" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>Trust & Safety</a>
        <a href="/chargers" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>Chargers 101</a>
        <a href="/faq" className="text-slate-300 hover:text-white" onClick={() => setMenuOpen(false)}>FAQ</a>
        <button onClick={() => { scrollTo("callback"); setMenuOpen(false); }} className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-bold text-slate-950">
-        Get Started <Icon name="arrow" className="h-4 w-4" />
+        Request a callback <Icon name="arrow" className="h-4 w-4" />
        </button>
       </nav>
      </div>
-    )}
    </header>
 
-   <main id="top">
+   <main id="top" className="scroll-mt-24">
 
-    {/* ── Hero ── */}
-    <section className="relative overflow-hidden px-6 py-24 md:py-32">
-     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_15%_25%,rgba(52,211,153,0.16),transparent_45%),radial-gradient(ellipse_at_85%_75%,rgba(56,189,248,0.09),transparent_45%)]" />
-     <div className="relative mx-auto max-w-7xl">
-      <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-300/10 px-4 py-1.5 text-sm text-emerald-200">
-       <Icon name="pin" className="h-3.5 w-3.5" /> Serving Toronto & the Greater Toronto Area
-      </div>
-
-      <img
-       src="/toronto-pulse.png"
-       alt="Toronto skyline pulse line"
-       className="mt-8 h-14 md:h-20 w-auto opacity-70 select-none pointer-events-none"
-      />
-
-      <h1 className="mt-3 max-w-4xl text-5xl font-black leading-[1.04] tracking-tight md:text-7xl" style={display}>
-       Your EV, picked up,<br />charged, and returned.
-      </h1>
-
-      <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 md:text-xl">
-       NowCharged is a charging valet for EV drivers in Toronto and the GTA. We pick up your car, drive it to a DC fast charger, and bring it back ready. No waiting, no home setup needed.
-      </p>
-
-      <div className="mt-8 flex flex-wrap gap-4">
-       <button onClick={() => scrollTo("callback")} className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-7 py-3.5 text-base font-bold text-slate-950 hover:bg-emerald-300 transition-colors">
-        Get Started <Icon name="arrow" className="h-5 w-5" />
-       </button>
-       <button onClick={() => scrollTo("how")} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-base text-white hover:bg-white/10 transition-colors">
-        How it works
-       </button>
-      </div>
-
-      <p className="mt-5 text-sm text-slate-400">
-       Returning customer? <a href="/pricing" className="text-emerald-300 hover:text-emerald-200 underline underline-offset-4">See pricing & book again</a>
-      </p>
-
-      <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3">
-       {["We drive your car to the charger", "No home outlet required", "Scheduled, not emergency"].map(item => (
-        <div key={item} className="flex items-center gap-2 text-sm text-slate-300">
-         <Icon name="check" className="h-4 w-4 text-emerald-400 shrink-0" /> {item}
-        </div>
-       ))}
-      </div>
-     </div>
-    </section>
-
-    {/* ── Who it's for ── */}
-    <section className="bg-white px-6 py-20 text-slate-950">
-     <div className="mx-auto max-w-7xl">
-      <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-       <div>
-        <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Who it's for</p>
-        <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
-         If you drive an EV, it's for you.
-        </h2>
-        <p className="mt-3 max-w-xl text-slate-500 text-sm leading-6">
-         Whether you're skipping the slow home charge, living in a condo with no outlet, or just out and about, we make charging the easiest part of your day.
-        </p>
-       </div>
-       <div className="flex justify-center lg:justify-end">
-        <img
-         src="/ev-charging.png"
-         alt="EV charging at a NowCharged station"
-         className="w-full max-w-md h-auto"
-        />
-       </div>
-      </div>
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
-       {audiences.map(a => (
-        <div key={a.title} className="rounded-3xl border border-slate-200 bg-slate-50 p-8">
-         <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-950 text-emerald-400">
-          <Icon name={a.icon} className="h-7 w-7" />
-         </div>
-         <h3 className="text-2xl font-bold" style={display}>{a.title}</h3>
-         <p className="mt-1 text-slate-500 text-sm">{a.sub}</p>
-         <div className="mt-5 space-y-3">
-          {a.points.map(pt => (
-           <div key={pt} className="flex items-start gap-3">
-            <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
-            <p className="text-slate-700 text-sm">{pt}</p>
-           </div>
-          ))}
-         </div>
-        </div>
-       ))}
-      </div>
-     </div>
-    </section>
+    <section className="nc-hero">
+      <div className="nc-wrap nc-cover">
+       <div><p className="nc-label"><span className="nc-dot" /> TORONTO + GREATER TORONTO AREA</p>
+       <h1>Your car goes.<br/><em>You stay.</em></h1>
+       <p className="nc-deck">Book a callback about EV charging valet, or ask about our planned dealership pickup and return service.</p>
+       <a className="nc-action" href="#services">Choose your service <span aria-hidden="true">↓</span></a></div>
+       <figure className="nc-plate">
+       <div className="nc-legend"><span>NC / FIELD NOTES</span><span>FIG. 01</span></div>
+       <svg viewBox="0 0 440 250" role="img" aria-label="Illustrated round trip from your parking spot to a charger or dealership and back">
+       <defs><pattern id="blocks" width="50" height="34" patternTransform="rotate(-22)" patternUnits="userSpaceOnUse"><rect x="3" y="3" width="42" height="26" rx="3" fill="#326558"/></pattern></defs>
+       <rect width="440" height="250" fill="url(#blocks)"/><path d="M0 212Q94 175 170 202T315 187T440 156V250H0" fill="#143d39"/>
+       <path d="M48 162H112L169 105H231L283 53H364" fill="none" stroke="#183e33" strokeWidth="16" strokeLinejoin="round"/>
+       <path d="M48 162H112L169 105H231L283 53H364" fill="none" stroke="#e2fd78" strokeWidth="5" strokeLinejoin="round"/>
+       <path d="M364 64V111L302 173H171L130 214H49V175" fill="none" stroke="#e8f5d4" strokeWidth="3" strokeDasharray="7 6"/>
+       <g fill="#e2fd78" stroke="#183e33" strokeWidth="4"><circle cx="48" cy="162" r="9"/><circle cx="364" cy="53" r="9"/></g>
+       <g fill="#f7f7df" fontFamily="monospace" fontWeight="bold" fontSize="13"><rect x="22" y="121" width="69" height="23" rx="3" fill="#143d39"/><text x="29" y="137">PICKUP</text><rect x="254" y="17" width="138" height="24" rx="3" fill="#143d39"/><text x="264" y="34">SERVICE STOP</text></g></svg>
+       <figcaption><span>OUT &amp; BACK</span><span>Route illustration</span></figcaption></figure>
+      </div></section>
+      <section id="services" className="nc-directory"><div className="nc-wrap">
+       <p className="nc-label">SERVICE DIRECTORY / 02 ROUTES</p>
+       <h2>Where’s the car headed?</h2>
+       <div className="nc-services">{services.map((item,i)=><article key={item.id}>
+       <div className="nc-ticket"><span>ROUTE 0{i+1}</span><Icon name={item.icon}/></div>
+       <h3>{i===0?"To the charger.":"To the dealership."}</h3><p>{item.description}</p>
+       <small>{i===0?"Scheduled $50 · Same-day priority $75 · Electricity extra":"Independent valet · Your dealership handles all service work"}</small>
+       <button type="button" onClick={()=>chooseService(item.id)}>{i===0?"Request EV charging":"Ask about dealership pickup"} <span aria-hidden="true">↗</span></button></article>)}</div>
+      </div></section>
 
     {/* ── How it works ── */}
-    <section id="how" className="px-6 py-20">
+    <section id="how" className="scroll-mt-24 px-5 py-12 sm:px-8 sm:py-16">
      <div className="mx-auto max-w-7xl">
       <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">How it works</p>
       <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-tight md:text-5xl" style={display}>
-       Three steps. Zero hassle.
+       From your spot and back.
       </h2>
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
        {steps.map(s => (
         <div key={s.title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-8">
          <p className="text-6xl font-black leading-none text-white/10 select-none" style={display}>{s.num}</p>
@@ -303,15 +210,15 @@ export default function NowChargedLandingPage() {
      <div className="mx-auto max-w-5xl">
       <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
        <div>
-        <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Pricing</p>
+        <p className="text-sm font-semibold text-emerald-700 uppercase tracking-wider">EV charging pricing</p>
         <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>
-         Starts at $50.
+         The cost of a charge run.
         </h2>
         <p className="mt-4 text-slate-600 text-base leading-7">
          Flat service fee. Charging electricity is billed separately at-cost. No surprises, no hidden fees, no fine print.
         </p>
         <a href="/pricing" className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-950 px-6 py-3 text-sm font-bold text-white hover:bg-slate-800 transition-colors">
-         See full pricing <Icon name="arrow" className="h-4 w-4" />
+         See EV charging pricing <Icon name="arrow" className="h-4 w-4" />
         </a>
        </div>
 
@@ -347,7 +254,7 @@ export default function NowChargedLandingPage() {
      <div className="mx-auto max-w-4xl">
       <div className="mb-10">
        <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">FAQ</p>
-       <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Got questions?</h2>
+       <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Before we take the keys.</h2>
        <p className="mt-3 text-sm text-slate-400">The five most common ones. Full list on the FAQ page.</p>
       </div>
 
@@ -356,6 +263,7 @@ export default function NowChargedLandingPage() {
         <div key={faq.q} className="rounded-2xl border border-white/10 bg-white/[0.04] overflow-hidden">
          <button
           onClick={() => setOpenFaq(openFaq === i ? null : i)}
+          aria-expanded={openFaq === i}
           className="flex w-full items-center justify-between gap-4 p-5 text-left"
          >
           <h3 className="text-base font-semibold leading-snug pr-2">{faq.q}</h3>
@@ -383,20 +291,14 @@ export default function NowChargedLandingPage() {
     </section>
 
     {/* ── Callback Form ── */}
-    <section id="callback" className="px-6 py-20">
+    <section id="callback" className="scroll-mt-24 px-5 py-12 sm:px-8 sm:py-16">
      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
       <div>
-       <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Get Started</p>
-       <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Tell us about your situation.</h2>
+       <p className="text-sm font-semibold text-emerald-300 uppercase tracking-wider">Request a callback</p>
+       <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl" style={display}>Let’s plan your pickup.</h2>
        <p className="mt-4 leading-8 text-slate-300 text-sm">
-        Fill in the basics and we'll call you back to confirm your location, check availability, and walk you through pricing. No commitment, no surprises.
+        Choose a service and leave a number where we can reach you. Sending this form does not book a pickup.
        </p>
-
-       <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-        <p className="text-sm leading-7 text-slate-300">
-         <span className="font-semibold text-white">This is not a sales call.</span> We call to confirm your postal code is covered, explain exactly what the service costs, and answer any questions you have before anything gets booked.
-        </p>
-       </div>
 
        <div className="mt-6 space-y-3">
         {[
@@ -411,27 +313,35 @@ export default function NowChargedLandingPage() {
        </div>
       </div>
 
-      <form
-       action="https://formsubmit.co/info@nowcharged.com"
-       method="POST"
+      <RequestPanel
+       action={previewOnly ? undefined : "https://formsubmit.co/info@nowcharged.com"}
+       method={previewOnly ? undefined : "POST"}
        className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 md:p-8"
       >
        <input type="hidden" name="_subject" value="New NowCharged Callback Request" />
        <input type="hidden" name="_next" value="https://nowcharged.com/thank-you" />
        <input type="hidden" name="_captcha" value="false" />
 
+       <label className="mb-4 block">
+        <span className="text-sm font-semibold text-slate-300">Which service? *</span>
+        <select id="request-service" required value={service} onChange={event => setService(event.target.value)} className={inputCls}>
+         <option value="">Choose a service</option>
+         {services.map(option => <option key={option.id} value={option.id}>{option.name}</option>)}
+        </select>
+       </label>
+
        <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
          <span className="text-sm font-semibold text-slate-300">Name *</span>
-         <input name="name" required className={inputCls} placeholder="Your name" />
+         <input name="name" autoComplete="name" required className={inputCls} placeholder="Your name" />
         </label>
         <label className="block">
          <span className="text-sm font-semibold text-slate-300">Phone number *</span>
-         <input name="phone" required className={inputCls} placeholder="647-555-1234" />
+         <input name="phone" type="tel" autoComplete="tel" required className={inputCls} placeholder="647-555-1234" />
         </label>
         <label className="block">
          <span className="text-sm font-semibold text-slate-300">Postal code *</span>
-         <input name="postal_code" required className={inputCls} placeholder="M5V 2T6" />
+         <input name="postal_code" autoComplete="postal-code" required className={inputCls} placeholder="M5V 2T6" />
         </label>
         <label className="block">
          <span className="text-sm font-semibold text-slate-300">Best time to call</span>
@@ -445,12 +355,14 @@ export default function NowChargedLandingPage() {
         </label>
        </div>
 
+       <input type="hidden" name="message" value={`Service: ${services.find(option => option.id === service)?.name ?? ""}${details.trim() ? `\n\n${details.trim()}` : ""}`} />
        <label className="mt-4 block">
-        <span className="text-sm font-semibold text-slate-300">What do you need? <span className="font-normal text-slate-500">(optional)</span></span>
+        <span className="text-sm font-semibold text-slate-300">Anything else? <span className="font-normal text-slate-500">(optional)</span></span>
         <textarea
-         name="message"
+         value={details}
+         onChange={event => setDetails(event.target.value)}
          className={`${inputCls} min-h-28 resize-none`}
-         placeholder="e.g. condo resident, no home charging, want a monthly plan. Or just say 'not sure yet' and we'll walk you through it."
+         placeholder={service === "dealership" ? "Dealership name, location, and appointment information if known." : "What do you drive, and where do you normally park?"}
         />
        </label>
 
@@ -460,31 +372,18 @@ export default function NowChargedLandingPage() {
        </label>
 
        <button
-        type="submit"
+        type={previewOnly ? "button" : "submit"}
+        onClick={previewOnly ? () => setPreviewNotice(true) : undefined}
         className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-400 px-6 py-3.5 font-bold text-slate-950 hover:bg-emerald-300 transition-colors"
        >
-        Get Started <Icon name="arrow" className="h-5 w-5" />
+        {previewOnly ? "Preview request" : "Send callback request"} <Icon name="arrow" className="h-5 w-5" />
        </button>
-      </form>
+       {previewOnly && <p className="mt-3 text-sm text-slate-300" role="status">{previewNotice ? "Preview only. No request was sent." : "Preview only. Don’t enter real contact details. This form will not send."}</p>}
+      </RequestPanel>
      </div>
     </section>
 
-    {/* ── CTA Banner ── */}
-    <section className="px-6 py-20">
-     <div className="mx-auto max-w-5xl rounded-[2rem] bg-emerald-400 p-10 text-center text-slate-950 md:p-16">
-      <h2 className="text-4xl font-black tracking-tight md:text-5xl" style={display}>
-       Your EV deserves a charge.<br />We'll make it happen.
-      </h2>
-      <p className="mx-auto mt-4 max-w-lg text-slate-800">
-       Tell us where you are and what you drive. Two minutes to fill out, we call you back and handle everything else.
-      </p>
-      <button onClick={() => scrollTo("callback")} className="mt-8 inline-flex items-center gap-2 rounded-full bg-slate-950 px-8 py-4 text-base font-bold text-white hover:bg-slate-800 transition-colors">
-       Get Started Today <Icon name="arrow" className="h-5 w-5" />
-      </button>
-     </div>
-    </section>
-
-   </main>
+       </main>
 
    {/* ── Footer ── */}
    <footer className="border-t border-white/10 bg-slate-950 px-6 py-14">
@@ -500,7 +399,7 @@ export default function NowChargedLandingPage() {
         <p className="font-extrabold text-white" style={display}>NowCharged</p>
        </div>
        <p className="text-sm text-slate-400 leading-6">
-        EV charging valet for Toronto and the Greater Toronto Area.
+        EV charging and dealership service valet in Toronto and the GTA.
        </p>
        <p className="mt-4 text-sm">
         <a href="mailto:info@nowcharged.com" className="text-emerald-300 hover:text-emerald-200 transition-colors">info@nowcharged.com</a>
@@ -512,9 +411,9 @@ export default function NowChargedLandingPage() {
        <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-4">Service</p>
        <div className="space-y-3 text-sm">
         <button onClick={() => scrollTo("how")} className="block text-slate-300 hover:text-white transition-colors">How it works</button>
-        <a href="/pricing" className="block text-slate-300 hover:text-white transition-colors">Pricing</a>
+        <a href="/pricing" className="block text-slate-300 hover:text-white transition-colors">EV Pricing</a>
         <a href="/tools" className="block text-slate-300 hover:text-white transition-colors">Find your EV</a>
-        <button onClick={() => scrollTo("callback")} className="block text-slate-300 hover:text-white transition-colors">Get started</button>
+        <button onClick={() => scrollTo("callback")} className="block text-slate-300 hover:text-white transition-colors">Request a callback</button>
        </div>
       </div>
 
