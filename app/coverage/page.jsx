@@ -11,7 +11,7 @@ const areas = [
 
 export default async function CoveragePage() {
   const isLive = await isLiveHost();
-  return <main className="nc-shell nc-section nc-coverage">
+  return <main data-field-page="coverage" className="nc-shell nc-section nc-coverage">
     <div className="nc-coverage-main">
       <p className="nc-kicker">TORONTO + GREATER TORONTO AREA</p>
       <h1 className="nc-h1">Where we pick up.</h1>

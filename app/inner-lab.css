@@ -1,0 +1,69 @@
+/* The NowCharged field manual: secondary-page print system, deliberately scoped off the homepage. */
+[data-field-page]{--field-ink:#142e25;--field-stock:#f3f0db;--field-card:#f8f3e3;--field-sage:#bfceae;--field-acid:#d1f55a;--field-peach:#f1be93;--field-line:#73846b;--field-grid:radial-gradient(circle,#233e2d2b .7px,transparent .95px);--field-mono:ui-monospace,Menlo,Consolas,monospace;--nc-line:var(--field-line);--nc-ink:var(--field-ink);--nc-lime:var(--field-acid);color:var(--field-ink)}
+[data-field-page] :where(h1,h2,h3){overflow-wrap:break-word}
+[data-field-page] a:focus-visible,[data-field-page] summary:focus-visible,[data-field-page] button:focus-visible,[data-field-page] input:focus-visible,[data-field-page] select:focus-visible{outline:2px solid #183d2d;outline-offset:4px}
+[data-field-page] a:focus-visible{background:var(--field-acid);color:var(--field-ink)}
+[data-field-page] :where(h1) em{font-style:italic;color:#355641}
+[data-field-page] :is(.guide-mast,.field-support-intro,.field-valet-intro){position:relative;background-image:var(--field-grid);background-size:5px 5px}
+[data-field-page] :is(.guide-mast,.field-support-intro){background-color:var(--field-sage);border:2px solid var(--field-ink);box-shadow:5px 5px 0 var(--field-ink);padding:clamp(16px,4vw,52px)}
+[data-field-page] :is(.field-valet-intro){background-color:var(--field-sage);border-bottom:2px solid var(--field-ink)}
+[data-field-page="dealership-pickup"] .field-valet-intro{background-color:var(--field-peach)}
+[data-field-page="pricing"] .field-valet-intro{background-color:#d8e1bf}
+[data-field-page] :is(.field-valet-page,.field-valet-last){background-color:var(--field-stock)}
+[data-field-page] :is(.nc-kicker,.learning-label,.field-valet-eyebrow,.field-support-kicker){font-family:var(--field-mono);font-weight:800;letter-spacing:.105em}
+[data-field-page] .guide-mast :is(h1,h2),[data-field-page] .field-valet-intro h1{font-weight:900}
+[data-field-page] :is(.guide-mast nav a,.learning-cta,.field-valet-cta){min-height:44px;border:1px solid var(--field-ink);border-radius:0;background:var(--field-card);color:var(--field-ink);box-shadow:2px 2px 0 var(--field-ink)}
+[data-field-page] :is(.guide-mast nav a,.learning-cta,.field-valet-cta):hover{background:var(--field-acid);color:var(--field-ink);text-decoration:underline;text-underline-offset:.2em}
+[data-field-page] :is(.field-learning-batteryCard,.guide-example,.estimate-result,.field-valet-receipt,.nc-coverage-note,.field-support-band,.field-support-bulletin aside){background:var(--field-ink);color:var(--field-card);border-radius:0;border:1px solid var(--field-ink);border-inline-start:6px solid var(--field-acid);box-shadow:4px 4px 0 #657967}
+[data-field-page] :is(.field-learning-batteryCard,.estimate-result,.guide-example,.field-valet-receipt) :is(b,strong,dd,.learning-label,.field-valet-kicker){color:var(--field-acid)}
+[data-field-page] .field-valet-receipt dl dd{color:var(--field-card)}
+[data-field-page="dealership-pickup"] .field-valet-receipt{border-inline-start-color:var(--field-peach)}
+[data-field-page="dealership-pickup"] .field-valet-receipt .field-valet-kicker{color:var(--field-peach)}
+[data-field-page="chargers"] .guide-comparison{gap:clamp(10px,2vw,22px)}
+[data-field-page="chargers"] .guide-comparison article{padding:clamp(12px,2vw,23px);background:var(--field-card);border:2px solid var(--field-ink);box-shadow:4px 4px 0 var(--field-ink);display:flex;flex-direction:column}
+[data-field-page="chargers"] .guide-comparison article:last-child{background:var(--field-acid)}
+[data-field-page="chargers"] .field-level-id{font:800 .65rem/1.4 var(--field-mono);letter-spacing:.07em;margin-bottom:6px}
+.field-level-diagram{width:100%;height:auto;display:block;aspect-ratio:260/110;background:var(--field-grid);background-size:5px 5px;border-block:1px solid var(--field-line);color:var(--field-ink)}
+[data-field-page="chargers"] .guide-use{margin-top:auto;padding-top:12px}
+[data-field-page="chargers"] .guide-use strong{font:800 .72rem/1.6 var(--field-mono);text-transform:uppercase;letter-spacing:.08em}
+[data-field-page="chargers"] #connectors dl{background:var(--field-sage);padding:clamp(10px,2.5vw,28px);border:1px solid var(--field-ink);box-shadow:3px 3px 0 var(--field-ink)}
+[data-field-page="chargers"] #connectors dt{display:table;background:var(--field-ink);color:var(--field-card);font:800 .72rem/1.25 var(--field-mono);letter-spacing:.08em;padding:.32rem .5rem;margin:.35rem 0 .5rem}
+[data-field-page="tools"] .estimate-inputs,[data-field-page="request"] .nc-pickup-card{background:var(--field-card);border:2px solid var(--field-ink);border-radius:0;box-shadow:4px 4px 0 var(--field-ink)}
+[data-field-page="tools"] .estimate-field,[data-field-page="request"] .nc-field{border-color:var(--field-line);border-radius:0;background:#fffcf0}
+[data-field-page="tools"] .charge-presets button[aria-pressed=true]{background:var(--field-acid);box-shadow:2px 2px 0 var(--field-ink)}
+[data-field-page="tools"] .charge-gauge{background:repeating-linear-gradient(90deg,#3f6451 0,#3f6451 calc(10% - 1px),var(--field-ink) calc(10% - 1px),var(--field-ink) 10%);border:1px solid #8ba989}
+[data-field-page="tools"] .charge-gauge>span{background:var(--field-acid)}
+[data-field-page="faq"] nav.field-support-index{background:var(--field-sage);padding:clamp(13px,2.8vw,23px);border:2px solid var(--field-ink);box-shadow:3px 3px 0 var(--field-ink)}
+[data-field-page="faq"] :is(summary,nav a){min-height:44px}
+[data-field-page="faq"] details[open]{background:var(--field-card);border-inline-start:4px solid #587248}
+[data-field-page="faq"] details[open] summary{padding-inline-start:10px}
+[data-field-page="trust"] .field-support-timeline li{border-top:2px solid var(--field-ink)}
+[data-field-page="trust"] .field-support-stepNumber{border-radius:0;border:1px solid var(--field-ink);box-shadow:2px 2px 0 var(--field-ink);font-family:var(--field-mono)}
+[data-field-page="careers"] .field-support-bulletin,[data-field-page="thank-you"] .field-support-receipt{background:var(--field-card);border-color:var(--field-ink);box-shadow:4px 4px 0 var(--field-ink)}
+[data-field-page] .field-valet-lane{gap:clamp(8px,2vw,20px)}
+[data-field-page] .field-valet-lane article,[data-field-page] .field-valet-paper{background:var(--field-card);border:1px solid var(--field-ink);box-shadow:3px 3px 0 var(--field-ink)}
+[data-field-page] .field-valet-lane article:first-child{background:var(--field-sage)}
+[data-field-page] .field-valet-tag{background:var(--field-acid);border:1px solid var(--field-ink)}
+[data-field-page] .field-valet-photo{border:2px solid var(--field-ink);border-radius:0;background:var(--field-grid),var(--field-sage);background-size:5px 5px;box-shadow:4px 4px 0 var(--field-ink)}
+[data-field-page] .field-valet-route{border-top:2px solid var(--field-ink)}
+[data-field-page] .field-valet-route .field-valet-kicker{font-family:var(--field-mono);background:var(--field-sage);padding:.25rem .5rem;border:1px solid var(--field-ink)}
+[data-field-page="dealership-pickup"] .field-valet-route .field-valet-kicker{background:var(--field-peach)}
+[data-field-page="coverage"] .nc-coverage-list{background:var(--field-sage);padding:clamp(16px,3vw,32px);border:2px solid var(--field-ink);box-shadow:4px 4px 0 var(--field-ink)}
+[data-field-page="coverage"] .nc-coverage-row{grid-template-columns:36px 1fr}
+[data-field-page="request"] .nc-request-summary{padding:clamp(14px,2.5vw,24px);background:var(--field-sage);border:1px solid var(--field-ink);border-radius:0;box-shadow:3px 3px 0 var(--field-ink)}
+[data-field-page="request"] .nc-request-summary[data-service="dealer"]{background:var(--field-peach)}
+@media(max-width:450px){[data-field-page] :is(.guide-mast,.field-support-intro){box-shadow:3px 3px 0 var(--field-ink)}[data-field-page] .guide-mast h1{font-size:clamp(2.45rem,11vw,3rem)}[data-field-page] .guide-mast nav a{padding:.55rem .65rem}.field-level-diagram{max-height:142px}}
+
+
+/* Pressed enamel housings and instrument scales, inspired by analog workshop equipment. */
+main[data-field-page] .guide-mast{padding:clamp(16px,4vw,52px);border:2px solid var(--field-ink)}
+main[data-field-page] :is(.field-learning-batteryCard,.estimate-result,.field-valet-receipt,.nc-coverage-note,.field-support-band){border-radius:clamp(12px,2vw,24px);box-shadow:4px 4px 0 #657967,inset 0 0 0 3px #f3f0db24}
+main[data-field-page] :is(.field-learning-batteryCard,.estimate-result,.field-valet-receipt,.nc-coverage-note)>.learning-label:first-child{border-bottom:1px dashed #a8b48b;padding-bottom:.65rem}
+main[data-field-page] :is(.guide-mast,.field-support-intro){border-radius:24px 24px 24px 4px}
+main[data-field-page="chargers"] .guide-comparison article{border-radius:14px 14px 14px 2px}
+main[data-field-page="chargers"] .field-level-diagram{border-radius:7px;border:1px solid var(--field-line)}
+.field-target-dial{display:block;width:min(100%,240px);height:auto;margin:1rem 0 .5rem}
+main[data-field-page="tools"] .charge-gauge{border-radius:4px;overflow:hidden}
+main[data-field-page="tools"] .estimate-result{position:relative}
+main[data-field-page="tools"] .estimate-result::after{content:"";width:16px;height:7px;background:#d1f55a;border:1px solid #b6caa2;border-radius:10px;position:absolute;right:22px;top:20px}
+@media(max-width:450px){main[data-field-page] .guide-mast{padding:16px}}
