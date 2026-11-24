@@ -1,53 +1,34 @@
 import { isLiveHost } from "./release";
+import FieldPlate from "./field-plate";
 
-export const metadata = { description: "Keep your day. NowCharged picks up your car for EV charging or service at your chosen dealership, then brings it back.", alternates: { canonical: "/" } };
+export const metadata = { title:"Southern Ontario Charging Solutions | NowCharged", description:"Door-to-door EV charging valet in Toronto and the GTA. Explore pickup, charging prices and how the round trip works.", alternates:{canonical:"/"} };
 
-function DispatchMap() {
-  const nodes = <>
-    <circle cx="110" cy="259" r="18" fill="#def56a"/><circle cx="110" cy="259" r="6" fill="#13201d"/>
-    <circle cx="395" cy="100" r="15" fill="#def56a"/><path d="m397 92-8 10h6l-1 6 8-10h-6z" fill="#13201d"/>
-    <circle cx="467" cy="267" r="15" fill="#ffc58e"/><path d="M461 269h12m-10 4v-8l4-4 4 4v8" fill="none" stroke="#13201d" strokeWidth="2"/>
-    <g fill="#fff" fontFamily="system-ui,sans-serif" fontSize="13" fontWeight="700"><text x="78" y="291">YOUR SPOT</text><text x="414" y="97">CHARGER</text><text x="395" y="293">DEALERSHIP</text></g>
-  </>;
-  return <svg viewBox="0 0 550 330" className="nc-dispatch-map" role="img" aria-label="Illustrated round trips from your parking spot to an EV charger or your dealership and back. Not to scale." preserveAspectRatio="xMidYMid meet">
-    <defs><pattern id="dispatch-grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#385048" strokeWidth="1"/></pattern><pattern id="dispatch-minor" width="55" height="55" patternUnits="userSpaceOnUse" patternTransform="rotate(31)"><path d="M0 0V55" fill="none" stroke="#335149" strokeWidth="3"/></pattern></defs>
-    <rect width="550" height="330" fill="#172823"/><rect width="550" height="330" fill="url(#dispatch-grid)"/><path d="M0 141 206 154l59-40 51 16L500 0H0zM0 240l145 12 183 78H0zM548 80l-101 41-93 97 196 94z" fill="url(#dispatch-minor)" opacity=".58"/>
-    <g fill="none" stroke="#4a6a60" strokeWidth="5" opacity=".65"><path d="M0 108c70 5 126-25 196-21s180 46 354 17"/><path d="M127 330 267 131l21-131"/><path d="m371 0-44 147 61 35 31 148"/><path d="m0 206 195 12 221-45 134 10"/></g>
-    <path d="M40 0 68 89l53 33c58 12 66 65 121 72 31 6 58-17 92 0 21 11 21 25 47 32l169-22" fill="none" stroke="#568f7d" strokeWidth="13" opacity=".35"/>
-    <path d="M110 259h63q29 0 44-28l44-69q11-18 30-18h50q22 0 36-17l18-27" fill="none" stroke="#def56a" strokeWidth="5" strokeLinecap="round"/>
-    <path d="M110 259h139q21 0 35-16l24-25q12-12 27-12h64q22 0 40 21l28 40" fill="none" stroke="#ffc58e" strokeWidth="5" strokeLinecap="round"/>
-    <path d="m382 96 15 3-1 15M451 267h16v-16" fill="none" stroke="#fff" strokeWidth="2" strokeLinejoin="round" opacity=".8"/>{nodes}
-  </svg>;
+function Arrow({down=false}){return <svg viewBox="0 0 18 18" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={down?{transform:"rotate(90deg)"}:undefined}><path d="M2 9h13M9 3l6 6-6 6"/></svg>}
+function Spot({dealer=false}){
+ return <svg className="spot" viewBox="0 0 140 90" fill="none" aria-hidden="true">
+ <g stroke="#16382a" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round">
+ {dealer ? <><path fill="#b78f66" stroke="none" d="M15 77l87 8 27-8-43-8z"/><path d="m77 45 30-28 8 2 2 9-11 10-7-1-3 9-10 7z" fill="#d6dfbe"/><path d="m84 46 25-24" strokeWidth="1.6"/><path d="m24 46 19-23q6-6 15-4l26 12q6 4 2 12L64 68q-4 5-11 4L26 59q-6-3-2-13z" fill="#28503b"/><path d="m23 40 19-23q5-6 14-3l27 12q6 4 2 11L64 63q-4 5-11 3L26 54q-6-3-3-14z" fill="#f7f0d0"/><path d="m37 42 13-15 20 9-14 16z" fill="#a6c28f"/><path d="m44 40 12 5m7-24 9 4"/><path d="M27 47c-14-14-28 12-12 17 7 2 15-3 18-10" strokeWidth="4"/></> :
+ <><path fill="#8baf83" stroke="none" d="M5 75l99 7 30-10-45-7z"/><path fill="#d9e7ae" d="m14 54 12-7 18-20q3-4 11-4l30 2q7 1 13 8l10 11 15 5 5 11-4 9H20l-8-4z"/><path d="m36 46 13-16 15-3-3 16zm34-18 13 2 15 14-31-1z" fill="#385640"/><path d="M15 57h12l4-6-13 3zm91-9 10 2 6 5h-15z" fill="#f6e7b2"/><path d="m35 53 54 1m-18-5h9" strokeWidth="1.5"/><path d="M14 64h113"/><g fill="#273e34"><circle cx="37" cy="67" r="11"/><circle cx="103" cy="66" r="11"/></g><g fill="#e4e6c8" strokeWidth="2"><circle cx="37" cy="67" r="5"/><circle cx="103" cy="66" r="5"/></g></>}
+ </g></svg>
 }
-
-const lanes = [
-  { id:"01",slug:"ev-charging",kind:"EV CHARGING VALET",title:"Get it charged.",body:"We pick up your EV, take it to a compatible fast charger and bring it back to you.",price:"$50 CAD",qualifier:"scheduled visit · charging billed separately", link:"Explore EV charging",variant:"ev" },
-  { id:"02",slug:"dealership-pickup",kind:"DEALERSHIP VALET",title:"Get it serviced.",body:"We drive your car to the dealership you choose, then pick it up when the work is done and return it.",price:"$80 CAD/hr",qualifier:"valet transport · dealership work billed separately",link:"Explore dealership pickup",variant:"dealer" }
+const services=[
+ {id:"01",name:"EV charging valet",lede:"Your EV goes to a compatible fast charger and comes back to your parking spot.",rate:"$50",unit:"CAD / scheduled visit",note:"Electricity billed separately.",href:"/services/ev-charging",link:"Explore EV charging"},
+ {id:"02",name:"Dealership pickup",lede:"A round trip to your chosen dealership for a service appointment. Your dealer handles the work.",rate:"$80",unit:"CAD / hour",note:"Information only. Not booking yet.",href:"/services/dealership-pickup",link:"See dealership service"}
 ];
-
-export default async function HomePage() {
-  const isLive = await isLiveHost();
-  return <main className="nc-home">
-    <section className="nc-shell nc-home-hero" aria-labelledby="home-intro">
-      <div className="nc-home-copy"><div className="nc-kicker"><span className="nc-live-dot"/> TORONTO + GTA / CAR VALET</div><h1 id="home-intro">We take the car.<br/>You keep <em>your day.</em></h1><p>Need your EV charged or your car at the dealership? We pick it up at your spot and bring it back to you.</p><div className="nc-home-actions" aria-label="Choose your valet service"><a className="nc-button nc-home-action-ev" href="/services/ev-charging">EV charging <span aria-hidden="true">↗</span></a><a className="nc-button nc-home-action-dealer" href="/services/dealership-pickup">Dealership pickup <span aria-hidden="true">↗</span></a></div></div>
-      <div className="nc-map-card">
-        <div className="nc-map-top"><span>NOWCHARGED / SERVICE ROUTES</span><span aria-hidden="true">01–02</span></div>
-        <DispatchMap />
-        <div className="nc-map-foot"><span><i/> EV charger</span><span><i/> Your dealership</span><b>OUT &amp; BACK</b></div>
-      </div>
-    </section>
-    <section id="valet-services" className="nc-shell nc-home-lanes" aria-label="Valet services">
-      {lanes.map((lane) => <article className={"nc-lane nc-lane--"+lane.variant} key={lane.id}><div className="nc-lane-top"><span className="nc-kicker">{lane.kind}</span><span>/{lane.id}</span></div><h2>{lane.title}</h2><p>{lane.body}</p><div className="nc-lane-price"><b>{lane.price}</b><span>{lane.qualifier}</span></div><a href={"/services/"+lane.slug} className="nc-button nc-button--dark">{lane.link} <span aria-hidden="true">↗</span></a></article>)}
-    </section>
-    <section className="nc-shell nc-home-route nc-section" aria-labelledby="route-title">
-      <div><p className="nc-kicker">THE HANDOFF</p><h2 id="route-title">Your keys go on a round trip.</h2><p>Choose a service and share your pickup area. Your pickup, handoff and return details are confirmed before you commit.</p><a href="/trust" className="nc-jump">How we handle your car <span aria-hidden="true">↗</span></a></div>
-      <ol>{[["01","At your spot","Agree on when and where to hand over the keys."],["02","At the destination","We take your car to a compatible charger or your chosen dealership."],["03","Back with you","We return the car to the agreed spot."]].map(([n,title,copy])=><li key={n}><span>{n}</span><div><h3>{title}</h3><p>{copy}</p></div></li>)}</ol>
-    </section>
-    <section id="callback" className="nc-shell nc-home-callback" aria-labelledby="callback-title"><div><p className="nc-kicker">FIRST EV PICKUP</p><h2 id="callback-title">Start with a callback.</h2><p>Tell us where you’re parked. We’ll confirm the location, charges and timing with you before anything is booked.</p></div><a className="nc-button" href="/request?service=ev">{isLive ? "Request an EV callback" : "Preview an EV callback"} <span aria-hidden="true">↗</span></a></section>
-    <section className="nc-shell nc-home-reference" aria-label="Driver resources">
-      <a href="/chargers"><span className="nc-kicker">LEARN / 01</span><strong>Charging 101</strong><span>Compare a wall outlet, a Level 2 charger and fast charging. ↗</span></a>
-      <a href="/tools"><span className="nc-kicker">ESTIMATE / 02</span><strong>EV tools</strong><span>Estimate the energy and time for your next charge. ↗</span></a>
-      <a href="/coverage"><span className="nc-kicker">CHECK / 03</span><strong>Service area</strong><span>See where we take requests in Toronto and the GTA. ↗</span></a>
-    </section>
-  </main>;
+export default async function HomePage(){
+ const live=await isLiveHost();
+ return <main className="lab-home">
+ <section className="lab-hero nc-shell" aria-labelledby="home-intro">
+ <div className="lab-copy"><p className="lab-over"><span className="print-notch"/> EV CHARGING VALET <b>/</b> TORONTO + GTA</p>
+ <h1 id="home-intro" aria-label="Southern Ontario Charging Solutions"><span>Southern Ontario</span><strong>Charging</strong><em>Solutions<span>.</span></em></h1>
+ <p className="lab-lede">We pick up your EV, take it to charge, and bring it back. You keep your day.</p>
+ <div className="lab-hero-links"><a href="/services/ev-charging" className="nc-button lab-primary">Explore EV charging <Arrow/></a><a className="lab-link" href="/pricing">See pricing</a></div></div>
+ <FieldPlate/>
+ </section>
+ <section id="valet-services" className="lab-directory nc-shell" aria-labelledby="directory-heading"><header className="lab-section-header"><div className="lab-over"><span className="print-notch"/> SERVICE DIRECTORY</div><h2 id="directory-heading">Choose your valet service.</h2></header>
+ <div className="service-plates">{services.map((s,i)=><article key={s.id} className={"service-plate sheet-"+s.id}><div className="service-tag"><span>SERVICE NO. {s.id}</span><span>{i?"DEALERSHIP":"ELECTRIC"}</span></div><div className="spot-line"><Spot dealer={!!i}/></div><h3>{s.name}</h3><p>{s.lede}</p><div className="service-tariff"><b>{s.rate}</b><span>{s.unit}<br/>{s.note}</span></div><a href={s.href}>{s.link} <Arrow/></a></article>)}</div></section>
+ <section className="lab-route" aria-labelledby="route-title"><div className="nc-shell route-grid"><div><p className="lab-over"><span className="print-notch"/> THE HANDOFF</p><h2 id="route-title">One charge.<br/><em>Three stops.</em></h2><a href="/trust" className="lab-link">How we handle your car <Arrow/></a></div><ol>{[["Pickup","Agree on the handoff time and meet your driver at your parking spot."],["Plug in","Your driver takes your EV to a compatible charger for the agreed top-up."],["Return","Get your keys back at the agreed spot, along with an update on the charge."]].map(([a,b],i)=><li key={a}><span>0{i+1}</span><div><h3>{a}</h3><p>{b}</p></div></li>)}</ol></div></section>
+ <section className="nc-shell lab-guide" aria-labelledby="guide-title"><header className="lab-section-header"><p className="lab-over"><span className="print-notch"/> DRIVER RESOURCES</p><h2 id="guide-title">The field guide.</h2></header><div className="lab-index">{[["01","Charging 101","Understand levels, plugs and charge times.","/chargers"],["02","EV tools","Estimate the energy and time for your next charge.","/tools"],["03","Service area","Check EV pickup coverage in Toronto and the GTA.","/coverage"]].map(([n,t,d,h])=><a key={n} href={h}><small>{n} / GUIDE</small><strong>{t}</strong><span>{d}</span><Arrow/></a>)}</div></section>
+ <section id="callback" className="nc-shell callback-plate" aria-labelledby="callback-title"><div><p className="lab-over">FIRST EV PICKUP</p><h2 id="callback-title">Start with a callback.</h2><p>Tell us where you’re parked. We’ll confirm the location, cost and timing before anything is booked.</p></div><a className="nc-button lab-primary" href="/request?service=ev">{live?"Request an EV callback":"Preview an EV callback"} <Arrow/></a></section>
+ </main>
 }

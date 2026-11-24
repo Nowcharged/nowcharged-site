@@ -1,4 +1,6 @@
 import "./globals.css";
+import "./field-lab.css";
+import "./inner-lab.css";
 import { isLiveHost, productionOrigin } from "./release";
 
 export async function generateMetadata() {
@@ -6,7 +8,7 @@ export async function generateMetadata() {
   return {
   metadataBase: new URL(productionOrigin),
   title: { default: "NowCharged | Toronto & GTA Car Valet", template: "%s | NowCharged" },
-  description: "Door-to-door EV charging valet and dealership pickup and return in Toronto and the Greater Toronto Area.",
+  description: "Door-to-door EV charging valet in Toronto and the Greater Toronto Area, plus information about dealership pickup and return.",
   icons: { icon: "/dispatch-icon.svg" },
   robots: { index: isLive, follow: isLive },
   formatDetection: { telephone: false, email: false, address: false },
@@ -26,8 +28,10 @@ const resources = [
   ["Careers", "/careers"],
 ];
 
+function NavArrow(){return <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><path d="M3 13 13 3M4 3h9v9"/></svg>}
+
 function Brand() {
-  return <a href="/" className="nc-brand" aria-label="NowCharged home"><svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="currentColor"/><path d="M17.5 4.8 8 17h7.1l-.7 10.2 9.6-12.7h-7.2z" fill="#def56a"/></svg><span>Now<span className="nc-brand-end">Charged</span></span></a>;
+  return <a href="/" className="nc-brand" aria-label="NowCharged home"><svg width="46" height="38" viewBox="0 0 54 43" fill="none" aria-hidden="true"><ellipse cx="27" cy="21.5" rx="18" ry="18.8" transform="rotate(16 27 21.5)" fill="#cce967" stroke="#16392b" strokeWidth="2.7"/><path d="M11 17.5C3 21.6.9 24.8 2.7 27.4c2.3 3.4 16.6 2.5 30.2-1.5 12.6-3.7 21.2-8.4 18.2-12.3-1.1-1.5-5-1.7-9.6-1.4" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/><path d="m30 6-16 19 11-1-2 13 16-22-11 2z" fill="#17392d" stroke="#cce967" strokeWidth=".8"/></svg><span>Now<span className="nc-brand-end">Charged</span></span></a>;
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -44,8 +48,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <a href="/pricing">Pricing</a>
             <details className="nc-nav-more"><summary>Driver resources <span aria-hidden="true">+</span></summary><div>{resources.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</div></details>
           </nav>
-          <a className="nc-button nc-button--dark nc-head-cta" href={isLive ? "/request?service=ev" : "/request"}>{isLive ? "Request EV charging" : "Explore a pickup"} <span aria-hidden="true">↗</span></a>
-          <details className="nc-mobile-menu"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation">{[...services, ["Pricing", "/pricing"], ...resources, [isLive ? "Request EV charging" : "Explore a pickup", isLive ? "/request?service=ev" : "/request"]].map(([label,href]) => <a key={href} href={href}>{label}<span aria-hidden="true">↗</span></a>)}</nav></details>
+          <a className="nc-button nc-button--dark nc-head-cta" href={isLive ? "/request?service=ev" : "/request"}>{isLive ? "Request EV charging" : "Explore a pickup"} <NavArrow/></a>
+          <details className="nc-mobile-menu"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation">{[...services, ["Pricing", "/pricing"], ...resources, [isLive ? "Request EV charging" : "Explore a pickup", isLive ? "/request?service=ev" : "/request"]].map(([label,href]) => <a key={href} href={href}>{label}<NavArrow/></a>)}</nav></details>
         </div></header>
         <div id="content" tabIndex={-1}>{children}</div>
         <footer className="nc-footer"><div className="nc-shell">

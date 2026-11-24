@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 430">
+<title>Level 3 fast charger with a reservoir of green liquid</title>
+<desc>An illustrated fast charger in a retro laboratory. Green liquid rises inside the window and sloshes to a stop.</desc>
+<defs>
+ <pattern id="grain" width="13" height="13" patternUnits="userSpaceOnUse"><path d="M1 3h1m8 7h1m-6-4h.6m6-5h.7" stroke="#324a35" stroke-width=".7" opacity=".22"/></pattern>
+ <pattern id="dots" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#263b2c" opacity=".43"/></pattern>
+ <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0v6" stroke="#243729" stroke-width="2"/></pattern>
+ <clipPath id="glass"><path d="M208 134h120q11 0 11 13v125q0 9-11 12l-120 15q-11 1-11-11V147q0-13 11-13Z"/></clipPath>
+ <g id="rivet"><circle r="3.4" fill="#afbb94" stroke="#233529" stroke-width="1.4"/><path d="M-1.5 1 1.5-1" stroke="#233529" stroke-width="1"/></g>
+
+</defs>
+<!-- Mississauga field lab: painted wall, machine rails and concrete floor -->
+<path fill="#c5d2ae" d="M0 0h560v430H0z"/>
+<path fill="#8fa883" d="M0 364 560 339v91H0z"/>
+<path fill="#a9be96" d="M0 0h152l-14 363L0 374ZM448 0h112v340l-124 6z"/>
+<path d="M0 364 560 339M0 386l560-33M27 430l144-70m277 70-35-82" fill="none" stroke="#354f3a" stroke-width="2" opacity=".5"/>
+<path fill="url(#grain)" d="M0 0h560v430H0z"/>
+<path d="M21 0v119q0 21 22 21h91M488 0v82q0 18-18 18h-60" fill="none" stroke="#253a2c" stroke-width="22"/>
+<path d="M21 0v119q0 21 22 21h91M488 0v82q0 18-18 18h-60" fill="none" stroke="#789267" stroke-width="14"/>
+<path d="M18 0v114q0 20 22 24h90m356-135v75q0 18-16 19h-55" fill="none" stroke="#b8c997" stroke-width="3"/>
+<path d="M6 55h30v15H6zM63 125h19v28H63zM474 34h28v15h-28z" fill="#a8bb8b" stroke="#26392c" stroke-width="3" stroke-linejoin="round"/>
+<path fill="#819c75" d="M0 261h120v18H0z"/>
+<path d="M0 261h120m-120 16h120" stroke="#557151" stroke-width="2"/>
+<path d="M542 0v319m-18-300h18m-18 21h18m-10 21h10m-18 21h18m-10 21h10m-18 21h18m-10 21h10m-18 21h18m-10 21h10m-18 21h18m-10 21h10m-18 21h18m-10 21h10m-18 21h18m-10 21h10" stroke="#567351" stroke-width="1.5" opacity=".65"/>
+<path d="M68 178h109v60H68z" fill="#779466"/>
+<path d="M64 172h109v60H64z" fill="#e7e3c3" stroke="#293f2e" stroke-width="2"/>
+<text x="75" y="191" fill="#314634" font-family="monospace" font-weight="bold" font-size="9" letter-spacing="1.4">FIELD LAB</text>
+<path d="M76 212h12l5-10 7 17 6-11h27" fill="none" stroke="#577446" stroke-width="2.2"/>
+<path d="m103 395 85-42 163-19 115 20 30 24-134 35-190 4z" fill="url(#dots)"/>
+<!-- loop of the cable -->
+<path d="M401 139c52-36 96 2 89 59-4 40-59 81-63 122-6 50 48 46 55 22 7-21-9-43-33-52" fill="none" stroke="#202d23" stroke-width="16" stroke-linecap="round"/>
+<path d="M401 137c51-34 93 3 86 58-4 40-59 81-63 122-6 50 49 47 56 24 7-21-8-41-33-51" fill="none" stroke="#57725a" stroke-width="5" stroke-linecap="round"/>
+<!-- body: raised foot, lacquered side plates, and rounded cream face -->
+<g stroke="#202f24" stroke-width="4" stroke-linejoin="round">
+ <path d="m166 363 196-27 59 17v21l-69 25-188 7-15-13v-20z" fill="#354b34"/>
+ <path d="m149 373 54-23 159-14 59 17-70 26-180 13z" fill="#849262"/>
+ <path d="m171 392 180-13 70-26M351 379v20" fill="none"/>
+ <path d="m329 54 66 25q19 8 19 30v229q0 14-14 18l-53 16-35-32z" fill="#789365"/>
+ <path d="m346 78 68 24v236q0 14-14 18l-53 16-20-26z" fill="#5f7952"/>
+ <path d="m356 101 47 16v200l-48 22z" fill="#708d5d" stroke-width="2"/>
+ <path d="m359 317 43-18v29l-46 19z" fill="url(#hatch)" stroke-width="1.5"/>
+ <path d="M167 88q3-24 26-28l121-18q24-4 34 13 8 10 8 24v262q0 26-21 30l-144 20q-24 2-24-21Z" fill="#f1ebcf"/>
+ <path d="M170 99q0-19 19-23l127-21q20-4 31 11" fill="none" stroke="#fff8df" stroke-width="4"/>
+ <path d="m170 328 185-26v40q0 24-20 29l-143 19q-22 3-22-19Z" fill="#aeba8d"/>
+ <path d="m172 337 181-26" stroke="#d9dcad" stroke-width="3"/>
+ <path d="M208 126h119q20 0 20 21v126q0 17-18 21l-120 17q-20 1-20-20V146q0-20 19-20Z" fill="#394e37"/>
+ <path d="M208 134h120q11 0 11 13v125q0 9-11 12l-120 15q-11 1-11-11V147q0-13 11-13Z" fill="#698760" stroke-width="2"/>
+</g>
+<!-- animated reservoir: clipping independent of liquid motion -->
+<g clip-path="url(#glass)">
+ <path d="M204 131h129v172H204z" fill="#58735d"/>
+ <path d="M215 130h15v179h-15z" fill="#82a286" opacity=".48"/>
+ <g class="fill">
+  <g class="slosh">
+   <path d="M152 180c41-23 61-12 93-4 35 9 46-8 83-9 22-1 41 2 61 3v184H152Z" fill="#8aa839"/>
+   <path d="M153 189c37-7 51-28 89-12 35 14 49 18 83 4 30-12 48-10 63-4v174H153Z" fill="#cee953" stroke="#22382a" stroke-width="2"/>
+   <path d="M181 225c31-14 55 7 82 8 27 2 44-17 91-13v115H181z" fill="#a8c742"/>
+   <path d="M190 272c51-21 55 23 151-19l-1 73H188z" fill="url(#dots)" opacity=".38"/>
+   <path d="M201 184c13-7 19-8 29-6m37 11c18 5 31 2 51-5" fill="none" stroke="#f0faa4" stroke-width="3" stroke-linecap="round"/>
+   <g class="gas" fill="none" stroke="#f0f5a2" stroke-width="2">
+    <circle cx="238" cy="226" r="7"/><circle cx="260" cy="248" r="4"/><circle cx="298" cy="215" r="5"/><circle cx="308" cy="254" r="9"/><circle cx="224" cy="268" r="3"/><circle cx="280" cy="274" r="4"/>
+   </g>
+  </g>
+ </g>
+ <path d="m207 161 38-22m-38 33 53-32m53 128 18-12" stroke="#faf8d4" stroke-width="3" opacity=".47" stroke-linecap="round"/>
+ <path d="M323 148h10m-5 15h5m-10 15h10m-5 15h5m-10 15h10m-5 15h5m-10 15h10m-5 15h5m-10 15h10" fill="none" stroke="#f2f2b8" stroke-width="1.6"/>
+</g>
+<!-- level designation and control console -->
+<g transform="matrix(1,-.12,0,1,0,31)">
+ <rect x="190" y="74" width="143" height="33" rx="4" fill="#26392b" stroke="#19291e" stroke-width="2"/>
+ <text x="202" y="97" fill="#edf1cd" font-family="monospace" font-size="14" font-weight="bold" letter-spacing=".6">LEVEL</text>
+ <text x="271" y="98" fill="#d8ed68" font-family="monospace" font-size="23" font-weight="bold">03</text>
+ <circle cx="319" cy="90" r="3" fill="#f0bb87"/>
+</g>
+<g transform="matrix(1,-.14,0,1,0,30)">
+ <rect x="189" y="339" width="143" height="35" rx="5" fill="#314632" stroke="#243526" stroke-width="2"/>
+ <rect x="198" y="346" width="61" height="20" rx="2" fill="#22382b"/>
+ <g fill="#d6ed59"><rect class="cell" x="204" y="351" width="6" height="10" rx="1"/><rect class="cell" x="213" y="351" width="6" height="10" rx="1" style="animation-delay:.18s"/><rect class="cell" x="222" y="351" width="6" height="10" rx="1" style="animation-delay:.34s"/><rect class="cell" x="231" y="351" width="6" height="10" rx="1" style="animation-delay:.51s"/><rect class="cell" x="240" y="351" width="6" height="10" rx="1" style="animation-delay:.65s"/><rect x="249" y="351" width="5" height="10" rx="1" fill="#546b43"/></g>
+ <text x="267" y="358" fill="#f4eed5" font-family="monospace" font-size="7.5" font-weight="bold" letter-spacing=".25">DC FAST</text>
+ <text x="267" y="366" fill="#f4eed5" font-family="monospace" font-size="7.5" font-weight="bold" letter-spacing=".25">CHARGER</text>
+ <circle cx="318" cy="356" r="6" fill="#eeac77" stroke="#192a20" stroke-width="2"/>
+</g>
+<g><use href="#rivet" x="179" y="112"/><use href="#rivet" x="344" y="110"/><use href="#rivet" x="181" y="364"/><use href="#rivet" x="343" y="341"/></g>
+<path d="M369 125l27 9m-27 2 27 9m-27 2 27 9m-27 2 27 9m-27 2 27 9" fill="none" stroke="#283d2c" stroke-width="3" stroke-linecap="round"/>
+<path d="m372 215 24 8v33l-24-6z" fill="#3d583d" stroke="#263629" stroke-width="2"/>
+<path d="m375 225 16 5m-16 2 11 4" stroke="#b4c38b" stroke-width="1.5"/>
+<!-- plug crossing the side of the machine, visibly tethered -->
+<g transform="rotate(24 450 281)" stroke="#203023" stroke-width="3" stroke-linejoin="round">
+ <path d="M444 284h17v22h-14l-7-9Z" fill="#566f52"/>
+ <path d="M444 246h18l8 9-6 42h-21l-7-14v-25Z" fill="#ede7c9"/>
+ <path d="M442 237h22v18h-22z" fill="#485f45"/>
+ <path d="M442 232h22v10h-22z" fill="#a6ba82"/>
+ <path d="M444 265h24l-4 20h-21l-4-9Z" fill="#739065"/>
+ <path d="M447 260h14m-14 9h13" stroke="#dce1b8" stroke-width="2" stroke-linecap="round"/>
+</g>
+<!-- atom-shaped painted emblem and analog panel, from the same fictional industrial line -->
+<g transform="translate(102 299)" fill="none" stroke="#3e5b3f" stroke-width="1.8">
+  <ellipse rx="26" ry="9" transform="rotate(-26)"/><ellipse rx="26" ry="9" transform="rotate(40)"/><ellipse rx="26" ry="9" transform="rotate(100)"/>
+  <circle r="3.4" fill="#3e5b3f"/><circle cx="19" cy="-14" r="3" fill="#ede7c9"/>
+</g>
+<path d="M372 178l28 9v22l-28-8z" fill="#a9b789" stroke="#263629" stroke-width="2"/>
+<path d="M377 194q8-10 18 4m-9-1 4-7m-7 10 7 2" fill="none" stroke="#263629" stroke-width="1.4" stroke-linecap="round"/>
+<!-- illustration registration and low-key screenprint grain -->
+<path d="M18 19h26m-26 0v18m498-18h26v18M18 393v18h26m472 0h26v-18" fill="none" stroke="#3f5c42" stroke-width="1.3"/>
+<path fill="url(#grain)" opacity=".55" d="M0 0h560v430H0z" pointer-events="none"/>
+</svg>
