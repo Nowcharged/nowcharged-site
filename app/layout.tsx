@@ -7,16 +7,16 @@ export async function generateMetadata() {
   const isLive = await isLiveHost();
   return {
   metadataBase: new URL(productionOrigin),
-  title: { default: "NowCharged | Toronto & GTA Car Valet", template: "%s | NowCharged" },
-  description: "Door-to-door EV charging valet in Toronto and the Greater Toronto Area, plus information about dealership pickup and return.",
-  icons: { icon: "/dispatch-icon.svg" },
+  title: { default: "NowCharged | EV Charging Valet", template: "%s | NowCharged" },
+  description: "NowCharged picks up your EV, takes it to a compatible public fast charger and returns it. Check pickup availability in Mississauga, Toronto and the GTA.",
+  icons: { icon: "/nowcharged-logo.svg" },
   robots: { index: isLive, follow: isLive },
   formatDetection: { telephone: false, email: false, address: false },
   };
 }
 
 const services = [
-  ["EV charging", "/services/ev-charging"],
+  ["EV charging valet", "/services/ev-charging"],
   ["Service area", "/coverage"],
 ];
 const resources = [

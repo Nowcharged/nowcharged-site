@@ -1,7 +1,7 @@
 import { isLiveHost } from '../release';
 import styles from './support.module.css';
 
-export const metadata = {title:'Frequently asked questions', alternates: { canonical: "/faq" } };
+export const metadata = {title:'EV Charging Valet FAQ', description:'How EV pickup and return works, what the valet fee includes and what NowCharged does if a public fast charger is out of service.', alternates: { canonical: "/faq" } };
 const groups=[
   {id:'basics', title:'Before you request', items:[
     ['What does NowCharged do?', 'EV charging valet is a round trip: a driver picks up your EV, takes it to a compatible public fast charger and returns it to the agreed spot. You can request a callback to discuss it. Dealership pickup and return is a separate service and is not taking bookings.'],

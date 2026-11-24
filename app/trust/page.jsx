@@ -1,7 +1,7 @@
 import styles from '../faq/support.module.css';
 import { isLiveHost } from '../release';
 
-export const metadata = {title:'Vehicle handoff', alternates: { canonical: "/trust" } };
+export const metadata = {title:'EV Valet Vehicle & Key Handoff', description:'See what happens when NowCharged collects your keys, documents your vehicle, supervises charging and returns your EV.', alternates: { canonical: "/trust" } };
 const steps=[
  ['Before pickup','Agree on the details','Confirm the pickup spot, who will hand over the keys and where the vehicle should be returned. For EV valet, review the service agreement before your first trip. Ask about vehicle handling and coverage before deciding to book.'],
  ['At pickup','Document the vehicle’s condition','We document vehicle condition with photos at pickup and return. Flag any existing damage, relevant access rules or driving instructions beforehand.'],

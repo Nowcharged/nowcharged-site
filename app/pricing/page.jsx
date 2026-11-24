@@ -2,7 +2,7 @@ import Link from "next/link";
 import { isLiveHost } from "../release";
 import s from "../services/valet.module.css";
 
-export const metadata = {title:"Pricing",description:"See pickup, charging and return fees for NowCharged EV valet in Toronto and the GTA. Scheduled visits are $50 CAD, plus electricity at cost and applicable extras.", alternates: { canonical: "/pricing" } };
+export const metadata = {title:"EV Charging Valet Pricing & Pickup Fees",description:"See pickup, charging and return fees for NowCharged EV valet in Toronto and the GTA. Scheduled visits are $50 CAD, plus electricity at cost and applicable extras.", alternates: { canonical: "/pricing" } };
 
 export default async function Pricing(){
 const live = await isLiveHost();

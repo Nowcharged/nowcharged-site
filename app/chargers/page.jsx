@@ -1,6 +1,6 @@
 import styles from "./learning.module.css";
 
-export const metadata = { title: 'Charging 101', alternates: { canonical: "/chargers" } };
+export const metadata = { title: 'EV Charging Levels: Level 1, Level 2 & DC Fast', description: 'Compare Level 1, Level 2 and DC fast charging, see common EV connectors and learn what affects charging speed.', alternates: { canonical: "/chargers" } };
 
 const levels = [
   ['01', 'Level 1', 'Standard 120 V outlet', 'A slow top-up when you can leave the car plugged in for a long time.', 'Low daily mileage or a backup at home'],
