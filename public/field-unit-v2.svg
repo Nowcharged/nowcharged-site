@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 430">
+ <defs>
+  <pattern id="paper" width="9" height="8" patternUnits="userSpaceOnUse"><path d="M2 5h1m3-3h.75" stroke="#1e3a2c" opacity=".16" stroke-width=".6"/></pattern>
+  <pattern id="screen" width="5" height="4" patternUnits="userSpaceOnUse"><path d="M0 2h5" stroke="#e2f996" opacity=".1" stroke-width=".5"/></pattern>
+  <pattern id="dot" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1.4" cy="1.4" r=".75" fill="#17382b" opacity=".65"/></pattern>
+  <pattern id="stripes" width="10" height="14" patternUnits="userSpaceOnUse" patternTransform="skewX(-24)"><path fill="#193a2d" d="M0 0h4v14H0z"/></pattern>
+  <g id="bolt"><circle r="3.4" fill="#adbb96" stroke="#243e2e" stroke-width="1.2"/><path d="m-1.5 1 3-2" stroke="#284535" stroke-width=".8"/></g>
+ </defs>
+ <!-- Broad flat cel shapes, paper grain and deliberately quiet laboratory background. -->
+ <path fill="#c5d2ae" d="M0 0h560v430H0z"/>
+ <path fill="#d8dfbb" d="M66 0h171l-88 317H0V241z"/>
+ <path fill="#afc39c" d="M458 0h102v316H337z"/>
+ <path fill="#a9b98e" d="M0 336 560 301v129H0z"/>
+ <path fill="#b6c399" d="m0 353 560-37v15L0 368z"/>
+ <path fill="url(#paper)" d="M0 0h560v430H0z"/>
+ <g fill="none" stroke="#526947" opacity=".47" stroke-width="1.3"><path d="M0 336 560 301M4 421l475-35m-88-79 87 123M163 325 51 430"/><path d="M25 47V23h26m473 0h18v24m0 320v31h-33M51 398H25v-20"/></g>
+ <g fill="#dce8bb" stroke="#58734d" stroke-width="1.2" opacity=".72">
+  <circle cx="107" cy="191" r="49" fill="none"/>
+  <ellipse cx="107" cy="191" rx="67" ry="14" transform="rotate(-28 107 191)" fill="none"/>
+  <path d="M107 173q2 17 18 18-16 1-18 18-2-17-18-18 16-1 18-18z"/>
+  <circle cx="148" cy="170" r="4"/>
+ </g>
+ <g fill="none" stroke="#668458" stroke-width="14"><path d="M56-4v74q0 15 16 15h91M497-1v95q0 13-14 13h-48"/></g>
+ <g fill="none" stroke="#b0c597" stroke-width="4"><path d="M54-4v74q0 15 17 15h92M495-1v95q0 13-12 13h-48"/></g>
+ <g fill="#a2b98c" stroke="#63815a" stroke-width="2"><rect x="42" y="31" width="28" height="16" rx="2"/><rect x="477" y="47" width="39" height="14" rx="2"/></g>
+ <g transform="translate(47 250)" fill="#5a7550" font-family="ui-monospace,monospace">
+  <path d="M0 15h78M0 32h57" fill="none" stroke="#6f895e" stroke-width="1"/>
+  <text x="0" y="10" font-size="9" font-weight="700" letter-spacing="2">FIELD LAB</text>
+  <text x="0" y="26" font-size="6.7" font-weight="700" letter-spacing="1.1">POWER SYSTEMS</text>
+  <path d="M0 52h12l5-7 6 14 6-10h7l3 3h18" fill="none" stroke="#71905d" stroke-width="1.3"/>
+ </g>
+ <path fill="url(#dot)" d="m149 370 248-29 114 23-217 36-179-8z"/>
+ <path fill="#668358" opacity=".6" d="m151 367 240-22 79 17-203 29-132-7z"/>
+ <!-- Hood, support plinth and folded steel DC fast charger. -->
+ <g stroke="#19372a" stroke-width="3.5" stroke-linejoin="round">
+  <path fill="#647b54" d="m195 345 197-10 27 17-11 25-224 10-19-18z"/>
+  <path fill="#314a36" d="m165 369 30 7 213-15 11-9-11 25-224 10-19-11z"/>
+  <path fill="#6b845c" d="m348 82 29-21 38 16 10 24-6 213-15 29-43 21-17-12z"/>
+  <path fill="#8ca879" d="m385 96 24-12 6 12-7 212-12 18-14 7z" stroke-width="1.8"/>
+  <path fill="#f1edcc" d="M198 91q1-10 10-19l33-18 131 1 18 22-9 250-18 31-159 6-21-17 6-233z"/>
+  <path fill="#b6c298" d="m185 310 18 3-1 22 15 14 146-8 18-16-18 33-159 6-21-17z" stroke-width="1.7"/>
+  <path fill="#6f8b62" d="M213 139h155l-4 162-12 21h-137l-14-17 1-149z"/>
+  <path fill="#3b5943" d="M209 154h15v150l-4 17-14-14z" stroke="none"/>
+  <path fill="#2b4b36" d="M224 171q0-10 10-12h113q11 0 11 11l-5 132q0 11-12 13h-103q-13-2-14-13z"/>
+  <path d="M231 171q0-5 6-5H343q6 0 6 7l-4 125q0 7-5 7H237q-6-1-6-7z" fill="#314c3d" stroke="#20372b" stroke-width="1.6"/>
+  <path d="M234 172h28v129h-23q-5 0-5-5z" fill="#546d58" stroke="none"/>
+  <path d="M332 168h13l-5 131h-19z" fill="#243f32" stroke="none"/>
+  <!-- The cap is wider than the body, the CRT has an angled face and real controls. -->
+  <path fill="#91a875" d="m179 80 44-34h143l38 14 15 21-30 20-191-1z"/>
+  <path fill="#faf4d3" d="m178 78 41-21h149l26 21-19 47-183 6-19-23z"/>
+  <path fill="#becc9f" d="m373 125 21-47 25 3-21 44-30 12z"/>
+  <path fill="#fdf6d8" stroke-width="1" d="M178 78h216l-4 5H177z"/>
+  <path fill="#213d30" d="M220 86h132q5 0 5 6l-4 22q-1 5-7 6H215q-5 0-5-6l4-23q1-5 6-5z" stroke-width="2"/>
+  <path d="M224 91h122l-4 22H219z" fill="#3f6446" stroke="none"/>
+  <path d="M224 91h122l-4 22H219z" fill="url(#screen)" stroke="none"/>
+  <circle cx="195" cy="108" r="5" fill="#d0eb6b" stroke-width="1.3"/>
+  <circle cx="189" cy="96" r="2.2" fill="#6b8a55" stroke="none"/>
+  <path fill="#d4dcb2" d="M208 138h161v15H208z" stroke-width="1.3"/>
+  <path fill="url(#stripes)" d="M210 141h18v9h-18zm138 0h18v9h-18z" stroke="none" opacity=".8"/>
+  <path fill="#547052" d="M216 328h123l-9 18-112 5-6-8z" stroke-width="1.6"/>
+  <path d="M232 337h81m-80 4 64-2" stroke="#b8cc97" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M385 231l17-9m-18 20 17-9m-18 20 17-9m-18 20 17-9m-18 20 17-9m-18 20 17-9" stroke-width="2.5" stroke-linecap="round"/>
+  <path fill="#cad1a2" d="M376 303l17-10-2 17-17 13z" stroke-width="1.4"/>
+ </g>
+ <g fill="#ddfc89" font-family="ui-monospace,Consolas,monospace" font-weight="700"><text x="230" y="106" letter-spacing=".78" font-size="9.7">DC FAST CHARGE</text><path d="m335 96-6 7h4l-2 6 7-8h-4z" fill="#d6f88a"/></g>
+ <g fill="#254330" font-family="ui-monospace,monospace" font-weight="700" font-size="7.2" letter-spacing="1.1"><text x="235" y="149">CHARGE CHAMBER</text></g>
+ <use href="#bolt" x="216" y="162"/><use href="#bolt" x="365" y="161"/><use href="#bolt" x="215" y="310"/><use href="#bolt" x="357" y="309"/>
+ <!-- Fixed strain relief, coated cable, and CCS-style locking handle in its holster. -->
+ <path d="M421 166c51-34 78 14 82 61 5 59-10 115-45 116-35 1-49-42-44-68 2-13 7-24 5-38" fill="none" stroke="#1e392d" stroke-width="14" stroke-linecap="round"/>
+ <path d="M424 165c49-33 75 16 78 62 5 60-10 111-43 114-30 2-47-39-42-68 2-13 6-22 4-36" fill="none" stroke="#47634f" stroke-width="4.6" stroke-linecap="round"/>
+ <g transform="translate(408 174) rotate(13)" stroke="#1e392b" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m3-5 11-6 10 6 2 21-11 18-10-5-4-14z" fill="#344e3b" stroke-width="2.8"/>
+  <path d="m-5-12 13 1 4-4 9 3 3 7-7 10-11 3-1 13 10 16-4 11-8 3-12-17-2-18-9-7 1-10z" fill="#f2e8bf" stroke-width="3.3"/>
+  <path d="M-13-5h22l3-4 7 2-5 11-11 2-3 17 10 16-2 7-6 3-7-16-4-19-7-6z" fill="#a7b997" stroke-width="1.1"/>
+  <path d="m-20-1-13 2-1 8 8 5 10-3 2-8z" fill="#314b38" stroke-width="2.3"/>
+  <path d="m-12 6 15-3m-9 11 6-1m-5 8 6-1" fill="none" stroke-width="1.9"/>
+  <path d="m3 48 5-5 9 13-5 6-7-2z" fill="#384f3e" stroke-width="2.3"/>
+ </g>
+ <g fill="#e1eac1" stroke="#637d52" stroke-width="1">
+  <path d="M468 111q1.5 13 14 14-12.5 1-14 14-1-13-14-14 13-1 14-14z"/>
+  <path d="M117 312q1 8 8 9-7 1-8 8-1-7-8-8 7-1 8-9z"/>
+ </g>
+ <g fill="#4a694b" font-family="ui-monospace,monospace" font-weight="700" letter-spacing="1.15" font-size="7.2"><text x="41" y="390">CUTAWAY / NC-03</text></g>
+</svg>
