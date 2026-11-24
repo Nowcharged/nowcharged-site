@@ -47,6 +47,7 @@ export default function ChargingGuide() {
     <section className="guide-section guide-split" id="timing"><div><p className="learning-label">03 / The clock</p><h2>Power isn’t energy.</h2><p><strong>kW</strong> tells you how quickly electricity is flowing. <strong>kWh</strong> tells you how much energy you’ve added.</p><a className="learning-cta" href="/tools">Open the charging estimator</a></div>
       <div className="guide-example"><p className="learning-label">A worked example</p><b>36 kWh</b><p>Added to a 60 kWh usable battery charging from 20% to 80%. At a sustained 60 kW <em>into the battery</em>, that’s 36 minutes plugged in. A station’s advertised peak is not the rate your car gets throughout a session.</p></div>
     </section>
+    <section className="guide-section guide-split"><div><p className="learning-label">Toronto and the GTA</p><h2>Prefer not to make the charging trip?</h2></div><div><p>See how EV charging valet works, from pickup to the return at your agreed spot.</p><a className="learning-cta" href="/services/ev-charging">See how EV charging valet works</a></div></section>
     <p className="guide-source">More on charging options and connectors: <a href="https://natural-resources.canada.ca/energy-efficiency/transportation-energy-efficiency/electric-vehicles/electric-vehicle-charging" rel="noreferrer">Natural Resources Canada</a>.</p>
   </main>;
 }
