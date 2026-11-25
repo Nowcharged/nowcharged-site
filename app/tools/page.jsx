@@ -26,7 +26,7 @@ function TargetDial({ target }) {
     <path d="M46 82a64 64 0 0 1 128 0" fill="none" stroke="#788c65" strokeWidth="1" strokeDasharray="2 3"/>
     <path d="M169 33a75 75 0 0 1 16 53" fill="none" stroke="#64803a" strokeWidth="7"/>
     <path d="M50 56l7 4m12-31 6 7m35-19v10m41 2-6 7m25 20-7 4" stroke="#142e25" strokeWidth="2" strokeLinecap="round"/>
-    <path d="M107 88 110 37l3 51z" fill="#a44423" stroke="#82381e" transform={'rotate('+rotation+' 110 88)'}/>
+    <path d="M107 88 110 37l3 51z" fill="#a44423" stroke="#82381e" className={styles.dialNeedle} style={{transform:'rotate('+rotation+'deg)'}}/>
     <circle cx="110" cy="88" r="6" fill="#142e25"/><circle cx="110" cy="88" r="2" fill="#b7c5a0"/>
     <g fill="#142e25" fontFamily="monospace" fontWeight="700" fontSize="10"><text x="24" y="93">0</text><text x="98" y="45">50</text><text x="186" y="93">100</text></g>
     <path d="M11 54h7m-3-3v6m188-3h7m-4-3v6" stroke="#142e25" strokeWidth="1"/>
@@ -53,13 +53,15 @@ export default function ChargingTools() {
     ['efficiency','Charging efficiency',eff,setEff,10,100,'%'],
     ['rate','Electricity rate (optional)',rate,setRate,0,100,'CAD/kWh'],
   ];
+  const renderFields=(fields)=><div className="estimate-fields">{fields.map(([id,label,value,set,min,max,unit])=><div key={id}><label htmlFor={id}>{label}</label><div className="estimate-field"><input id={id} type="number" step="any" min={min} max={max} value={value} onChange={e=>set(e.target.value)} aria-describedby={`${id}-hint`}/><span aria-hidden="true">{unit}</span></div><small id={`${id}-hint`}>{min}–{max} {unit}</small></div>)}</div>;
   return <><EvLibraryNav current="/tools" /><main data-field-page="tools" className={styles.learning} id="main-content">
-    <header className="guide-mast"><p className="learning-label">The charging desk / 02</p><h1>Estimate your charging stop.</h1><p>See the energy, time and electricity cost of a charging session. This is a planning estimate. It is not a station price or a travel-time promise.</p></header>
+    <header className="guide-mast"><p className="learning-label">The charging desk / 02</p><h1>Estimate your charging stop.</h1><p>Pick a charger, enter your battery and charge target, and get a planning estimate.</p></header>
     <div className="estimate-layout">
       <section className="estimate-inputs" aria-labelledby="est-setup"><h2 id="est-setup">Set up your charge</h2>
         <fieldset><legend>Charger preset</legend><div className="charge-presets">{modes.map((item,i)=><button key={item.name} type="button" aria-pressed={activePreset===i} onClick={()=>{setPower(item.power);setEff(item.efficiency)}}>{item.name}</button>)}</div></fieldset>
         <p>Presets are examples. Enter the average power drawn from the charger, not its advertised maximum. Use your car’s usable battery capacity if you know it.</p>
-        <div className="estimate-fields">{items.map(([id,label,value,set,min,max,unit])=><div key={id}><label htmlFor={id}>{label}</label><div className="estimate-field"><input id={id} type="number" step="any" min={min} max={max} value={value} onChange={e=>set(e.target.value)} aria-describedby={`${id}-hint`}/><span aria-hidden="true">{unit}</span></div><small id={`${id}-hint`}>{min}–{max} {unit}</small></div>)}</div>
+        {renderFields(items.slice(0,3))}
+        <details className={styles.calculatorAdvanced}><summary>Power, efficiency and price</summary><p>Change the preset assumptions or add your electricity rate.</p>{renderFields(items.slice(3))}</details>
       </section>
       <section className="estimate-result" aria-labelledby="est-summary"><p className="learning-label">Your scenario</p><h2 id="est-summary">Charging estimate</h2><div aria-live="polite" aria-atomic="true">{issue ? <p>{issue}</p> : <>
         <TargetDial target={b}/>

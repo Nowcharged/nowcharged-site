@@ -48,9 +48,18 @@ for route in paths:
 
 charger=Html(get("/chargers")[1])
 assert all(p in charger.content_links for p in paths if p!="/chargers")
+top=' '.join(charger.text)
+assert all(s in top for s in ['Look up a car','Learn EV basics','Calculate a charge','no account needed'])
 assert all(hasattr(Html(get(p)[1]),"canonical") for p in paths)
 css="".join(get(u)[1] for u in charger.css if urlsplit(u).path.startswith("/_next/"))
 assert "body:has([data-ev-library])" in css and ".nc-head-cta" in css
+assert "prefers-reduced-motion:reduce" in css and "charge-lab-wave" in css
+status,database_page=get('/ev-database')
+assert status==200 and '>More filters</summary>' in database_page and '<details open' not in database_page
+advanced=get('/ev-database?range=400&sort=range')[1]
+assert '<details' in advanced and ' open=""' in advanced and 'More filters' in advanced
+assert '>More chapters and glossary</summary>' in get('/ev-101')[1]
+assert '>Power, efficiency and price</summary>' in get('/tools')[1]
 assert get("/chargers/unknown")[0]==404
 database=Html(get("/ev-database?make=Nissan&year=2026&q=ARIYA")[1])
 assert database.meta["robots"].startswith("noindex")

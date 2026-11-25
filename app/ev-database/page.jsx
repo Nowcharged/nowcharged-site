@@ -53,11 +53,11 @@ export default async function DatabasePage({searchParams}){
  const low=(result.page-1)*PAGE_SIZE+1,high=Math.min(result.page*PAGE_SIZE,result.matches);
  return <><EvLibraryNav current={PATH}/><main className={styles.database} id="ev-database">
    <header className={styles.intro}><div><span className={styles.stamp}>Field library / Canadian ratings</span><h1>EV database<span>.</span></h1>
-    <p>Find the exact model year and configuration you’re considering. Compare how far it is rated to go, how much electricity it uses, and how long a full recharge takes at 240 volts.</p></div>
+    <p>Search by model, then compare official Canadian range, energy use and 240 V recharge time.</p></div>
     <aside className={styles.counter} aria-label="Database coverage"><span>CATALOGUE / CA</span><strong>{format(catalogue.rows.length)}</strong><span>rated configurations<br/>{catalogue.years.at(-1)}–{catalogue.years[0]} model years</span></aside>
    </header>
    <section id="search" className={styles.panel} aria-labelledby="search-heading"><h2 id="search-heading">Search the ratings</h2>
-     <FilterForm state={state} years={catalogue.years} makes={catalogue.makes} classes={catalogue.classes} clearURL={clear}/>
+     <FilterForm key={JSON.stringify(state)} state={state} years={catalogue.years} makes={catalogue.makes} classes={catalogue.classes} clearURL={clear}/>
    </section>
    <Comparison state={state} items={selected}/>
    <section id="results" aria-labelledby="results-heading">

@@ -43,13 +43,16 @@ export default function Ev101() {
   return <><EvLibraryNav current="/ev-101" /><main className={learning.learning} id="main-content" data-field-page="ev-101">
     <header className={'guide-mast '+css.hero}>
       <div><p className="learning-label">NowCharged reference desk / EV 101</p>
-        <h1>Living with an <em>electric car.</em></h1>
-        <p className={learning.guideDeck}>Where will you charge on a Tuesday night? Will the same car work for a February highway trip? Start with those two questions before comparing battery sizes.</p>
-        <div className={css.actions}><a href="/ev-database">Browse the Canadian EV database</a><a href="/chargers">Go to Charging 101</a></div>
+        <h1>EV 101<span>.</span></h1>
+        <p className={learning.guideDeck}>Start with three questions: what should I buy, where will I charge, and how far will it go?</p>
+        <div className={css.actions}><a href="/ev-database">Look up a vehicle</a><a href="/chargers">Understand charging</a></div>
       </div>
       <FieldPlate/>
     </header>
-    <nav className={css.chapterNav} aria-label="Handbook chapters">{chapters.map(([id,title],i)=><a key={id} href={'#'+id}><small className={css.eyebrow}>{String(i+1).padStart(2,'0')}</small>{title}</a>)}</nav>
+    <section className={css.chapterIndex} aria-labelledby="ev101-start"><p className="learning-label">Pick a question</p><h2 id="ev101-start">Start here.</h2>
+      <nav className={css.chapterNav} aria-label="Start with the basics">{chapters.slice(0,3).map(([id,title])=><a key={id} href={'#'+id}>{title}</a>)}</nav>
+      <details className={css.moreChapters}><summary>More chapters and glossary</summary><nav className={css.chapterNav} aria-label="More handbook chapters">{chapters.slice(3).map(([id,title])=><a key={id} href={'#'+id}>{title}</a>)}</nav></details>
+    </section>
 
     <section id="powertrains" className="guide-section"><p className="learning-label">01 / Powertrains</p><h2>Which cars actually plug in?</h2>
       <div className="guide-comparison">
