@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import EvLibraryNav from '../ev-library-nav';
 import styles from "../chargers/learning.module.css";
 
 
@@ -33,7 +34,6 @@ function TargetDial({ target }) {
 }
 
 export default function ChargingTools() {
-  const [mode, setMode] = useState(1);
   const [capacity, setCapacity] = useState('60');
   const [from, setFrom] = useState('20');
   const [target, setTarget] = useState('80');
@@ -41,6 +41,7 @@ export default function ChargingTools() {
   const [eff, setEff] = useState(modes[1].efficiency);
   const [rate, setRate] = useState('');
   const c=number(capacity,1,500), a=number(from,0,100), b=number(target,0,100), p=number(power,0.1,500), e=number(eff,10,100), r=number(rate,0,100);
+  const activePreset = modes.findIndex((preset) => Number(preset.power) === p && Number(preset.efficiency) === e);
   const issue = [c,a,b,p,e].includes(null) ? 'Enter a value within the range shown for each field.' : b <= a ? 'Your target must be higher than your starting charge.' : rate !== '' && r === null ? 'Enter a valid electricity rate from $0 to $100 per kWh.' : '';
   const stored = issue ? null : c*(b-a)/100;
   const supplied = issue ? null : stored/(e/100);
@@ -52,11 +53,11 @@ export default function ChargingTools() {
     ['efficiency','Charging efficiency',eff,setEff,10,100,'%'],
     ['rate','Electricity rate (optional)',rate,setRate,0,100,'CAD/kWh'],
   ];
-  return <main data-field-page="tools" className={styles.learning} id="main-content">
-    <header className="guide-mast"><p className="learning-label">The charging desk / 02</p><h1>Estimate your charging stop.</h1><p>See the energy, time and electricity cost of a charging session. This is a planning tool, not a NowCharged quote.</p></header>
+  return <><EvLibraryNav current="/tools" /><main data-field-page="tools" className={styles.learning} id="main-content">
+    <header className="guide-mast"><p className="learning-label">The charging desk / 02</p><h1>Estimate your charging stop.</h1><p>See the energy, time and electricity cost of a charging session. This is a planning estimate. It is not a station price or a travel-time promise.</p></header>
     <div className="estimate-layout">
       <section className="estimate-inputs" aria-labelledby="est-setup"><h2 id="est-setup">Set up your charge</h2>
-        <fieldset><legend>Charger preset</legend><div className="charge-presets">{modes.map((item,i)=><button key={item.name} type="button" aria-pressed={mode===i} onClick={()=>{setMode(i);setPower(item.power);setEff(item.efficiency)}}>{item.name}</button>)}</div></fieldset>
+        <fieldset><legend>Charger preset</legend><div className="charge-presets">{modes.map((item,i)=><button key={item.name} type="button" aria-pressed={activePreset===i} onClick={()=>{setPower(item.power);setEff(item.efficiency)}}>{item.name}</button>)}</div></fieldset>
         <p>Presets are examples. Enter the average power drawn from the charger, not its advertised maximum. Use your car’s usable battery capacity if you know it.</p>
         <div className="estimate-fields">{items.map(([id,label,value,set,min,max,unit])=><div key={id}><label htmlFor={id}>{label}</label><div className="estimate-field"><input id={id} type="number" step="any" min={min} max={max} value={value} onChange={e=>set(e.target.value)} aria-describedby={`${id}-hint`}/><span aria-hidden="true">{unit}</span></div><small id={`${id}-hint`}>{min}–{max} {unit}</small></div>)}</div>
       </section>
@@ -65,10 +66,10 @@ export default function ChargingTools() {
         <div className="charge-gauge" aria-hidden="true"><span style={{width:`${b}%`}}/><i style={{width:`${a}%`}}/></div>
         <p>{a}% → {b}% battery charge</p>
         <dl><div><dt>Time plugged in</dt><dd>{duration(supplied/p)}</dd></div><div><dt>Energy added to battery</dt><dd>{format.format(stored)} kWh</dd></div><div><dt>Energy supplied by charger</dt><dd>{format.format(supplied)} kWh</dd></div><div><dt>Estimated electricity cost</dt><dd>{r===null ? 'Add a rate' : `$${(supplied*r).toFixed(2)} CAD`}</dd></div></dl>
-      </>}</div><p>Actual time varies with your vehicle, battery temperature, station and charging curve. Near full, DC fast charging often slows down. Driving, waiting, session fees and valet fees aren’t included.</p></section>
+      </>}</div><p>Actual time varies with your vehicle, battery temperature, station and charging curve. Near full, DC fast charging often slows down. Driving, waiting, parking, idle fees and other session fees aren’t included.</p></section>
     </div>
     <section className="guide-section guide-split"><div><p className="learning-label">How it works</p><h2>What the estimate counts.</h2></div><div><p>Battery energy is usable capacity × change in charge. Charger energy is battery energy ÷ efficiency. Time is charger energy ÷ average charger power. Electricity cost is charger energy × your entered price per kWh.</p><a className="learning-cta" href="/chargers">Read Charging 101</a></div></section>
-    <section className="guide-section guide-split"><div><p className="learning-label">Toronto and the GTA</p><h2>Looking for valet pricing?</h2></div><div><p>This estimate covers electricity only. Pickup, charging supervision and return have a separate valet fee.</p><a className="learning-cta" href="/pricing#ev">See EV valet pricing</a></div></section>
+    <section className="guide-section guide-split"><div><p className="learning-label">Canadian vehicle ratings</p><h2>Compare official efficiency.</h2></div><div><p>Look up rated range and energy consumption by year, make and model. An efficiency rating does not tell you battery capacity or how fast your car will charge.</p><a className="learning-cta" href="/ev-database">Open the vehicle database</a></div></section>
     <section className="guide-section guide-split" aria-labelledby="locator-heading"><div><p className="learning-label">Station finder / Canada</p><h2 id="locator-heading">Find a charger near you.</h2></div><div><p>Use Natural Resources Canada’s map to find public charging stations. Check connector compatibility and live availability with the station operator. NowCharged does not collect your location for this tool.</p><a className="learning-cta" href="https://natural-resources.canada.ca/energy-efficiency/transportation-energy-efficiency/electric-charging-alternative-fuelling-stationslocator-map" rel="noreferrer">Open the Canada charging station map</a></div></section>
-  </main>;
+  </main></>;
 }

@@ -1,6 +1,9 @@
 import styles from "./learning.module.css";
+import EvLibraryNav from "../ev-library-nav";
+import TopicFinder from "./topic-finder";
+import { chargingTopics } from "./topics.mjs";
 
-export const metadata = { title: 'EV Charging Levels: Level 1, Level 2 & DC Fast', description: 'Compare Level 1, Level 2 and DC fast charging, see common EV connectors and learn what affects charging speed.', alternates: { canonical: "/chargers" } };
+export const metadata = { title: 'Charging 101: Canadian EV Charging Guide & Library', description: 'Browse practical Canadian EV charging guides on Level 1, Level 2, DC fast charging, connector compatibility, costs, home charging and charger outages.', alternates: { canonical: "/chargers" } };
 
 const levels = [
   ['01', 'Level 1', 'Standard 120 V outlet', 'A slow top-up when you can leave the car plugged in for a long time.', 'Low daily mileage or a backup at home'],
@@ -26,10 +29,10 @@ function LevelDiagram({ number }) {
 }
 
 export default function ChargingGuide() {
-  return <main data-field-page="chargers" className={styles.learning} id="main-content">
+  return <><EvLibraryNav current="/chargers"/><main data-field-page="chargers" className={styles.learning} id="main-content">
     <header className={"guide-mast "+styles.guideMast}>
-      <div><p className="learning-label">Charging 101 / The field guide</p><h1>EV charging,<br/><em>decoded.</em></h1><p className={styles.guideDeck}>The three kinds of chargers, the plugs that fit, and how to estimate the time you’ll actually spend plugged in.</p>
-      <nav aria-label="In this guide"><a href="#levels">01 Charger levels</a><a href="#connectors">02 Plugs</a><a href="#timing">03 Time</a></nav></div>
+      <div><p className="learning-label">NowCharged EV Library / Charging 101</p><h1>EV charging,<br/><em>decoded.</em></h1><p className={styles.guideDeck}>A Canadian driver’s reference for charging at home, on the road and everywhere in between. Start with a question or look up a vehicle.</p>
+      <nav aria-label="In this guide"><a href="#guides">Find a guide</a><a href="#levels">Compare levels</a><a href="#connectors">Identify a plug</a><a href="#timing">Estimate time</a></nav></div>
       <aside className={styles.batteryCard+" field-learning-batteryCard"} aria-label="Reading a charge">
         <p className="learning-label">01 / Read the battery</p>
         <div className={styles.batteryIcon} aria-hidden="true"><i/><i/><i/><i/><i/></div>
@@ -38,6 +41,17 @@ export default function ChargingGuide() {
         <a href="/tools">Try your numbers</a>
       </aside>
     </header>
+    <section className="guide-section" id="guides">
+      <p className="learning-label">Reference desk / Canadian charging</p><h2>Start with a question.</h2>
+      <p>Get a quick answer, a practical checklist and the original sources for each guide.</p>
+      <TopicFinder topics={chargingTopics.map(({slug,code,title,summary,tags})=>({slug,code,title,summary,tags}))}/>
+    </section>
+    <section className="guide-section" aria-labelledby="other-ev-resources">
+      <p className="learning-label">The rest of the library</p><h2 id="other-ev-resources">Research your next move.</h2>
+      <ul className={styles.topicGrid}><li><span className="learning-label">01 / VEHICLE DATA</span><a href="/ev-database">Compare Canadian EV ratings</a><p>Look up official rated range and energy use by model year, make and model.</p></li>
+      <li><span className="learning-label">02 / OWNER HANDBOOK</span><a href="/ev-101">Start with EV 101</a><p>Buying, owning and road-tripping an EV in Canada, including winter planning.</p></li>
+      <li><span className="learning-label">03 / PLANNING TOOL</span><a href="/tools">Calculate charging time and energy cost</a><p>Use your own battery, target and average charger power rather than a headline speed.</p></li></ul>
+    </section>
     <section className="guide-section" id="levels"><p className="learning-label">01 / The charger</p><h2>Where are you stopping?</h2>
       <div className="guide-comparison">{levels.map(([num, name, supply, description, use]) => <article key={num}><p className="field-level-id" aria-hidden="true">FIG. {num} / CHARGE SOURCE</p><LevelDiagram number={num}/><h3>{name}</h3><p><strong>{supply}</strong></p><p>{description}</p><p className="guide-use"><strong>Best for</strong><br/>{use}</p></article>)}</div>
     </section>
@@ -47,7 +61,7 @@ export default function ChargingGuide() {
     <section className="guide-section guide-split" id="timing"><div><p className="learning-label">03 / The clock</p><h2>Power isn’t energy.</h2><p><strong>kW</strong> tells you how quickly electricity is flowing. <strong>kWh</strong> tells you how much energy you’ve added.</p><a className="learning-cta" href="/tools">Open the charging estimator</a></div>
       <div className="guide-example"><p className="learning-label">A worked example</p><b>36 kWh</b><p>Added to a 60 kWh usable battery charging from 20% to 80%. At a sustained 60 kW <em>into the battery</em>, that’s 36 minutes plugged in. A station’s advertised peak is not the rate your car gets throughout a session.</p></div>
     </section>
-    <section className="guide-section guide-split"><div><p className="learning-label">Toronto and the GTA</p><h2>Prefer not to make the charging trip?</h2></div><div><p>See how EV charging valet works, from pickup to the return at your agreed spot.</p><a className="learning-cta" href="/services/ev-charging">See how EV charging valet works</a></div></section>
+    <section className="guide-section guide-split" id="station-finder"><div><p className="learning-label">Find a charger</p><h2>Use the map to plan. Use the network to confirm.</h2></div><div><p>Find a backup charger before you need it. Check the operator’s live status, connector, access hours and price for the exact site. The public map is a directory, not a live availability guarantee.</p><a className="learning-cta" href="https://natural-resources.canada.ca/energy-efficiency/transportation-energy-efficiency/electric-charging-alternative-fuelling-stationslocator-map" rel="noreferrer">Open Canada’s public charger map</a></div></section>
     <p className="guide-source">More on charging options and connectors: <a href="https://natural-resources.canada.ca/energy-efficiency/transportation-energy-efficiency/electric-vehicles/electric-vehicle-charging" rel="noreferrer">Natural Resources Canada</a>.</p>
-  </main>;
+  </main></>;
 }
