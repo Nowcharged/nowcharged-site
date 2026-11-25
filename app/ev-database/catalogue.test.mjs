@@ -36,3 +36,32 @@ test('shareable URL state, no prefix matching for trim IDs and at most three uni
  assert.deepEqual(state(Object.fromEntries(url.searchParams)),{...x,page:2});
  assert.equal(href({compare:[]},{},'search'),'/ev-database#search');
 });
+test('model phrases are contiguous and numeric model tokens are exact',()=>{
+ const all=(q)=>Array.from({length:lookup({q}).pages},(_,i)=>lookup({q,page:String(i+1)}).rows).flat();
+ const ids=(q)=>all(q).map(r=>r.id);
+ for(const [spaced,compact,expected,model] of [
+  ['ID.4','ID4',21,/^ID\.4\b/i],
+  ['IONIQ 5','ioniq5',19,/^IONIQ 5\b/i],
+  ['Model 3','model3',null,/^Model 3\b/i],
+ ]){
+  const hits=all(spaced);
+  assert.ok(hits.length>0,spaced);
+  if(expected!==null)assert.equal(hits.length,expected,spaced);
+  assert.ok(hits.every(r=>model.test(r.model)),spaced);
+  assert.deepEqual(ids(spaced),ids(compact));
+ }
+ const y=all('2026 Tesla Model Y');
+ assert.equal(y.length,7);
+ assert.ok(y.every(r=>r.year===2026&&r.make==='Tesla'&&/^Model Y\b/.test(r.model)));
+ assert.deepEqual(all('2026 2025 Model Y'),[]);
+ assert.deepEqual(all('2030 Tesla'),[]);
+});
+test('make-only, partial model and trim queries remain useful',()=>{
+ assert.equal(lookup({q:'Tesla'}).matches,lookup({make:'Tesla'}).matches);
+ assert.equal(lookup({q:'Ford Mach-E'}).matches,lookup({q:'Mach E',make:'Ford'}).matches);
+ assert.equal(lookup({q:'Nissan ARI'}).matches,lookup({q:'Nissan ARIYA'}).matches);
+ const exact=lookup({q:'2026 Nissan ARIYA SL+ e-4ORCE'});
+ assert.equal(exact.matches,1);
+ assert.equal(exact.rows[0].id,'2026-nissan-ariya-sl-plus-e-4orce');
+ assert.deepEqual(lookup({q:'mid-size'}).rows,[],'body class is a separate filter');
+});

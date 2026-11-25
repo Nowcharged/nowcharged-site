@@ -65,6 +65,11 @@ database=Html(get("/ev-database?make=Nissan&year=2026&q=ARIYA")[1])
 assert database.meta["robots"].startswith("noindex")
 assert database.canonical=="https://"+web+"/ev-database"
 assert "ARIYA" in " ".join(database.text)
+from urllib.parse import quote
+for query,total in [('ID.4',21),('id4',21),('IONIQ 5',19),('ioniq5',19),('2026 Tesla Model Y',7)]:
+    parsed=Html(get('/ev-database?q='+quote(query))[1])
+    assert f'{total} matches' in ' '.join(' '.join(parsed.text).split()),(query,total)
+    assert parsed.meta["robots"].startswith("noindex")
 compare=Html(get("/ev-database?compare=2026-nissan-ariya-sv,2026-nissan-ariya-sl-plus-e-4orce")[1])
 assert any("SL+" in t for t in compare.text),"trim comparison missing"
 sitemap=get("/sitemap.xml")[1]
