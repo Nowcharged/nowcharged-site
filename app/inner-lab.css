@@ -67,3 +67,17 @@ main[data-field-page="tools"] .charge-gauge{border-radius:4px;overflow:hidden}
 main[data-field-page="tools"] .estimate-result{position:relative}
 main[data-field-page="tools"] .estimate-result::after{content:"";width:16px;height:7px;background:#d1f55a;border:1px solid #b6caa2;border-radius:10px;position:absolute;right:22px;top:20px}
 @media(max-width:450px){main[data-field-page] .guide-mast{padding:16px}}
+
+/* The library is an educational surface, not a lead-generation page. */
+body:has([data-ev-library]) > .nc-header,
+body:has([data-ev-library]) > .nc-footer { display: none }
+.ev-library-bar{background:#172d25;color:#f5f2e3;border-bottom:3px solid #cde964}
+.ev-library-bar__inner{max-width:1160px;margin:0 auto;padding:12px 18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 14px}
+.ev-library-brand{display:inline-flex;gap:10px;align-items:center;min-height:44px;font-weight:850;line-height:1.03;letter-spacing:-.03em;font-size:1.2rem}
+.ev-library-mark{display:grid;place-items:center;height:34px;width:34px;border-radius:45% 55% 45% 55%;background:#cde964;color:#172d25;font:900 .73rem ui-monospace,monospace;letter-spacing:.06em}
+.ev-library-by{display:block;margin-top:3px;font:600 .64rem ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#c9d5be}
+.ev-library-bar nav{display:flex;flex-wrap:wrap;gap:3px;align-items:center}
+.ev-library-bar nav a{display:grid;place-items:center;min-height:44px;padding:6px 9px;font-size:.83rem;font-weight:750;border-radius:4px}
+.ev-library-bar nav a:hover,.ev-library-bar nav a[aria-current]{background:#cde964;color:#172d25}
+.ev-library-bar a:focus-visible{outline:2px solid #e9ff95;outline-offset:2px}
+@media(max-width:630px){.ev-library-bar__inner{align-items:flex-start}.ev-library-bar nav{width:100%;justify-content:flex-start}.ev-library-bar nav a{padding-inline:7px}}

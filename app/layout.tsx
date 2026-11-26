@@ -20,8 +20,8 @@ const services = [
   ["Service area", "/coverage"],
 ];
 const resources = [
-  ["Charging 101", "/chargers"],
-  ["EV tools", "/tools"],
+  ["EV Library", "/chargers"],
+  ["EV vehicle database", "/ev-database"],
   ["Dealership pickup (planned)", "/services/dealership-pickup"],
   ["How we handle your car", "/trust"],
   ["FAQ", "/faq"],
