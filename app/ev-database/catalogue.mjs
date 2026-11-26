@@ -25,11 +25,19 @@ function containsPhrase(haystack,needle){
     return value===word||(i===needle.length-1&&/^[a-z]{3,}$/.test(word)&&value?.startsWith(word));
   }));
 }
+const drivetrains=new Set(['awd','fwd','rwd','4wd','4x4']);
+function modelMatches(model,words){
+  if(containsPhrase(model,words))return true;
+  const suffix=words.at(-1), phrase=words.slice(0,-1);
+  if(!phrase.length||!drivetrains.has(suffix))return false;
+  return model.some((_,start)=>phrase.every((word,i)=>model[start+i]===word)
+    &&model.slice(start+phrase.length).includes(suffix));
+}
 function rowMatches(entry,words,year){
   if(year && entry.year!==year)return false;
   if(!words.length)return true;
-  if(entry.make.every((word,i)=>word===words[i]))return containsPhrase(entry.model,words.slice(entry.make.length));
-  return containsPhrase(entry.model,words)||
+  if(entry.make.every((word,i)=>word===words[i]))return modelMatches(entry.model,words.slice(entry.make.length));
+  return modelMatches(entry.model,words)||
     (words.length<=entry.make.length&&containsPhrase(entry.make,words));
 }
 const alpha=(a,b)=>a.make.localeCompare(b.make,'en-CA')||a.model.localeCompare(b.model,'en-CA')||a.id.localeCompare(b.id);
@@ -55,6 +63,7 @@ export function href(state,overrides={},fragment=''){
 }
 export function searchCatalogue(catalogue,s){
   const parts=tokens(s.q), years=[...new Set(parts.filter(w=>yearToken.test(w)))], words=parts.filter(w=>!yearToken.test(w));
+  if(words[0]==='vw')words[0]='volkswagen';
   const matches=catalogue.rows.filter(r=>(!s.year||String(r.year)===s.year)&&(!s.make||r.make===s.make)&&(!s.class||r.body===s.class)&&(!s.range||r.range>=Number(s.range))&&
     (years.length<2&&rowMatches(catalogue.searchById.get(r.id),words,years[0])));
   matches.sort((a,b)=>(s.sort==='range'?b.range-a.range:s.sort==='efficiency'?a.combined-b.combined:s.sort==='recharge'?a.recharge-b.recharge:0)||b.year-a.year||alpha(a,b));

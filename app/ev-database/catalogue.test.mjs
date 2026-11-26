@@ -65,3 +65,15 @@ test('make-only, partial model and trim queries remain useful',()=>{
  assert.equal(exact.rows[0].id,'2026-nissan-ariya-sl-plus-e-4orce');
  assert.deepEqual(lookup({q:'mid-size'}).rows,[],'body class is a separate filter');
 });
+test('allow exact drivetrain terms after intervening trim text and expand VW',()=>{
+ const ioniq=lookup({q:'2026 Hyundai IONIQ 5 AWD'});
+ assert.equal(ioniq.matches,3);
+ assert.ok(ioniq.rows.every(r=>r.year===2026&&r.make==='Hyundai'&&/^IONIQ 5 Long Range AWD\b/.test(r.model)));
+ const mach=lookup({q:'2026 Ford Mustang Mach-E AWD'});
+ assert.equal(mach.matches,2);
+ assert.ok(mach.rows.every(r=>r.year===2026&&r.make==='Ford'&&/\bAWD\b/.test(r.model)));
+ assert.deepEqual(lookup({q:'VW ID.4'}),lookup({q:'Volkswagen ID.4'}));
+ assert.deepEqual(lookup({q:'2026 Ford Mustang Mach-E FWD'}).rows,[]);
+ assert.deepEqual(lookup({q:'2026 Hyundai IONIQ 50 AWD'}).rows,[]);
+ assert.deepEqual(lookup({q:'2027 Nissan LEAF'}).rows,[]);
+});

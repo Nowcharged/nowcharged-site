@@ -63,7 +63,7 @@ export default async function DatabasePage({searchParams}){
    <section id="results" aria-labelledby="results-heading">
      <div className={styles.bar}><div><span className={styles.stamp}>Results / Canada</span><h2 id="results-heading">{format(result.matches)} {result.matches===1?'match':'matches'}</h2></div>
      <p>{result.matches?`Showing ${format(low)}–${format(high)}. Compare up to three.`:'No configuration matches these filters.'}</p></div>
-     {!result.matches?<div className={styles.empty}><strong>No exact match here.</strong><p>Try the model name without the trim, broaden the model year or clear your filters. This edition covers battery-electric vehicles only.</p><a href={clear}>Reset the search</a></div>:
+     {!result.matches?<div className={styles.empty}><strong>No exact match here.</strong><p>Try the model name without the trim, or clear your filters. This snapshot covers only battery-electric vehicles from model years {catalogue.years.at(-1)}–{catalogue.years[0]}. <a href={SOURCES.catalogue}>View the official Canadian ratings</a>.</p><a href={clear}>Reset the search</a></div>:
      <div className={styles.grid}>{result.rows.map(r=><Result key={r.id} r={r} state={state}/>)}</div>}
      {result.pages>1&&<nav className={styles.pages} aria-label="Results pages">
        {result.page>1?<a rel="prev" href={href(state,{page:result.page-1},'results')}>Previous</a>:<span/>}
